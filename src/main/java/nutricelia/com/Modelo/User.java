@@ -1,2 +1,6 @@
-package nutricelia.com.Modelo;public class User {
+package nutricelia.com.Modelo;
+
+
+public class User {
+
 }
