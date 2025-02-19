@@ -2,35 +2,34 @@ package nutricelia.com.ListasCompra;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 
 public class GestorListasCompra {
 
-    final private HashMap<String, ArrayList> mapa; //<NombreLista, Lista<Producto>>
+    final private HashMap<String, ArrayList> map; //<NombreDeLaLista, Lista<Producto>>
 
     public GestorListasCompra() {
-        this.mapa =  new HashMap<String, ArrayList>();
+        this.map =  new HashMap<String, ArrayList>();
     }
 
-    synchronized private void anadirProducto(Object product, String nameLista) {
-        if (!mapa.containsKey(nameLista)){
-            mapa.put(nameLista, new ArrayList());
+    synchronized private void addProduct(Object product, String nameList) {
+        if (!map.containsKey(nameList)){
+            map.put(nameList, new ArrayList());
         }
-        mapa.get(nameLista).add(product);
+        map.get(nameList).add(product);
     }
 
-    synchronized public Object eliminarProducto(Object product, String nameLista, String nameProduct) {
-        Object productoEliminado = null;
-        if (mapa.containsKey(nameLista)){
-            productoEliminado = buscaProducto(mapa.get(nameLista),nameProduct);
-            if (productoEliminado != null){
-                mapa.get(nameLista).remove(productoEliminado);
+    synchronized public Object deleteProduct(Object product, String nameList, String nameProduct) {
+        Object deletedProduct = null;
+        if (map.containsKey(nameList)){
+            deletedProduct = searchProduct(map.get(nameList),nameProduct);
+            if (deletedProduct != null){
+                map.get(nameList).remove(deletedProduct);
             }
         }
-        return productoEliminado; // MODIFICAR
+        return deletedProduct; // MODIFICAR
     }
-    synchronized private Object buscaProducto(ArrayList lista, String nameProduct) { //implementado
-        for(Object product : lista ){
+    synchronized private Object searchProduct(ArrayList list, String nameProduct) { //implementado
+        for(Object product : list ){
             if (product == nameProduct){ //Aqui, product tendría que tener un atributo nombre al que hacerle un get para comparar
                 return product;
             }
