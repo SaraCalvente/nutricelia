@@ -1,6 +1,33 @@
 package nutricelia.com.Modelo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.quarkus.hibernate.reactive.panache.PanacheEntity;
+import org.hibernate.annotations.CreationTimestamp;
+import io.quarkus.hibernate.reactive.panache.PanacheEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-public class User {
+@Entity
+@Table(name = "Usuario")
+public class User extends PanacheEntity {
 
+    @Column(nullable = false)
+    String name;
+
+    @Column(unique = true, nullable = false)
+    String email;
+
+    @Column(nullable = false)
+    String password;
+
+    @JsonProperty("password")
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // No devolver el password en las respuestas JSON
+    public String getPassword() {
+        return password;
+    }
 }
