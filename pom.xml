@@ -17,6 +17,13 @@
         <surefire-plugin.version>3.5.2</surefire-plugin.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -30,6 +37,7 @@
     </dependencyManagement>
 
     <dependencies>
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-rest-jaxb</artifactId>
@@ -51,6 +59,49 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Dependencias Retrofit -->
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>retrofit</artifactId>
+            <version>2.10.0</version> <!-- Usar la última versión disponible -->
+        </dependency>
+
+        <!-- Dependencia de Gson para convertir objetos -->
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-gson</artifactId>
+            <version>2.10.0</version> <!-- Asegúrate de que la versión de Gson sea compatible con Retrofit -->
+        </dependency>
+
+        <!-- Dependencia de OkHttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.10.0</version> <!-- Versión reciente de OkHttp -->
+        </dependency>
+
+        <!-- Dependencia de OkHttp para los logs -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>logging-interceptor</artifactId>
+            <version>4.10.0</version> <!-- Versión compatible -->
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.18.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version> <!-- O la versión que estés usando -->
+        </dependency>
+        <dependency>
+            <groupId>pl.coderion</groupId>
+            <artifactId>openfoodfacts-java-wrapper</artifactId>
+            <version>0.9.3</version>
         </dependency>
     </dependencies>
 
