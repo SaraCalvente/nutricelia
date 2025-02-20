@@ -29,6 +29,11 @@ nav a {
     height: 40px;
     border-radius: 50%;
 }
+.user-profile{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
 
 main {
     padding: 20px;
@@ -83,9 +88,4 @@ main {
     font-weight: bold;
     border-radius: 5px;
     margin-top: 10px;
-}
-.user-profile{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
 }
