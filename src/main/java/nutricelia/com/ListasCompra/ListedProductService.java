@@ -15,8 +15,8 @@ public class ListedProductService {
                         ObjectNotFoundException(id, "ProductList"));
     }
 
-    public Uni<ListedProduct> findByName(String name) {
-        return ListedProduct.find("nombre", name).firstResult();
+    public Uni<ListedProduct> findByName(int id_producto, int id_lista) {
+        return ListedProduct.find("id_producto = ?1 and id_lista = ?2", id_producto, id_lista).firstResult();
     }
 
     public Uni<List<ListedProduct>> list() {
