@@ -2,13 +2,24 @@ package nutricelia.com.ListasCompra;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.quarkus.hibernate.reactive.panache.PanacheEntity;
+import org.hibernate.annotations.CreationTimestamp;
+import io.quarkus.hibernate.reactive.panache.PanacheEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+@Entity
+@Table(name = "ListaCompra")
+public class GestorBuyList extends PanacheEntity {
+    @Column(nullable = false)
+    String nombre;
 
-public class GestorListasCompra {
-
+    @Column(unique = true, nullable = false)
+    String id;
     final private HashMap<String, ArrayList> map; //<NombreDeLaLista, Lista<Producto>>
 
-    public GestorListasCompra() {
+    public GestorBuyList() {
         this.map =  new HashMap<String, ArrayList>();
     }
 
