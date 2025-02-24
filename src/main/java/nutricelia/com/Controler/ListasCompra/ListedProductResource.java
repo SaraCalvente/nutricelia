@@ -37,6 +37,12 @@ public class ListedProductResource {
         return listedProductService.findById(id);
     }
 
+    @GET
+    @Path("/list/{id_lista}")
+    public Uni<List<ListedProduct>> getByListId(@PathParam("id_lista") int id_lista) {
+        return listedProductService.findByListId(id_lista);
+    }
+
     /*
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
