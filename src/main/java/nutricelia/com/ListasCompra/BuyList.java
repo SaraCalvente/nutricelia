@@ -11,7 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "ListaCompra")
-public class GestorBuyList extends PanacheEntity {
+public class BuyList extends PanacheEntity {
     @Column(nullable = false)
     String nombre;
 
