@@ -17,6 +17,18 @@ public class GestorBuyList extends PanacheEntity {
 
     @Column(unique = true, nullable = false)
     String id;
+
+    @JsonProperty("nombre")
+    public void setName(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // No devolver el password en las respuestas JSON
+    public String getName() {
+        return nombre;
+    }
+
+    /*
     final private HashMap<String, ArrayList> map; //<NombreDeLaLista, Lista<Producto>>
 
     public GestorBuyList() {
@@ -55,6 +67,6 @@ public class GestorBuyList extends PanacheEntity {
             return null;
 
         return productList;
-    }
+    } */
 
 }
