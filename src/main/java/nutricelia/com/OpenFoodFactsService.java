@@ -1,4 +1,4 @@
-package nutricelia.com.Modelo;
+package nutricelia.com;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
