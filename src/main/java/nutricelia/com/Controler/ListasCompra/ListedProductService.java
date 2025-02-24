@@ -28,6 +28,10 @@ public class ListedProductService {
     public Uni<ListedProduct> create(ListedProduct listedProduct) {
         return listedProduct.persistAndFlush();
     }
+
+    public Uni<List<ListedProduct>> findByListId(int id_lista) {
+        return ListedProduct.find("id_lista", id_lista).list();
+    }
     /*
     @ReactiveTransactional
     public Uni<BuyList> update(BuyList buyList) {
