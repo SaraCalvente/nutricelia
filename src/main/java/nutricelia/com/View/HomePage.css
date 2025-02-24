@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #90EE90;
+    padding: 10px 20px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.user-profile img {
+    height: 40px;
+    border-radius: 50%;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.sections-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.shopping-lists, .recipes, .forums {
+    background: white;
+    padding: 20px;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recommended {
+    background: white;
+    padding: 20px;
+    width: 1025px;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.shopping img{
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.image-container img {
+    width: 175px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.btn {
+    background-color: #90EE90;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.user-profile{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
