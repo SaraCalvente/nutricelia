@@ -1,30 +1,31 @@
-package nutricelia.com.ListasCompra;
-
+package nutricelia.com.Controler.ListasCompra;
 import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Uni;
+import nutricelia.com.Model.BuyList;
+import nutricelia.com.Model.UsersWithAccesToList;
 import org.hibernate.ObjectNotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class BuyListService {
-    public Uni<BuyList> findById(long id) {
-        return BuyList.<BuyList>findById(id)
+public class UsersWithAccesToListService {
+    public Uni<UsersWithAccesToList> findById(long id) {
+        return UsersWithAccesToList.<UsersWithAccesToList>findById(id)
                 .onItem().ifNull().failWith(() -> new
-                        ObjectNotFoundException(id, "BuyList"));
+                        ObjectNotFoundException(id, "UsersWithAccesToList"));
     }
 
-    public Uni<BuyList> findByName(String name) {
-        return BuyList.find("nombre", name).firstResult();
+    public Uni<UsersWithAccesToList> findByName(String email, int id_lista) {
+        return BuyList.find("email = ?1 and id_lista = ?2", email, id_lista).firstResult();
     }
 
-    public Uni<List<BuyList>> list() {
-        return BuyList.listAll();
+    public Uni<List<UsersWithAccesToList>> list() {
+        return UsersWithAccesToList.listAll();
     }
 
     @ReactiveTransactional
-    public Uni<BuyList> create(BuyList buyList) {
-        return buyList.persistAndFlush();
+    public Uni<UsersWithAccesToList> create(UsersWithAccesToList usersWithAccesToList) {
+        return usersWithAccesToList.persistAndFlush();
     }
     /*
     @ReactiveTransactional

@@ -1,4 +1,4 @@
-package nutricelia.com.ListasCompra;
+package nutricelia.com.Model;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 import jakarta.persistence.Column;

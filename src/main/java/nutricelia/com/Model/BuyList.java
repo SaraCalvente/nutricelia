@@ -1,4 +1,4 @@
-package nutricelia.com.ListasCompra;
+package nutricelia.com.Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;

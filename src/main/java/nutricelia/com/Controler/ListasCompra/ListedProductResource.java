@@ -1,12 +1,11 @@
-package nutricelia.com.ListasCompra;
+package nutricelia.com.Controler.ListasCompra;
 import io.smallrye.mutiny.Uni;
+import nutricelia.com.Model.ListedProduct;
 import org.jboss.resteasy.reactive.ResponseStatus;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
