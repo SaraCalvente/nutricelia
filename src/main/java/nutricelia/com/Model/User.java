@@ -1,8 +1,6 @@
-package nutricelia.com.Modelo;
+package nutricelia.com.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.quarkus.hibernate.reactive.panache.PanacheEntity;
-import org.hibernate.annotations.CreationTimestamp;
 import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,10 +11,10 @@ import jakarta.persistence.Table;
 public class User extends PanacheEntity {
 
     @Column(nullable = false)
-    String name;
+    public String name;
 
     @Column(unique = true, nullable = false)
-    String email;
+    public String email;
 
     @Column(nullable = false)
     String password;
