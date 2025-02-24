@@ -2,6 +2,7 @@ package nutricelia.com.ListasCompra;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 public class GestorListasCompra {
 
@@ -35,6 +36,14 @@ public class GestorListasCompra {
             }
         }
         return null;
+    }
+
+    synchronized public ArrayList getList(String nameList) {
+        ArrayList productList = map.get(nameList);
+        if (productList == null)
+            return null;
+
+        return productList;
     }
 
 }
