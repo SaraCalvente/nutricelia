@@ -15,17 +15,17 @@ public class ListedProductService {
                         ObjectNotFoundException(id, "ProductList"));
     }
 
-    public Uni<BuyList> findByName(String name) {
-        return BuyList.find("nombre", name).firstResult();
+    public Uni<ListedProduct> findByName(String name) {
+        return ListedProduct.find("nombre", name).firstResult();
     }
 
-    public Uni<List<BuyList>> list() {
-        return BuyList.listAll();
+    public Uni<List<ListedProduct>> list() {
+        return ListedProduct.listAll();
     }
 
     @ReactiveTransactional
-    public Uni<BuyList> create(BuyList buyList) {
-        return buyList.persistAndFlush();
+    public Uni<ListedProduct> create(ListedProduct listedProduct) {
+        return listedProduct.persistAndFlush();
     }
     /*
     @ReactiveTransactional
