@@ -33,14 +33,14 @@ public class UserResource {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("{email}")
+    @Path("{email: .+}") //Es posible que esto genere errores por el formato email
     public Uni<User> update(@PathParam("email") String name, User user) {
         user.name = name;
         return userService.update(user);
     }
 
     @DELETE
-    @Path("{email}")
+    @Path("{email: .+}")
     public Uni<Void> delete(@PathParam("email") String email) {
         return userService.delete(email);
     }

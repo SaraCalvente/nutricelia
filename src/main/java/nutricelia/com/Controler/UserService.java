@@ -50,4 +50,8 @@ public class UserService {
                 });
     }
 
+    public static boolean matches(User user, String password) {
+        return BcryptUtil.matches(password, user.getPassword());
+    }
+
 }
