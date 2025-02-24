@@ -1,4 +1,4 @@
-package nutricelia.com.Controlador;
+package nutricelia.com.Controler;
 
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
@@ -7,7 +7,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
-import nutricelia.com.Modelo.User;
+import nutricelia.com.Model.User;
 import org.jboss.resteasy.reactive.ResponseStatus;
 
 import java.util.List;

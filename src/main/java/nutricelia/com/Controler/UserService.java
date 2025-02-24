@@ -1,10 +1,9 @@
-package nutricelia.com.Controlador;
+package nutricelia.com.Controler;
 
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Uni;
-import nutricelia.com.Modelo.User;
-import org.hibernate.ObjectNotFoundException;
+import nutricelia.com.Model.User;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
