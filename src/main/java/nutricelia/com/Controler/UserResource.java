@@ -2,10 +2,7 @@ package nutricelia.com.Controler;
 
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import nutricelia.com.Model.User;
 import org.jboss.resteasy.reactive.ResponseStatus;
@@ -33,4 +30,19 @@ public class UserResource {
     public Uni<User> create(User user) {
         return userService.create(user);
     }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("{email}")
+    public Uni<User> update(@PathParam("email") String name, User user) {
+        user.name = name;
+        return userService.update(user);
+    }
+
+    @DELETE
+    @Path("{email}")
+    public Uni<Void> delete(@PathParam("email") String email) {
+        return userService.delete(email);
+    }
+
 }

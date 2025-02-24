@@ -11,10 +11,10 @@ import jakarta.persistence.Table;
 public class User extends PanacheEntity {
 
     @Column(nullable = false)
-    String name;
+    public String name;
 
     @Column(unique = true, nullable = false)
-    String email;
+    public String email;
 
     @Column(nullable = false)
     String password;
