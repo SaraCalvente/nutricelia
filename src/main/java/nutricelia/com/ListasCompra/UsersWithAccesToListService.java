@@ -17,13 +17,13 @@ public class UsersWithAccesToListService {
         return BuyList.find("email = ?1 and id_lista = ?2", email, id_lista).firstResult();
     }
 
-    public Uni<List<BuyList>> list() {
-        return BuyList.listAll();
+    public Uni<List<UsersWithAccesToList>> list() {
+        return UsersWithAccesToList.listAll();
     }
 
     @ReactiveTransactional
-    public Uni<BuyList> create(BuyList buyList) {
-        return buyList.persistAndFlush();
+    public Uni<UsersWithAccesToList> create(UsersWithAccesToList usersWithAccesToList) {
+        return usersWithAccesToList.persistAndFlush();
     }
     /*
     @ReactiveTransactional
