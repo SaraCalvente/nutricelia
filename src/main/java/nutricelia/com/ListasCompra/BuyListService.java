@@ -41,5 +41,12 @@ public class BuyListService {
                                 ).asTuple()
                                 .chain(t -> u.delete())
                 );
-    */
+
+    public Uni<BuyList> getCurrentBuyList() {
+        // TODO: replace implementation once security is added to the project
+        return BuyList.find("order by ID").firstResult();
+    }
+
+     */
+
 }
