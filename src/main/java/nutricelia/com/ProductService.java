@@ -10,7 +10,9 @@ import java.util.List;
 @Singleton
 public class ProductService {
 
+    @Inject
     private final OpenFoodFactsClient openFoodFactsClient;
+    @Inject
     private final EntityManager entityManager;
 
     @Inject
@@ -20,7 +22,7 @@ public class ProductService {
     }
 
     @Transactional
-    public void fetchAndSaveMercadonaProducts() {
+    public List<Product> fetchAndSaveMercadonaProducts() {
         // Obtener los productos de Mercadona desde la API
         List<Product> products = openFoodFactsClient.fetchProductsFromMercadona();
 
@@ -40,5 +42,6 @@ public class ProductService {
 
             entityManager.persist(productEntity);  // Guardar en la base de datos
         }
+        return products;
     }
 }
