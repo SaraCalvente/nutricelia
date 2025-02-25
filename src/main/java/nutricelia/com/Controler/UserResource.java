@@ -9,7 +9,7 @@ import org.jboss.resteasy.reactive.ResponseStatus;
 
 import java.util.List;
 
-@Path("/auth/user")
+@Path("/user")
 public class UserResource {
 
     private final UserService userService;
