@@ -9,14 +9,24 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
+@Path("/")
 public class HtmlResource {
 
-    @Path("/")
+
     @GET
     @Produces(MediaType.TEXT_HTML)
     public String getInitialPage()throws IOException{
         return "<meta http-equiv=\"refresh\" content=\"0; url=/InitialPage.html\">";
-
     }
+
+    @Path("/HomePage")
+   @GET
+   @Produces(MediaType.TEXT_HTML)
+   public String getHomePage()throws IOException{
+       return "<meta http-equiv=\"refresh\" content=\"0; url=/HomePage.html\">";
+
+   }
+
+
 
 }
