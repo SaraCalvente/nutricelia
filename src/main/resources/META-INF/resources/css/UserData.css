@@ -1,0 +1,75 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #90EE90;
+    padding: 10px 20px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+.user-profile{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.user-profile img {
+    height: 40px;
+    border-radius: 50%;
+}
+
+main {
+    padding: 20px;
+}
+
+/* Estilos para la sección de datos del usuario */
+.user-data {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.data-container {
+    text-align: left;
+}
+
+.data-field {
+    margin-bottom: 15px;
+}
+
+.data-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333; /* Color del texto de la etiqueta */
+}
+
+.data-field .data-value {
+    padding: 10px;
+    background-color: #f9f9f9; /* Fondo gris claro */
+    border: 1px solid #ddd; /* Borde sutil */
+    border-radius: 5px;
+    font-size: 16px;
+    color: #555; /* Color del texto del valor */
+}

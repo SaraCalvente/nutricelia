@@ -2,10 +2,51 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Perfil</title>
-    <link rel="stylesheet" href="../css/userstyles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos del Usuario - NutriCelia</title>
+    <link rel="stylesheet" href="../css/UserData.css">
 </head>
 <body>
-    <h1>Perfil de usuario</h1>
+<header>
+    <div class="logo">
+        <img src="../images/NutriCelia.png">
+    </div>
+    <nav>
+        <a href="HomePage.html">Inicio</a>
+        <a href="#">Productos</a>
+        <a href="ShoppingListScreen.html">Mis Listas</a>
+        <a href="ReceipeListScreen.html">Recetas</a>
+        <a href="ForumScreen.html">Foros</a>
+    </nav>
+    <div class="user-profile">
+        <img class="menu" src="../images/menu-icon.png">
+        <a href="UserDataScreen.html">
+            <button class="user-profile"><img src="../images/icon-user.png"></button>
+        </a>
+    </div>
+</header>
+<h1>Mis Datos</h1>
+<main>
+    <section class="user-data">
+        <div class="data-container">
+            <div class="data-field">
+                <label>Nombre:</label>
+                <p class="data-value">Juan Pérez</p>
+            </div>
+            <div class="data-field">
+                <label>Edad:</label>
+                <p class="data-value">30 años</p>
+            </div>
+            <div class="data-field">
+                <label>Correo Electrónico:</label>
+                <p class="data-value">juan.perez@example.com</p>
+            </div>
+            <div class="data-field">
+                <label>Teléfono:</label>
+                <p class="data-value">123456789</p>
+            </div>
+        </div>
+    </section>
+</main>
 </body>
 </html>
