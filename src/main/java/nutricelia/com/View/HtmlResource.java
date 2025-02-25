@@ -19,14 +19,6 @@ public class HtmlResource {
         return "<meta http-equiv=\"refresh\" content=\"0; url=/InitialPage.html\">";
     }
 
-    @Path("/HomePage")
-   @GET
-   @Produces(MediaType.TEXT_HTML)
-   public String getHomePage()throws IOException{
-       return "<meta http-equiv=\"refresh\" content=\"0; url=/HomePage.html\">";
-
-   }
-
 
 
 }
