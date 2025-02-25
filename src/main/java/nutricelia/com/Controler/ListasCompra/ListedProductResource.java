@@ -11,7 +11,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/soloDiosLoSabe")
+@Path("/ListedProductResource")
 public class ListedProductResource {
     private final ListedProductService listedProductService;
     @Inject

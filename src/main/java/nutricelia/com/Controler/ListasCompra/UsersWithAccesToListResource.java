@@ -10,7 +10,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
-@Path("/soloDiosLoSabe")
+@Path("/UsersWithAccesToListResource")
 public class UsersWithAccesToListResource {
     private final UsersWithAccesToListService usersWithAccesToListService;
     @Inject
