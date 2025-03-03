@@ -8,21 +8,21 @@ import jakarta.persistence.Table;
 @Table(name = "UsuariosAccesoLista")
 public class UsersWithAccesToList extends PanacheEntity {
     @Column(nullable = false)
-    boolean propietari;
+    public boolean propietario;
 
     @Column(nullable = false)
-    String email;
+    public String email;
 
     @Column(nullable = false)
-    int id_lista;
+    public int id_lista;
 
     @JsonProperty("propietari")
-    public void setOwner(boolean propietari) {
-        this.propietari = propietari;
+    public void setOwner(boolean propietario) {
+        this.propietario = propietario;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // No devolver el password en las respuestas JSON
     public boolean getOwner() {
-        return propietari;
+        return propietario;
     }
 }
