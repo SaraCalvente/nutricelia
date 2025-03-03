@@ -19,7 +19,7 @@
     <nav>
         <a href="HomePage.html">Inicio</a>
         <a href="#">Productos</a>
-        <a href="ShoppingListScreen.html">Mis Listas</a>
+        <a href="ShoppingListListingPageV2.html">Mis Listas</a>
         <a href="ReceipeListScreen.html">Recetas</a>
         <a href="ForumScreen.html">Foros</a>
     </nav>
@@ -36,12 +36,12 @@
 <main id="app">
     <form @submit.prevent="createBuyList">
         <input v-model="nombre" type="text" placeholder="Nombre de la nueva lista">
-        <button type="submit" class="btn" >Crear Lista</button>
+        <button type="submit"  class="btn">Crear Lista</button>
     </form>
 
-    <section v-for="list in buyLists" :key="list.id" class="user-data">
+    <section v-for="list in buyLists" :key="list.id" class="user-data" @click="goToProducts(list.id)">
         <p><strong>{{ list.nombre }}</strong></p>
-        <button @click="deleteBuyList(list.id)" class="btn">Eliminar</button>
+        <button @click.stop="deleteBuyList(list.id)"  class="btn">Eliminar</button>
     </section>
 </main>
 
