@@ -3,6 +3,7 @@ package nutricelia.com.Controler.ListasCompra;
 import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
+import nutricelia.com.Model.BuyList;
 import nutricelia.com.Model.ListedProduct;
 import org.hibernate.ObjectNotFoundException;
 
@@ -37,17 +38,15 @@ public class ListedProductService {
     public Uni<BuyList> update(BuyList buyList) {
         return findById(buyList.id).chain(s -> s.merge(buyList));
     }
-
+    */
     @ReactiveTransactional
     public Uni<Void> delete(long id) {
-        return findById(id)
-                .chain(u -> Uni.combine().all().unis(
-                                        Task.delete("BuyList.id", u.id),
-                                        Project.delete("BuyList.id", u.id)
-                                ).asTuple()
-                                .chain(t -> u.delete())
-                );
-
+        return ListedProduct.findById(id)
+                .onItem().ifNotNull().call(listedProduct -> listedProduct.delete())
+                .onItem().ifNull().failWith(() -> new ObjectNotFoundException(id, "listedProduct"))
+                .replaceWithVoid();
+    }
+    /*
     public Uni<BuyList> getCurrentBuyList() {
         // TODO: replace implementation once security is added to the project
         return BuyList.find("order by ID").firstResult();
