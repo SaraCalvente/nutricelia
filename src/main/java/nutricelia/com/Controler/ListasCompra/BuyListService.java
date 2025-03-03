@@ -9,7 +9,7 @@ import java.util.List;
 
 @ApplicationScoped
 public class BuyListService {
-    public Uni<BuyList> findById(long id) {
+    public Uni<BuyList> findById(int id) {
         return BuyList.<BuyList>findById(id)
                 .onItem().ifNull().failWith(() -> new
                         ObjectNotFoundException(id, "BuyList"));
@@ -34,7 +34,7 @@ public class BuyListService {
     }
     */
     @ReactiveTransactional
-    public Uni<Void> delete(long id) {
+    public Uni<Void> delete(int id) {
         return BuyList.findById(id)
                 .onItem().ifNotNull().call(buyList -> buyList.delete())
                 .onItem().ifNull().failWith(() -> new ObjectNotFoundException(id, "BuyList"))

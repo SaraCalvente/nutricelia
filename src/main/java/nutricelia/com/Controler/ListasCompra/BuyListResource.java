@@ -25,7 +25,7 @@ public class BuyListResource {
     }
     @GET
     @Path("{id}")
-    public Uni<BuyList> get(@PathParam("id") long id) {
+    public Uni<BuyList> get(@PathParam("id") int id) {
         return buyListService.findById(id);
     }
 
@@ -39,7 +39,7 @@ public class BuyListResource {
     } */
     @DELETE
     @Path("{id}")
-    public Uni<Void> delete(@PathParam("id") long id) {
+    public Uni<Void> delete(@PathParam("id") int id) {
         return buyListService.delete(id);
     }
 

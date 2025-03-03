@@ -13,10 +13,10 @@ import jakarta.persistence.Table;
 @Table(name = "ListaCompra")
 public class BuyList extends PanacheEntity {
     @Column(nullable = false)
-    String nombre;
+    public String nombre;
 
     @Column(unique = true, nullable = false)
-    int id;
+    public long id;
 
     @JsonProperty("nombre")
     public void setName(String nombre) {
