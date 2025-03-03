@@ -2,6 +2,7 @@ package nutricelia.com.Controler.ListasCompra;
 import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.*;
 import nutricelia.com.Model.BuyList;
+import org.hibernate.ObjectNotFoundException;
 import org.jboss.resteasy.reactive.ResponseStatus;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
@@ -37,6 +38,19 @@ public class BuyListResource {
         buyList.id = (int) id;      //Puede que halla que cambiar el tipo del id
         return buyListService.update(buyList);
     } */
+
+    @PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Uni<Object> update(@PathParam("id") int id, BuyList updatedBuyList) { //En lugar de Uni<buyList> es Uni<Object> por el ObjectNotFoundExp
+        return buyListService.findById(id)
+                .onItem().ifNotNull().transformToUni(buyList -> {
+                    buyList.nombre = updatedBuyList.nombre;
+                    return buyList.persistAndFlush();
+                })
+                .onItem().ifNull().failWith(() -> new ObjectNotFoundException(id, "BuyList"));
+    }
+
     @DELETE
     @Path("{id}")
     public Uni<Void> delete(@PathParam("id") int id) {

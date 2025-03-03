@@ -32,7 +32,7 @@
 </header>
 
 <h1>Listas de la compra</h1>
-
+<!--
 <main id="app">
     <form @submit.prevent="createBuyList">
         <input v-model="nombre" type="text" placeholder="Nombre de la nueva lista">
@@ -42,6 +42,23 @@
     <section v-for="list in buyLists" :key="list.id" class="user-data" @click="goToProducts(list.id)">
         <p><strong>{{ list.nombre }}</strong></p>
         <button @click.stop="deleteBuyList(list.id)"  class="btn">Eliminar</button>
+    </section>
+</main>
+-->
+
+<main id="app">
+    <form @submit.prevent="createBuyList">
+        <input v-model="nombre" type="text" placeholder="Nombre de la nueva lista">
+        <button type="submit">Crear Lista</button>
+    </form>
+
+    <section v-for="list in buyLists" :key="list.id" class="user-data" @click="goToProducts(list.id)">
+        <input v-if="editingId === list.id" v-model="editedName">
+        <p v-else><strong>{{ list.nombre }}</strong></p>
+
+        <button v-if="editingId !== list.id" @click="startEditing(list)">Editar</button>
+        <button v-if="editingId === list.id" @click="saveEdit(list.id)">Guardar</button>
+        <button @click="deleteBuyList(list.id)">Eliminar</button>
     </section>
 </main>
 

@@ -1,10 +1,12 @@
-const API_URL = "http://localhost:8080/buyListResource";
+const API_URL = "http://localhost:8080/buyListResource/";
 
 Vue.createApp({
     data() {
         return {
-            buyLists: [], // Lista de compras
-            nombre: "" // Nombre de la nueva lista
+            buyLists: [],
+            nombre: "",
+            editingId: null,
+            editedName: "",
         };
     },
     methods: {
@@ -13,34 +15,44 @@ Vue.createApp({
                 let response = await axios.get(API_URL);
                 this.buyLists = response.data;
             } catch (error) {
-                console.error("Error obteniendo las listas:", error);
+                console.error("Error obteniendo listas:", error);
             }
         },
 
         async createBuyList() {
-            if (!this.nombre.trim()) {
-                alert("El nombre no puede estar vacío");
-                return;
-            }
-
             try {
-                let nuevaLista = { nombre: this.nombre };
-                await axios.post(API_URL, nuevaLista);
-                this.nombre = ""; // Limpiar campo de texto
-                this.fetchBuyLists(); // Recargar listas
+                await axios.post(API_URL, { nombre: this.nombre });
+                this.nombre = "";
+                this.fetchBuyLists();
             } catch (error) {
-                console.error("Error creando la lista:", error);
+                console.error("Error creando lista:", error);
             }
         },
 
         async deleteBuyList(id) {
-            if (!confirm("¿Estás seguro de que quieres eliminar esta lista?")) return;
-
+            if (!confirm("¿Eliminar esta lista de compras?")) return;
             try {
-                await axios.delete(`${API_URL}/${id}`);
-                this.fetchBuyLists(); // Recargar listas
+                await axios.delete(API_URL + id);
+                this.fetchBuyLists();
             } catch (error) {
-                console.error("Error eliminando la lista:", error);
+                console.error("Error eliminando lista:", error);
+            }
+        },
+
+        // Iniciar edición de una lista
+        startEditing(list) {
+            this.editingId = list.id;
+            this.editedName = list.nombre;
+        },
+
+        // Guardar cambios en el nombre de la lista
+        async saveEdit(id) {
+            try {
+                await axios.put(API_URL + id, { nombre: this.editedName });
+                this.editingId = null;
+                this.fetchBuyLists();
+            } catch (error) {
+                console.error("Error actualizando lista:", error);
             }
         }
     },
