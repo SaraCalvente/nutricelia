@@ -32,17 +32,15 @@ public class BuyListService {
     public Uni<BuyList> update(BuyList buyList) {
         return findById(buyList.id).chain(s -> s.merge(buyList));
     }
-
+    */
     @ReactiveTransactional
     public Uni<Void> delete(long id) {
-        return findById(id)
-                .chain(u -> Uni.combine().all().unis(
-                                        Task.delete("BuyList.id", u.id),
-                                        Project.delete("BuyList.id", u.id)
-                                ).asTuple()
-                                .chain(t -> u.delete())
-                );
-
+        return BuyList.findById(id)
+                .onItem().ifNotNull().call(buyList -> buyList.delete())
+                .onItem().ifNull().failWith(() -> new ObjectNotFoundException(id, "BuyList"))
+                .replaceWithVoid();
+    }
+    /*
     public Uni<BuyList> getCurrentBuyList() {
         // TODO: replace implementation once security is added to the project
         return BuyList.find("order by ID").firstResult();
