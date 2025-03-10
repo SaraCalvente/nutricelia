@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import nutricelia.com.Model.History;
-import nutricelia.com.Model.ListedProduct;
 import org.jboss.resteasy.reactive.ResponseStatus;
 
 import java.util.List;
