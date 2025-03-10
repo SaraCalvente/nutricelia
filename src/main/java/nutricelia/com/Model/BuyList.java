@@ -1,20 +1,18 @@
 package nutricelia.com.Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.quarkus.hibernate.reactive.panache.PanacheEntity;
-import org.hibernate.annotations.CreationTimestamp;
-import io.quarkus.hibernate.reactive.panache.PanacheEntity;
+import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "ListaCompra")
-public class BuyList extends PanacheEntity {
+public class BuyList extends PanacheEntityBase {
     @Column(nullable = false)
     public String nombre;
 
+    @Id
     @Column(unique = true, nullable = false)
     public long id;
 

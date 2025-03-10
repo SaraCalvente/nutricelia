@@ -1,42 +1,42 @@
 package nutricelia.com.Controler.ListasCompra;
 import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.*;
-import nutricelia.com.Model.ListedProduct;
+import nutricelia.com.Model.ProductsList;
 import org.jboss.resteasy.reactive.ResponseStatus;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/ListedProductResource")
-public class ListedProductResource {
-    private final ListedProductService listedProductService;
+public class ProductsListResource {
+    private final ProductsListService productsListService;
     @Inject
-    public ListedProductResource(ListedProductService listedProductService) {
-        this.listedProductService = listedProductService;
+    public ProductsListResource(ProductsListService productsListService) {
+        this.productsListService = productsListService;
     }
 
     @GET
-    public Uni<List<ListedProduct>> get() {
-        return listedProductService.list();
+    public Uni<List<ProductsList>> get() {
+        return productsListService.list();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @ResponseStatus(201)
-    public Uni<ListedProduct> create(ListedProduct listedProduct) {
-        return listedProductService.create(listedProduct);
+    public Uni<ProductsList> create(ProductsList productsList) {
+        return productsListService.create(productsList);
     }
 
     @GET
     @Path("{id}")
-    public Uni<ListedProduct> get(@PathParam("id") long id) {
-        return listedProductService.findById(id);
+    public Uni<ProductsList> get(@PathParam("id") long id) {
+        return productsListService.findById(id);
     }
 
     @GET
     @Path("/list/{id_lista}")
-    public Uni<List<ListedProduct>> getByListId(@PathParam("id_lista") int id_lista) {
-        return listedProductService.findByListId(id_lista);
+    public Uni<List<ProductsList>> getByListId(@PathParam("id_lista") int id_lista) {
+        return productsListService.findByListId(id_lista);
     }
 
     /*
@@ -51,7 +51,7 @@ public class ListedProductResource {
     @DELETE
     @Path("{id}")
     public Uni<Void> delete(@PathParam("id") long id) {
-        return listedProductService.delete(id);
+        return productsListService.delete(id);
     }
     /*
     @GET
