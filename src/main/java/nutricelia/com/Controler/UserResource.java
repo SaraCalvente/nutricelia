@@ -26,6 +26,7 @@ public class UserResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @ResponseStatus(201)
     public Uni<User> create(User user) {
         return userService.create(user);
