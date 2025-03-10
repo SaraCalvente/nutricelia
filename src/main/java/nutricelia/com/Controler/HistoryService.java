@@ -3,7 +3,7 @@ package nutricelia.com.Controler;
 import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
-import nutricelia.com.Model.BuyList;
+import nutricelia.com.Model.History;
 import nutricelia.com.Model.ListedProduct;
 import org.hibernate.ObjectNotFoundException;
 
@@ -11,27 +11,27 @@ import java.util.List;
 
 @ApplicationScoped
 public class HistoryService {
-    public Uni<ListedProduct> findById(long id) {
-        return ListedProduct.<ListedProduct>findById(id)
+    public Uni<History> findById(long id) {
+        return History.<History>findById(id)
                 .onItem().ifNull().failWith(() -> new
-                        ObjectNotFoundException(id, "ProductList"));
+                        ObjectNotFoundException(id, "History"));
     }
 
-    public Uni<ListedProduct> findByName(int id_producto, int id_lista) {
-        return ListedProduct.find("id_producto = ?1 and id_lista = ?2", id_producto, id_lista).firstResult();
+    public Uni<History> findByName(int id_producto, String email) {
+        return History.find("id_producto = ?1 and email = ?2", id_producto, email).firstResult();
     }
 
-    public Uni<List<ListedProduct>> list() {
-        return ListedProduct.listAll();
+    public Uni<List<History>> list() {
+        return History.listAll();
     }
 
     @ReactiveTransactional
-    public Uni<ListedProduct> create(ListedProduct listedProduct) {
-        return listedProduct.persistAndFlush();
+    public Uni<History> create(History history) {
+        return history.persistAndFlush();
     }
 
-    public Uni<List<ListedProduct>> findByListId(int id_lista) {
-        return ListedProduct.find("id_lista", id_lista).list();
+    public Uni<List<History>> findByUserId(String email) {
+        return History.find("email", email).list();
     }
     /*
     @ReactiveTransactional
@@ -41,9 +41,9 @@ public class HistoryService {
     */
     @ReactiveTransactional
     public Uni<Void> delete(long id) {
-        return ListedProduct.findById(id)
-                .onItem().ifNotNull().call(listedProduct -> listedProduct.delete())
-                .onItem().ifNull().failWith(() -> new ObjectNotFoundException(id, "listedProduct"))
+        return History.findById(id)
+                .onItem().ifNotNull().call(history -> history.delete())
+                .onItem().ifNull().failWith(() -> new ObjectNotFoundException(id, "History"))
                 .replaceWithVoid();
     }
     /*
