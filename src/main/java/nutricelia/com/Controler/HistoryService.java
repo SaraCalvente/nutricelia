@@ -4,7 +4,6 @@ import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactiona
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import nutricelia.com.Model.History;
-import nutricelia.com.Model.ListedProduct;
 import org.hibernate.ObjectNotFoundException;
 
 import java.util.List;
