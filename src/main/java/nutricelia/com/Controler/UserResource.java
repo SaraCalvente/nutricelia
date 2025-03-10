@@ -35,7 +35,7 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{email: .+}") //Es posible que esto genere errores por el formato email
     public Uni<User> update(@PathParam("email") String name, User user) {
-        user.name = name;
+        user.nombre = name;
         return userService.update(user);
     }
 
