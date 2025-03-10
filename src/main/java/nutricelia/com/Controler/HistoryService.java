@@ -30,7 +30,7 @@ public class HistoryService {
         return history.persistAndFlush();
     }
 
-    public Uni<List<History>> findByUserId(String email) {
+    public Uni<List<History>> findByUserMail(String email) {
         return History.find("email", email).list();
     }
     /*
