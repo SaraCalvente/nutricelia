@@ -8,9 +8,9 @@ import jakarta.persistence.Table;
 @Table(name = "ProductosLista")
 public class ListedProduct extends PanacheEntity {
     @Column(nullable = false)
-    int id_lista;
+    public int id_lista;
 
     @Column(nullable = false)
-    int id_producto;
+    public int id_producto;
 
 }
