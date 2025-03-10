@@ -1,35 +1,35 @@
 package nutricelia.com.Controler.ListasCompra;
 import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.*;
-import nutricelia.com.Model.UsersWithAccesToList;
+import nutricelia.com.Model.UsersWithAccessToList;
 import org.jboss.resteasy.reactive.ResponseStatus;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 @Path("/UsersWithAccesToListResource")
-public class UsersWithAccesToListResource {
-    private final UsersWithAccesToListService usersWithAccesToListService;
+public class UsersWithAccessToListResource {
+    private final UsersWithAccessToListService usersWithAccessToListService;
     @Inject
-    public UsersWithAccesToListResource(UsersWithAccesToListService usersWithAccesToListService) {
-        this.usersWithAccesToListService = usersWithAccesToListService;
+    public UsersWithAccessToListResource(UsersWithAccessToListService usersWithAccessToListService) {
+        this.usersWithAccessToListService = usersWithAccessToListService;
     }
 
     @GET
-    public Uni<List<UsersWithAccesToList>> get() {
-        return usersWithAccesToListService.list();
+    public Uni<List<UsersWithAccessToList>> get() {
+        return usersWithAccessToListService.list();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @ResponseStatus(201)
-    public Uni<UsersWithAccesToList> create(UsersWithAccesToList usersWithAccesToList) {
-        return usersWithAccesToListService.create(usersWithAccesToList);
+    public Uni<UsersWithAccessToList> create(UsersWithAccessToList usersWithAccessToList) {
+        return usersWithAccessToListService.create(usersWithAccessToList);
     }
 
     @GET
     @Path("{id}")
-    public Uni<UsersWithAccesToList> get(@PathParam("id") long id) {
-        return usersWithAccesToListService.findById(id);
+    public Uni<UsersWithAccessToList> get(@PathParam("id") long id) {
+        return usersWithAccessToListService.findById(id);
     }
 
     /*
@@ -44,7 +44,7 @@ public class UsersWithAccesToListResource {
     @DELETE
     @Path("{id}")
     public Uni<Void> delete(@PathParam("id") long id) {
-        return usersWithAccesToListService.delete(id);
+        return usersWithAccessToListService.delete(id);
     }
     /*
     @GET

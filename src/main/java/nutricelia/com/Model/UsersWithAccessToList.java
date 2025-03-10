@@ -1,20 +1,19 @@
 package nutricelia.com.Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.quarkus.hibernate.reactive.panache.PanacheEntity;
+import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 @Entity
 @Table(name = "UsuariosAccesoLista")
-public class UsersWithAccesToList extends PanacheEntity {
+public class UsersWithAccessToList extends PanacheEntityBase {
+
+    @EmbeddedId
+    public UsersWithAccessToListId usersWithAccessToListId;
+
     @Column(nullable = false)
     public boolean propietario;
-
-    @Column(nullable = false)
-    public String email;
-
-    @Column(nullable = false)
-    public int id_lista;
 
     @JsonProperty("propietari")
     public void setOwner(boolean propietario) {
