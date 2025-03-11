@@ -41,7 +41,7 @@ public class UsersWithAccessToListResource {
     }
 
     @GET
-    @Path("/{id_lista}")
+    @Path("/list/{id_lista}")
     public Uni<List<UsersWithAccessToList>> get(@PathParam("id_lista") int id_lista) {
         return usersWithAccessToListService.findByListId(id_lista);
     }

@@ -2,7 +2,6 @@ package nutricelia.com.Controler.ListasCompra;
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Uni;
-import nutricelia.com.Model.BuyList;
 import nutricelia.com.Model.UsersWithAccessToList;
 import nutricelia.com.Model.UsersWithAccessToListId;
 import org.hibernate.ObjectNotFoundException;
@@ -19,7 +18,7 @@ public class UsersWithAccessToListService {
     }
 
     public Uni<List<UsersWithAccessToList>> findByListId(int id_lista) {
-        return BuyList.find("id_lista", id_lista).list();
+        return UsersWithAccessToList.find("usersWithAccessToListId.id_lista", id_lista).list();
     }
 
     public Uni<List<UsersWithAccessToList>> list() {
