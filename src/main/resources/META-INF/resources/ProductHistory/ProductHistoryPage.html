@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listas de la compra - NutriCelia</title>
+    <title>Historial de compra - NutriCelia</title>
     <link rel="stylesheet" href="../css/userstyles.css">
 
     <!-- Vue.js y Axios -->
@@ -31,37 +31,22 @@
     </div>
 </header>
 
-<h1>Listas de la compra</h1>
-<!--
-<main id="app">
-    <form @submit.prevent="createBuyList">
-        <input v-model="nombre" type="text" placeholder="Nombre de la nueva lista">
-        <button type="submit"  class="btn">Crear Lista</button>
-    </form>
+<h1>Historial de la compra</h1>
 
-    <section v-for="list in buyLists" :key="list.id" class="user-data" @click="goToProducts(list.id)">
-        <p><strong>{{ list.nombre }}</strong></p>
-        <button @click.stop="deleteBuyList(list.id)"  class="btn">Eliminar</button>
-    </section>
-</main>
--->
 
 <main id="app">
-    <form @submit.prevent="createBuyList">
-        <input v-model="nombre" type="text" placeholder="Nombre de la nueva lista">
-        <button type="submit">Crear Lista</button>
-    </form>
-
-    <section v-for="list in buyLists" :key="list.id" class="user-data" @click="goToProducts(list.id)">
-        <input v-if="editingId === list.id" v-model="editedName">
-        <p v-else><strong>{{ list.nombre }}</strong></p>
-
-        <button v-if="editingId !== list.id" @click="startEditing(list)">Editar</button>
-        <button v-if="editingId === list.id" @click="saveEdit(list.id)">Guardar</button>
-        <button @click="deleteBuyList(list.id)">Eliminar</button>
+    <section v-if="products.length > 0">
+        <h2>Productos comprados recientemente</h2>
+        <ul>
+            <li v-for="product in products" :key="product.id">
+                <strong>{{ product.nombre }}</strong> - {{ product.descripcion }}
+            </li>
+        </ul>
     </section>
+
+    <p v-else>No hay productos en el historial de compras.</p>
 </main>
 
-<script src="../js/ProductHistoryMain.js"></script>
+    <script src="../js/ProductHistoryMain.js"></script>
 </body>
 </html>
