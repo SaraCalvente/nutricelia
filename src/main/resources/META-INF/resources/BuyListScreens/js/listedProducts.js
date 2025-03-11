@@ -1,4 +1,5 @@
 const API_URL = "http://localhost:8080/ListedProductResource/list/";
+const HISTORY_API_URL = "http://localhost:8080/HistoryResource/";
 
 Vue.createApp({
     data() {
@@ -26,6 +27,30 @@ Vue.createApp({
                 this.fetchProducts();
             } catch (error) {
                 console.error("Error eliminando producto:", error);
+            }
+        },
+
+        async markAsPurchased(product) {
+            if (!confirm(`¿Marcar "${product.nombre}" como comprado?`)) return;
+
+            try {
+                // Obtener el email del usuario (simulado)
+                const email = localStorage.getItem("userEmail") || "usuario@example.com";
+
+                // 1. Añadir al historial de compras
+                await axios.post(HISTORY_API_URL, {
+                    userMail: email,
+                    productId: product.id,
+                    nombre: product.nombre,
+                    cantidad: product.cantidad
+                });
+
+                // 2. Eliminar de la lista de compras
+                await axios.delete(`http://localhost:8080/ListedProductResource/${product.id}`);
+
+                this.fetchProducts();
+            } catch (error) {
+                console.error("Error marcando producto como comprado:", error);
             }
         }
     },
