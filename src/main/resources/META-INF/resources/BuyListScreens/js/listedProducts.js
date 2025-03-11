@@ -38,12 +38,13 @@ Vue.createApp({
                 const email = localStorage.getItem("userEmail") || "usuario@example.com";
 
                 // 1. Añadir al historial de compras
-                await axios.post(HISTORY_API_URL, {
-                    userMail: email,
-                    productId: product.id,
-                    nombre: product.nombre,
-                    cantidad: product.cantidad
-                });
+                const historyEntry = {
+                    historyId: {
+                        email: this.userEmail,
+                        id_producto: product.id
+                    }
+                };
+                await axios.post(HISTORY_API_URL, historyEntry)
 
                 // 2. Eliminar de la lista de compras
                 await axios.delete(`http://localhost:8080/ListedProductResource/${product.id}`);
