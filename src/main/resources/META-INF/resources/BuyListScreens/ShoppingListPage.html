@@ -32,13 +32,25 @@
 </header>
 
 <h1>Productos en la lista</h1>
-
+<!--
 <main id="app">
     <h2>{{ listaNombre }}</h2>
 
     <section v-for="product in products" :key="product.id" class="user-data">
         <p><strong>{{ product.nombre }}</strong> - {{ product.cantidad }}</p>
-        <button @click="deleteProduct(product.id)">Eliminar</button>
+        <button @click="deleteProduct(product.id)" class="btn">Eliminar</button>
+    </section>
+</main>
+-->
+<main id="app">
+    <h2>{{ listaNombre }}</h2>
+
+    <section v-for="product in products" :key="product.id" class="user-data">
+        <p><strong>{{ product.nombre }}</strong> - {{ product.cantidad }}
+            <button @click="markAsPurchased(product)" class="btn">  ✅  </button>
+            <button @click="deleteProduct(product.id)" class="btn">  Eliminar  </button>
+        </p>
+
     </section>
 </main>
 
