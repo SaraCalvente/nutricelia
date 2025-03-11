@@ -3,6 +3,7 @@ package nutricelia.com.Controler;
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Uni;
+import jakarta.ws.rs.WebApplicationException;
 import nutricelia.com.Model.User;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -27,8 +28,13 @@ public class UserService {
 
     @ReactiveTransactional
     public Uni<User> create(User user) {
-        user.setPassword(BcryptUtil.bcryptHash(user.getPassword()));
-        return user.persistAndFlush();
+        return findByEmail(user.email)
+                .onItem().ifNotNull().failWith(() -> new WebApplicationException("El usuario ya existe", 409))
+                .onItem().ifNull().continueWith(user)
+                .chain(u -> {
+                    user.setPassword(BcryptUtil.bcryptHash(user.getPassword())); // Cifrar contraseña
+                    return user.persistAndFlush();
+                });
     }
 
     @ReactiveTransactional

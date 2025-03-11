@@ -9,7 +9,9 @@
 <body>
 <header>
     <div class="logo">
-        <img src="../images/NutriCelia.png">
+        <a href="../HomePage.html">
+            <img src="../images/NutriCelia.png" alt="Logo">
+        </a>
     </div>
     <nav>
         <a href="HomePage.html">Inicio</a>
@@ -25,28 +27,109 @@
         </a>
     </div>
 </header>
+
 <h1>Mis Datos</h1>
+
 <main>
     <section class="user-data">
         <div class="data-container">
+            <button onclick="modifyAccount()" class="btn btn-modify">Modificar datos</button>
             <div class="data-field">
                 <label>Nombre:</label>
-                <p class="data-value">Juan Pérez</p>
-            </div>
-            <div class="data-field">
-                <label>Edad:</label>
-                <p class="data-value">30 años</p>
+                <p id="user-name" class="data-value">Cargando...</p>
             </div>
             <div class="data-field">
                 <label>Correo Electrónico:</label>
-                <p class="data-value">juan.perez@example.com</p>
-            </div>
-            <div class="data-field">
-                <label>Teléfono:</label>
-                <p class="data-value">123456789</p>
+                <p id="user-email" class="data-value">Cargando...</p>
             </div>
         </div>
     </section>
+
+    <section class="user-actions">
+        <button onclick="logout()" class="btn">Cerrar sesión</button>
+        <button onclick="deleteAccount()" class="btn btn-delete">Eliminar cuenta</button>
+    </section>
 </main>
+
+<script>
+    // Cargar datos del usuario desde el backend
+    async function loadUserData() {
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("No se encontró el token de autenticación.");
+                return;
+            }
+
+            const response = await fetch("http://localhost:8080/user/me", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (response.ok) {
+                const user = await response.json();
+                document.getElementById("user-name").textContent = user.nombre;
+                document.getElementById("user-email").textContent = user.email;
+            } else {
+                const errorData = await response.json();
+                alert("Error al cargar los datos del usuario: " + (errorData.message || "Error desconocido"));
+            }
+        } catch (error) {
+            console.error("Error al obtener los datos:", error);
+            alert("Hubo un error al intentar obtener los datos del usuario.");
+        }
+    }
+
+    // Cerrar sesión y redirigir a SignOutPage.html
+    function logout() {
+        localStorage.removeItem("token"); // Eliminar token JWT
+        window.location.href = "SignOutPage.html"; // Redirigir a página de cierre de sesión
+    }
+
+    // Confirmar y eliminar cuenta
+    async function deleteAccount() {
+    const email = document.getElementById("user-email").textContent.trim();  // Obtener el email correctamente
+    console.log("Email a enviar:", email);  // Verifica el valor del email en la consola
+
+    if (email === "") {
+        alert("No se encontró el email.");
+        return;
+    }
+
+    const confirmDelete = confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.");
+
+    if (confirmDelete) {
+        try {
+            // Asegúrate de que la URL esté correctamente formada
+            const response = await fetch(`http://localhost:8080/user/delete/${email}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("token"),
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (response.ok) {
+                alert("Cuenta eliminada exitosamente.");
+                localStorage.removeItem("token"); // Limpiar datos del usuario
+                window.location.href = "DeletedPage.html"; // Redirigir tras eliminar cuenta
+            } else {
+                alert("Error al eliminar la cuenta.");
+            }
+        } catch (error) {
+            console.error("Error al eliminar la cuenta:", error);
+        }
+    }
+}
+
+
+
+    // Cargar datos del usuario al abrir la página
+    loadUserData();
+</script>
+
 </body>
 </html>

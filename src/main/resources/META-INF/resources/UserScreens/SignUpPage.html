@@ -7,10 +7,17 @@
 </head>
 <body>
 <header>
-    <h1>Registro</h1>
+    <div class="logo">
+        <a href="../InitialPage.html">
+            <img src="../images/NutriCelia.png" alt="Logo">
+        </a>
+    </div>
+    <div class="titulo">
+        <h1>Registro</h1>
+    </div>
 </header>
 <main>
-    <form action="http://localhost:8080/user" method="post">
+    <form id="registerForm">
         <label for="name">Nombre:</label>
         <input type="text" id="name" name="name" required>
 
@@ -23,5 +30,41 @@
         <button type="submit" class="btn">Registrarse</button>
     </form>
 </main>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", async function(event) {
+    event.preventDefault(); // Evita que el formulario recargue la página
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const userData = { nombre: name, email: email, password: password };
+
+    try {
+        const response = await fetch("http://localhost:8080/user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        });
+
+        if (response.ok) {
+            alert("Usuario registrado exitosamente.");
+            setTimeout(() => {
+                window.location.href = "../HomePage.html"; // Redirigir tras guardar
+            }, 500); // Espera breve para evitar conflictos
+        } else {
+            const errorData = await response.json();
+            alert("Error al registrar usuario: " + (errorData.message || "Intenta de nuevo."));
+        }
+    } catch (error) {
+        console.error("Error en el registro:", error);
+        alert("Error al conectar con el servidor.");
+    }
+});
+</script>
+
 </body>
 </html>
