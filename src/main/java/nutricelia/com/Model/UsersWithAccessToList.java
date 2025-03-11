@@ -10,18 +10,8 @@ import jakarta.persistence.Table;
 public class UsersWithAccessToList extends PanacheEntityBase {
 
     @EmbeddedId
-    public UsersWithAccessToListId usersWithAccessToListId;
+    public UsersWithAccessToListId id;
 
     @Column(nullable = false)
     public boolean propietario;
-
-    @JsonProperty("propietari")
-    public void setOwner(boolean propietario) {
-        this.propietario = propietario;
-    }
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // No devolver el password en las respuestas JSON
-    public boolean getOwner() {
-        return propietario;
-    }
 }

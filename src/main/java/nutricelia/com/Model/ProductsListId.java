@@ -15,7 +15,7 @@ public class ProductsListId implements Serializable {
         if (!(o instanceof ProductsListId)) return false;
         ProductsListId that = (ProductsListId) o;
         return id_lista == that.id_lista &&
-                Objects.equals(id_producto, that.id_producto);
+                id_producto == that.id_producto;
     }
 
     @Override
