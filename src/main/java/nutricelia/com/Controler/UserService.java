@@ -40,8 +40,11 @@ public class UserService {
     @ReactiveTransactional
     public Uni<User> update(User user) {
         return findByEmail(user.email)
-                .chain(u -> User.getSession())
-                .chain(s -> s.merge(user));
+                .onItem().ifNull().failWith(() -> new WebApplicationException("Usuario no encontrado", 404))
+                .chain(existingUser -> {
+                    existingUser.nombre = user.nombre;
+                    return existingUser.persistAndFlush(); // Guardar cambios en la BD
+                });
     }
 
     @ReactiveTransactional

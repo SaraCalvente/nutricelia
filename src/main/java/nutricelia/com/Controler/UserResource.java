@@ -48,10 +48,14 @@ public class UserResource {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/modify/{email}") //Es posible que esto genere errores por el formato email
-    public Uni<User> update(@PathParam("email") String name, User user) {
-        user.nombre = name;
-        return userService.update(user);
+    @Path("/modify/{email}")
+    public Uni<User> update(@PathParam("email") String email, User user) {
+        return userService.findByEmail(email)
+                .onItem().ifNull().failWith(() -> new WebApplicationException("Usuario no encontrado", 404))
+                .chain(existingUser -> {
+                    existingUser.nombre = user.nombre != null ? user.nombre : existingUser.nombre;
+                    return userService.update(existingUser);
+                });
     }
 
     @DELETE
