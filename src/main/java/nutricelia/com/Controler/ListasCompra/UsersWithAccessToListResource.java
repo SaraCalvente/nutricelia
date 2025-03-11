@@ -1,17 +1,49 @@
 package nutricelia.com.Controler.ListasCompra;
+
 import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.*;
 import nutricelia.com.Model.UsersWithAccessToList;
+import nutricelia.com.Model.UsersWithAccessToListId;
 import org.jboss.resteasy.reactive.ResponseStatus;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
-@Path("/UsersWithAccesToListResource")
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
+
+@Path("/usersWithAccesToList")
 public class UsersWithAccessToListResource {
     private final UsersWithAccessToListService usersWithAccessToListService;
     @Inject
     public UsersWithAccessToListResource(UsersWithAccessToListService usersWithAccessToListService) {
         this.usersWithAccessToListService = usersWithAccessToListService;
+    }
+
+    private String decodificar(String encodedEmail){
+        try {
+            return URLDecoder.decode(encodedEmail, StandardCharsets.UTF_8);
+        } catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    @GET
+    @Path("/{email}/{id_lista}")
+    public Uni<UsersWithAccessToList> get(@PathParam("email") String email, @PathParam("id_lista") int id_lista) {
+        String decodedEmail = decodificar(email);
+        UsersWithAccessToListId id = new UsersWithAccessToListId();
+        id.email=decodedEmail;
+        id.id_lista=id_lista;
+
+        return usersWithAccessToListService.findById(id);
+    }
+
+    @GET
+    @Path("/{id_lista}")
+    public Uni<List<UsersWithAccessToList>> get(@PathParam("id_lista") int id_lista) {
+        return usersWithAccessToListService.findByListId(id_lista);
     }
 
     @GET
@@ -26,34 +58,15 @@ public class UsersWithAccessToListResource {
         return usersWithAccessToListService.create(usersWithAccessToList);
     }
 
-    @GET
-    @Path("{id}")
-    public Uni<UsersWithAccessToList> get(@PathParam("id") long id) {
-        return usersWithAccessToListService.findById(id);
-    }
-
-    /*
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("{id}")
-    public Uni<BuyList> update(@PathParam("id") long id, BuyList buyList) {
-        buyList.id = (int) id;      //Puede que halla que cambiar el tipo del id
-        return buyListService.update(buyList);
-    }
-    */
     @DELETE
-    @Path("{id}")
-    public Uni<Void> delete(@PathParam("id") long id) {
+    @Path("/{email}/{id_lista}")
+    public Uni<Void> delete(@PathParam("email") String email, @PathParam("id_lista") int id_lista) {
+        String decodedEmail = decodificar(email);
+        UsersWithAccessToListId id = new UsersWithAccessToListId();
+        id.email=decodedEmail;
+        id.id_lista=id_lista;
+
         return usersWithAccessToListService.delete(id);
     }
-    /*
-    @GET
-    @Path("self")
-    public Uni<BuyList> getCurrentUser() {
-        return buyListService.getCurrentUser();
-    }
-
-     */
-
 }
 
