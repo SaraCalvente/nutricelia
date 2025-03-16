@@ -1,7 +1,6 @@
 package nutricelia.com.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,4 +30,5 @@ public class User extends PanacheEntityBase {
     public String getPassword() {
         return pwd;
     }
+
 }

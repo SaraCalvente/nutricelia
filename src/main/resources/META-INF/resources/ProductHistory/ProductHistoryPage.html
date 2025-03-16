@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos de la lista</title>
+    <title>Historial de compra - NutriCelia</title>
     <link rel="stylesheet" href="../css/userstyles.css">
 
     <!-- Vue.js y Axios -->
@@ -26,34 +26,27 @@
     <div class="user-profile">
         <img class="menu" src="../images/menu-icon.png">
         <a href="UserDataScreen.html">
-            <button class="user-profile"  class="btn"><img src="../images/icon-user.png"></button>
+            <button class="user-profile"><img src="../images/icon-user.png"></button>
         </a>
     </div>
 </header>
 
-<h1>Productos en la lista</h1>
-<!--
+<h1>Historial de la compra</h1>
+
+
 <main id="app">
-    <h2>{{ listaNombre }}</h2>
-
-    <section v-for="product in products" :key="product.id" class="user-data">
-        <p><strong>{{ product.nombre }}</strong> - {{ product.cantidad }}</p>
-        <button @click="deleteProduct(product.id)" class="btn">Eliminar</button>
+    <section v-if="products.length > 0">
+        <h2>Productos comprados recientemente</h2>
+        <ul>
+            <li v-for="product in products" :key="product.id">
+                <strong>{{ product.nombre }}</strong> - {{ product.descripcion }}
+            </li>
+        </ul>
     </section>
-</main>
--->
-<main id="app">
-    <h2>{{ listaNombre }}</h2>
 
-    <section v-for="product in products" :key="product.id" class="user-data">
-        <p><strong>{{ product.nombre }}</strong> - {{ product.cantidad }}
-            <button @click="markAsPurchased(product)" class="btn">  ✅  </button>
-            <button @click="deleteProduct(product.id)" class="btn">  Eliminar  </button>
-        </p>
-
-    </section>
+    <p v-else>No hay productos en el historial de compras.</p>
 </main>
 
-<script src="../js/listedProducts.js"></script>
+    <script src="../js/ProductHistoryMain.js"></script>
 </body>
 </html>
