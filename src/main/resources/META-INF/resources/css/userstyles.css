@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #d3d3d3; /* Gris claro */
     text-align: center;
 }
 
@@ -13,28 +13,36 @@ header {
     background-color: #90EE90;
     padding: 10px 20px;
 }
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #90EE90;
-    padding: 10px 20px;
-}
 
 .logo img {
     height: 50px;
 }
 
-nav a {
-    margin: 0 15px;
+header a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.links {
+    width: 100%; /* Hace que el contenedor ocupe todo el ancho */
+    text-align: center; /* Centra el contenido */
+    margin
+}
+
+.links a {
     text-decoration: none;
     color: black;
     font-weight: bold;
+    display: inline-block; /* Asegura que el enlace se comporte como un bloque alineado */
+    font-size: 1.2rem;
+    margin-right: 50px; /* Agrega el margen a la derecha */
 }
-.user-profile{
-    background-color:transparent;
-    outline: none; /* También elimina el borde de enfoque al hacer clic */
-    border: none;  /* Elimina el borde */
+
+.user-profile {
+    background-color: transparent;
+    outline: none;
+    border: none;
 }
 
 .user-profile img {
@@ -42,26 +50,26 @@ nav a {
     border-radius: 50%;
 }
 
-.titulo {
-
-    padding-right: 50px;
-    text-align: center;
-    width: 100%;
-}
-
-.titulo h1 {
-    margin: 0 auto;
-    display: inline-block;
-}
-
 main {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra todo el contenido dentro del main */
-    text-align: center;  /* Asegura que los textos dentro de main estén centrados */
+    align-items: center;
+    text-align: center;
 }
 
+.caja {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 20px; /* Añadir relleno para evitar que el contenido toque los bordes */
+    width: 400px; /* Establecer un ancho fijo */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    text-align: center;
+}
 
 .container {
     background: white;
@@ -70,9 +78,13 @@ main {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
+    text-align: center;
 }
 
-h2 {
+.container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
     color: #333;
 }
 
@@ -82,6 +94,9 @@ input[type="text"], input[type="password"], input[type="email"] {
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: calc(100% - 20px); /* Ajusta el ancho teniendo en cuenta el padding */
+    max-width: 360px; /* Para que no crezcan más que el contenedor */
+
 }
 
 .btn {
@@ -92,159 +107,32 @@ input[type="text"], input[type="password"], input[type="email"] {
     font-weight: bold;
     border-radius: 5px;
     margin-top: 10px;
-    text-decoration: none; /* Quita el subrayado */
+    text-decoration: none;
+    width: 100%; /* Para que el botón no se salga */
+    max-width: 360px;
 }
 
 .btn:hover {
     background-color: #76c776;
 }
 
-/* Estilo para el botón de eliminar cuenta */
-.btn-delete {
-    background-color: #FF6347;  /* Rojo tomate */
-}
-
-.btn-delete:hover {
-    background-color: #FF4500;  /* Rojo anaranjado al pasar el ratón */
-}
-
-.user-info {
-    background: white;
-    padding: 20px;
-    width: 400px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
-
-.user-info p {
-    font-size: 16px;
+p {
+    margin-top: 15px;
+    font-size: 14px;
     color: #333;
 }
 
-.user-actions {
-    margin-top: 20px;
-}
-
-.user-actions .btn {
-    margin: 5px;
-}
-.user-data {
-    background: white;
-    padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.data-container {
-    text-align: left;
-    position: relative; /* Necesario para que el botón se posicione de forma absoluta */
-    padding-top: 60px; /* Aumenta el espacio entre el botón y los campos */
-}
-.btn-modify {
-    position: absolute;
-    top: 10px; /* Reducir la distancia desde la parte superior del contenedor */
-    right: 15px;
-    background-color: #90EE90;
-    border: none;
-    padding: 6px 12px; /* Hace el botón más pequeño */
-    font-size: 14px; /* Reduce el tamaño de la fuente */
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 5px;
-}
-
-.btn-modify:hover {
-    background-color: #76c776;
-}
-
-.data-field {
-    margin-bottom: 15px;
-}
-
-.data-field label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333; /* Color del texto de la etiqueta */
-}
-
-.data-field .data-value {
-    padding: 10px;
-    background-color: #f9f9f9; /* Fondo gris claro */
-    border: 1px solid #ddd; /* Borde sutil */
-    border-radius: 5px;
-    font-size: 16px;
-    color: #555; /* Color del texto del valor */
-}
-
-
-
-#editPopup {
-    display: none; /* Asegura que el popup no aparezca al cargar */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más visible */
-    border: 2px solid #ccc; /* Borde gris claro */
-    z-index: 1001;
-}
-
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
-    z-index: 1000; /* Asegura que esté detrás del popup */
-}
-
-.popup-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Misma sombra */
-    border: 2px solid #ccc; /* Mismo borde */
-}
-
-.popup-content input[type="text"] {
-    width: 80%; /* Hace que la barra no ocupe todo el ancho del popup */
-    padding: 8px;
+.btn-login {
     margin-top: 10px;
-    border: 1px solid #ccc;
+    background-color: #76c776; /* Un verde más oscuro para diferenciar */
+    color: black;
+    padding: 8px 15px;
+    text-decoration: none;
+    font-weight: bold;
     border-radius: 5px;
-    text-align: center;
+    display: inline-block;
 }
 
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
-    transition: color 0.3s ease-in-out;
-}
-
-.close-btn:hover {
-    color: red;
+.btn-login:hover {
+    background-color: #5ca55c; /* Efecto hover */
 }
