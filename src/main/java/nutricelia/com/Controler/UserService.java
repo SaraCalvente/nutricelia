@@ -9,7 +9,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
 
-import static io.quarkus.hibernate.reactive.panache.PanacheEntityBase.findById;
 
 @ApplicationScoped
 public class UserService {
