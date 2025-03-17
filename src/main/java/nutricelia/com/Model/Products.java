@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Producto")
-public class Product extends PanacheEntityBase {
+public class Products extends PanacheEntityBase {
 
     @Id
     @Column(unique = true, nullable = false)
