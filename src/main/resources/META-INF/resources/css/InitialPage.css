@@ -13,7 +13,7 @@ body {
 }
 
 .Button {
-    background-color: #90EE90;
+    background-color: white;
     font-size:15px;
     border: none;
     padding: 10px;
@@ -33,7 +33,7 @@ main {
     width: auto;
 }
 .box1 {
-    background: white;
+    background: #90EE90;
     align-items:  center;
     padding: 20px;
     border-radius: 10px;
@@ -43,3 +43,6 @@ main {
     height: auto;
 }
 
+h1{
+    font-style: italic;
+}
