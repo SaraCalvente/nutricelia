@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "ValorNutricional")
+@Table(name = "Producto")
 public class Product extends PanacheEntityBase {
 
     @Id
@@ -15,8 +15,39 @@ public class Product extends PanacheEntityBase {
     private int id;
 
     @Column(nullable = false)
-    private String name;
+    private String nombre;
 
     @Column(nullable = false)
+    private Integer singluten;
+    @Column(nullable = false)
     private String marca;
+
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getNombre() {
+        return nombre;
+
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public Integer getSingluten() {
+        return singluten;
+    }
+
+    public void setSingluten(Integer singluten) {
+        this.singluten = singluten;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 }

@@ -1,24 +1,18 @@
 package nutricelia.com.Controler;
 
-import io.smallrye.mutiny.Uni;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.SecurityContext;
-import nutricelia.com.Model.BuyList;
-import nutricelia.com.Model.Product;
-import nutricelia.com.Model.User;
-import org.jose4j.http.Get;
 
-import java.util.List;
+import io.quarkus.qute.TemplateInstance;
+import io.smallrye.mutiny.Uni;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.*;
+import io.quarkus.qute.Template;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 
 @Path("/product")
+
 public class ProductResource {
 
     private final ProductService productService;
@@ -28,11 +22,26 @@ public class ProductResource {
         this.productService = productService;
     }
 
+    @Inject
+    Template productView;
+
 
     @GET
     @Path("/{id}")
-    public Uni<Product> getProduct(@PathParam("id") int id) {
-        return productService.findById(id);
+    @Produces(MediaType.TEXT_HTML)
+    public Uni<Response> getProductById(@PathParam("id") int id) {
+        return productService.getNutritionalValue(id)
+                .onItem().transformToUni(nutritionalValue -> {
+                    if (nutritionalValue != null) {
+                        // Renderizamos la plantilla con los datos necesarios
+                        String renderedHtml = productView
+                                .data("nutritionalValue", nutritionalValue)
+                                .data("product", nutritionalValue.product)
+                                .render(); // Renderizamos la plantilla a HTML
+                        // Devolvemos una respuesta con el HTML generado
+                        return Uni.createFrom().item(Response.ok(renderedHtml).build());
+                    }
+                    return Uni.createFrom().failure(new NotFoundException("Product not found"));
+                });
     }
-
 }
