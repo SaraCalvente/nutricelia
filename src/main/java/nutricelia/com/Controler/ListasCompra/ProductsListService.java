@@ -28,7 +28,7 @@ public class ProductsListService {
     }
 
     public Uni<List<ProductsList>> findByListId(int id_lista) {
-        return ProductsList.find("id_lista", id_lista).list();
+        return ProductsList.find("productsListId.id_lista", id_lista).list();
     }
 
     @ReactiveTransactional
