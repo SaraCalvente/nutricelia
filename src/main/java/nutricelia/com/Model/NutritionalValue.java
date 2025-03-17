@@ -1,34 +1,89 @@
 package nutricelia.com.Model;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ValorNutricional")
 public class NutritionalValue extends PanacheEntityBase {
 
-    @Column(unique = true, nullable = false)
     @Id
-    private double id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-    @Column
+    @OneToOne
+    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)  // Define la relación
+    public Product product;
+    @Column(name = "calorias_100g")
     private double calorias;
 
-    @Column
-    private double proteina;
+    @Column(name = "proteinas_100g")
+    private double proteinas;
 
-    @Column
+    @Column(name = "grasas_100g")
     private double grasas;
 
-    @Column
+    @Column(name = "azucar_100g")
     private double azucar;
 
-    @Column
+    @Column(name = "carbohidratos_100g")
     private double carbohidratos;
 
-    @Column
+    @Column(name = "sal_100g")
     private double sal;
+
+
+
+    public Product getProduct() {
+        return product;
+    }
+    public void setProduct(Product product) {
+
+        this.product = product;
+    }
+
+    public double getCalorias() {
+        return calorias;
+    }
+
+    public void setCalorias(double calorias) {
+        this.calorias = calorias;
+    }
+
+    public double getProteinas() {
+        return proteinas;
+    }
+
+    public void setProteinas(double proteina) {
+        this.proteinas = proteina;
+    }
+
+    public double getGrasas() {
+        return grasas;
+    }
+
+    public void setGrasas(double grasas) {
+        this.grasas = grasas;
+    }
+
+    public double getAzucar() {
+        return azucar;
+    }
+    public void setAzucar(double azucar) {
+        this.azucar = azucar;
+    }
+    public double getCarbohidratos() {
+        return carbohidratos;
+    }
+    public void setCarbohidratos(double carbohidratos) {
+        this.carbohidratos = carbohidratos;
+    }
+    public double getSal() {
+        return sal;
+    }
+    public void setSal(double sal) {
+        this.sal = sal;
+    }
+
 }

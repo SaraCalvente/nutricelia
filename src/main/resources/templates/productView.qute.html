@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Compra</title>
-  <link rel="stylesheet" href="ProductViewStyle.css">
+  <link rel="stylesheet" href="/css/ProductViewStyle.css">
 </head>
 <body>
 <header>
@@ -20,34 +20,34 @@
   </nav>
   <div class="user-profile">
     <img class="menu" src="../images/menu-icon.png">
-    <a href="UserScreens/UserDataPage.html">
+    <a href="../META-INF/resources/UserScreens/UserDataPage.html">
       <button class="user-profile"><img src="../images/icon-user.png"></button>
     </a>
   </div>
 </header>
 <main>
-  <h1>Arroz A</h1>
+  <h1>{product.nombre}</h1>
   <section class="container">
     <div class="nutritional-info">
       <h3>Valores nutricionales</h3>
       <table>
         <tr><th>Valor</th><th>Unidades por 100g</th></tr>
-        <tr><td>Calorias</td><td>350 kcal</td></tr>
-        <tr><td>Proteinas</td><td>0.9 g</td></tr>
-        <tr><td>Grasas</td><td>0.2 g</td></tr>
-        <tr><td>Carbohidratos</td><td>78 g</td></tr>
-        <tr><td>Azúcar</td><td>0.2 g</td></tr>
-        <tr><td>Sal</td><td>0.01 g</td></tr>
+        <tr><td>Calorias</td><td>{nutritionalValue.calorias} kcal</td></tr>
+        <tr><td>Proteinas</td><td>{nutritionalValue.proteinas} g</td></tr>
+        <tr><td>Grasas</td><td>{nutritionalValue.grasas} g</td></tr>
+        <tr><td>Carbohidratos</td><td>{nutritionalValue.carbohidratos} g</td></tr>
+        <tr><td>Azúcar</td><td>{nutritionalValue.azucar} g</td></tr>
+        <tr><td>Sal</td><td>{nutritionalValue.sal} g</td></tr>
       </table>
     </div>
     <div class="extra">
       <div class="extra">
         <h4>Contiene gluten: </h4>
-        <p>No</p>
+        <p>{product.singluten ? 'Si' : 'No'}</p>
       </div>
       <div class="extra">
         <h4>Marca: </h4>
-        <p>Mercadona</p>
+        <p>{product.marca}</p>
       </div>
     </div>
   </section>
