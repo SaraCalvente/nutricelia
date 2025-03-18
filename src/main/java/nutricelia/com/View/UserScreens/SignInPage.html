@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="userstyles.css">
+</head>
+<body>
+<header>
+    <h1>Iniciar Sesión</h1>
+</header>
+<main>
+    <form action="http://localhost:8080/auth/login" method="post">
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit" class="btn">Iniciar Sesión</button>
+    </form>
+</main>
+</body>
+</html>
