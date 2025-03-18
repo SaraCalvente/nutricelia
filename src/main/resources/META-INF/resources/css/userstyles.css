@@ -125,7 +125,7 @@ p {
 
 .btn-login {
     margin-top: 10px;
-    background-color: #76c776; /* Un verde más oscuro para diferenciar */
+    background-color: #90EE90; /* Un verde más oscuro para diferenciar */
     color: black;
     padding: 8px 15px;
     text-decoration: none;
@@ -136,7 +136,7 @@ p {
 
 
 .btn-login:hover {
-    background-color: #5ca55c; /* Efecto hover */
+    background-color: #76c776; /* Efecto hover */
 
 
 .close-btn {
@@ -153,52 +153,4 @@ p {
 
 .close-btn:hover {
     color: red;
-}
-
-#productos-table thead th {
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px 100px 10px 100px;
-    color: white;
-}
-
-#productos-table tbody td {
-    padding: 10px 0px 10px 0px;
-}
-
-#productos-table thead {
-    background-color: #90EE90;
-}
-
-#productos-table tbody {
-  background-color: white;
-  border-top: 2px solid black;
-}
-
-#productos-table tbody:last-child {
-  border-bottom: 2px solid black;
-}
-
-#productos-table tbody tr {
-  border-bottom: 1px solid #ccc;
-  border-spacing: 10px;
-}
-
-#productos-table button {
-  margin-right: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-#productos-table {
-  border-top: 2px solid black;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-#busqueda_productos {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 10px;
 }
