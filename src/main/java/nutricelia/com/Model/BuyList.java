@@ -14,7 +14,7 @@ public class BuyList extends PanacheEntityBase {
 
     @Id
     @Column(unique = true, nullable = false)
-    public long id;
+    public int id;
 
     @JsonProperty("nombre")
     public void setName(String nombre) {
