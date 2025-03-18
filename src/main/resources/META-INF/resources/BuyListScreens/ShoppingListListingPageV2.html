@@ -32,20 +32,18 @@
 </header>
 
 <h1>Listas de la compra</h1>
-<!--
-<main id="app">
-    <form @submit.prevent="createBuyList">
-        <input v-model="nombre" type="text" placeholder="Nombre de la nueva lista">
+
+<main>
+    <form id="createBuyList">
+        <input v-model="nombre" id="nombre" name="nombre" type="text" placeholder="Nombre de la nueva lista">
         <button type="submit"  class="btn">Crear Lista</button>
     </form>
 
-    <section v-for="list in buyLists" :key="list.id" class="user-data" @click="goToProducts(list.id)">
-        <p><strong>{{ list.nombre }}</strong></p>
-        <button @click.stop="deleteBuyList(list.id)"  class="btn">Eliminar</button>
-    </section>
+    <!-- Contenedor donde se mostrarán las listas de compra -->
+    <div id="buyListsContainer"></div>
 </main>
--->
 
+<!--
 <main id="app">
     <form @submit.prevent="createBuyList">
         <input v-model="nombre" type="text" placeholder="Nombre de la nueva lista">
@@ -61,7 +59,87 @@
         <button @click="deleteBuyList(list.id)" class="btn">Eliminar</button>
     </section>
 </main>
+-->
+<script>
+    document.getElementById("createBuyList").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Evita el envío tradicional del formulario
 
-<script src="../js/ListingPage.js"></script>
+        const buyListName = document.getElementById("nombre").value;
+        const buyListData = { nombre: buyListName};
+
+        try {
+            const response = await fetch("http://localhost:8080/buyListResource", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(buyListData)
+            });
+
+            if (response.ok) {
+                // window.location.reload(); // Refrescar a la página
+                alert("Funciona. En teoria");
+            } else {
+                alert("Error al crear la lista. Verifica el nombre.");
+            }
+
+        } catch (error) {
+            console.error("Error la pagina de listas:", error);
+            alert("Error al conectar con el servidor.");
+        }
+
+    });
+
+    /*
+    document.addEventListener("DOMContentLoaded", fetchBuyLists);
+
+    async function fetchBuyLists() {
+        try {
+            const response = await fetch("http://localhost:8080/buyListResource");
+            if (!response.ok) throw new Error("Error obteniendo las listas");
+
+            const buyLists = await response.json();
+            const container = document.getElementById("buyListsContainer");
+            container.innerHTML = ""; // Limpiar antes de agregar
+
+            buyLists.forEach(list => {
+                const listElement = document.createElement("section");
+                listElement.classList.add("user-data");
+                listElement.setAttribute("onclick", `goToProducts(${list.id})`);
+
+                listElement.innerHTML = `
+                    <p><strong>${list.nombre}</strong></p>
+                    <button class="btn" onclick="event.stopPropagation(); deleteBuyList(${list.id})">Eliminar</button>
+                `;
+
+                container.appendChild(listElement);
+            });
+        } catch (error) {
+            console.error("Error obteniendo listas:", error);
+        }
+    }
+
+    function goToProducts(id) {
+        window.location.href = `ShoppingListScreen.html?id_lista=${id}`;
+    }
+
+    async function deleteBuyList(id) {
+        if (!confirm("¿Seguro que deseas eliminar esta lista?")) return;
+
+        try {
+            const response = await fetch(`http://localhost:8080/buyListResource/${id}`, { method: "DELETE" });
+
+            if (response.ok) {
+                fetchBuyLists(); // Recargar listas tras eliminación
+            } else {
+                alert("No se pudo eliminar la lista.");
+            }
+        } catch (error) {
+            console.error("Error eliminando lista:", error);
+            alert("Error de conexión con el servidor.");
+        }
+    }
+    */
+</script>
 </body>
 </html>
