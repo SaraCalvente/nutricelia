@@ -4,17 +4,28 @@
     <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ProductsList</title>
-  <link rel="stylesheet" href="../css/userdata.css">
+  <link rel="stylesheet" href="../css/productsAtList.css">
 </head>
+
 <body>
 <header>
   <div class="logo">
-    <a href="../InitialPage.html">
+    <a href="../HomePage.html">
       <img src="../images/NutriCelia.png" alt="Logo">
     </a>
   </div>
-  <div class="titulo">
-    <h1>Tus listas</h1>
+  <nav>
+    <a href="../HomePage.html">Inicio</a>
+    <a href="#">Productos</a>
+    <a href="#">Mis Listas</a>
+    <a href="../ReceipeListPage.html">Recetas</a>
+    <a href="../ForumPage.html">Foros</a>
+  </nav>
+  <div class="user-profile">
+    <img class="menu" src="../images/menu-icon.png" alt="icono menu">
+    <a href="../UserScreens/UserDataPage.html">
+      <button class="user-profile"><img src="../images/icon-user.png" alt="icono usuario"></button>
+    </a>
   </div>
 </header>
 <main>
@@ -31,14 +42,14 @@
     <thead>
       <tr>
         <th>Producto</th>
-        <th>Cantidad</th>
+        <th>Supermercado</th>
         <th>Opciones</th>
       </tr>
     </thead>
     <tbody id="productos-body">
     <tr>
       <td>Producto</td>
-      <td>Cantidad</td>
+      <td>Supermercado</td>
       <td>Opciones</td>
     </tr>
       <!--Esta parte tiene que ser para cada elemento de la base de datos-->
@@ -83,7 +94,7 @@
       const tdProducto = document.createElement('td');
       tdProducto.textContent = `Producto ${item.productsListId.nombre}`; // Aquí podrías cargar más info si la tuvieras
 
-      // Columna Cantidad (no tienes cantidad en el modelo aún)
+      // Columna Cantidad (no tienes cantidad en el modelo aún) //Cambiar por supermercadi
       const tdCantidad = document.createElement('td');
       tdCantidad.textContent = '1'; // Por ahora es fijo, si quieres agregamos el campo luego
 
