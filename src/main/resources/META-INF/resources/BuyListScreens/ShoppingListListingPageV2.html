@@ -64,6 +64,8 @@
 </main>
 -->
 <script>
+    loadUserData();
+
     document.getElementById("createBuyList").addEventListener("submit", async function(event) {
         event.preventDefault(); // Evita el envío tradicional del formulario
 
@@ -86,7 +88,7 @@
 
             const userEmail = document.getElementById("user-email").textContent.trim();
 
-            // 3. Crear la relación UsersWithAccessToList
+            // Crear la relación UsersWithAccessToList
             const usersWithAccessData = {
                 usersWithAccessToListId: {
                     email: userEmail,
@@ -147,7 +149,6 @@
         }
     }
 
-    loadUserData();
 
     async function fetchUserBuyLists() {
         if (!userEmail) {
