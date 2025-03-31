@@ -59,18 +59,33 @@
 
         if (response.ok) {
             alert("Usuario registrado exitosamente.");
-            setTimeout(() => {
-                window.location.href = "../HomePage.html"; // Redirigir tras guardar
-            }, 500); // Espera breve para evitar conflictos
+
+            // Realizar login automático tras el registro
+            const loginResponse = await fetch("http://localhost:8080/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (loginResponse.ok) {
+                const token = await loginResponse.text(); // Recibimos el JWT
+                localStorage.setItem("token", token); // Guardamos el token
+                window.location.href = "../HomePage.html"; // Redirigir a la página de inicio
+            } else {
+                alert("Registro exitoso, pero fallo en el inicio de sesión. Inicia sesión manualmente.");
+            }
         } else {
             const errorData = await response.json();
             alert("Error al registrar usuario: " + (errorData.message || "Intenta de nuevo."));
         }
     } catch (error) {
-        console.error("Error en el registro:", error);
+        console.error("Error en el proceso:", error);
         alert("Error al conectar con el servidor.");
     }
 });
+
 </script>
 
 </body>
