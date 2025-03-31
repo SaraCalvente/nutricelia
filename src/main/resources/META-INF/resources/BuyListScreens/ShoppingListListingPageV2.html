@@ -40,7 +40,10 @@
     </form>
 
     <!-- Contenedor donde se mostrarán las listas de compra -->
-    <div id="buyListsContainer"></div>
+    <h2>Mis Listas de Compra</h2>
+    <div id="buyListsContainer">
+        <p>Cargando listas...</p> <!-- Mensaje inicial mientras se cargan los datos -->
+    </div>
 </main>
 
 <!--
@@ -89,6 +92,81 @@
         }
 
     });
+
+    async function loadUserData() {
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("No se encontró el token de autenticación.");
+                return;
+            }
+
+            const response = await fetch("http://localhost:8080/user/me", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (response.ok) {
+                const user = await response.json();
+                document.getElementById("user-name").textContent = user.nombre;
+                document.getElementById("user-email").textContent = user.email;
+            } else {
+                const errorData = await response.json();
+                alert("Error al cargar los datos del usuario: " + (errorData.message || "Error desconocido"));
+            }
+        } catch (error) {
+            console.error("Error al obtener los datos:", error);
+            alert("Hubo un error al intentar obtener los datos del usuario.");
+        }
+    }
+
+    loadUserData();
+
+    async function fetchUserBuyLists() {
+        if (!userEmail) {
+            console.warn("Email del usuario no disponible, intentando de nuevo...");
+            return;
+        }
+
+        try {
+            // Obtener todas las listas de compra
+            const listsResponse = await fetch("http://localhost:8080/buyListResource");
+            if (!listsResponse.ok) throw new Error("Error al obtener las listas de compra.");
+            const allLists = await listsResponse.json();
+
+            // Consultar listas a las que el usuario tiene acceso
+            const accessResponse = await fetch(`http://localhost:8080/usersWithAccesToList/${encodeURIComponent(userEmail)}`);
+            if (!accessResponse.ok) throw new Error("Error al obtener listas del usuario.");
+            const userAccessLists = await accessResponse.json();
+
+            // Extraer IDs de listas permitidas
+            const accessibleListIds = new Set(userAccessLists.map(entry => entry.id_lista));
+
+            // Filtrar listas accesibles para el usuario
+            const userLists = allLists.filter(list => accessibleListIds.has(list.id));
+
+            // Mostrar listas en la página
+            const container = document.getElementById("buyListsContainer");
+            container.innerHTML = userLists.length ? "" : "<p>No tienes listas disponibles.</p>";
+
+            userLists.forEach(list => {
+                const listElement = document.createElement("div");
+                listElement.classList.add("user-data");
+                listElement.innerHTML = `
+                    <p><strong>${list.nombre}</strong></p>
+                    <button onclick="deleteBuyList(${list.id})" class="btn">Eliminar</button>
+                `;
+                container.appendChild(listElement);
+            });
+
+        } catch (error) {
+            console.error("Error obteniendo listas del usuario:", error);
+            alert("No se pudieron cargar tus listas de compra.");
+        }
+    }
 
     /*
     document.addEventListener("DOMContentLoaded", fetchBuyLists);
