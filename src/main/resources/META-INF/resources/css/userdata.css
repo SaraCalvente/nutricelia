@@ -8,13 +8,6 @@ body {
 
 header {
     display: flex;
-    justify-content: flex-start; /* Asegura que el logo se alinee a la izquierda */
-    align-items: center;
-    background-color: #90EE90;
-    padding: 10px 20px;
-}
-header {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #90EE90;

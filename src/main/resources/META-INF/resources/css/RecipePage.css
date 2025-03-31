@@ -1,0 +1,113 @@
+/* Mantener el texto centrado */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #90EE90;
+    padding: 10px 20px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.user-profile {
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+.user-profile img {
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Centrar el título */
+.titulo {
+    padding-right: 50px;
+    text-align: center;
+    width: 100%;
+}
+
+.titulo h1 {
+    margin: 0 auto;
+    display: inline-block;
+}
+
+/* Asegurar que "Descripción" esté alineado con el H1 */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+/* Estilos para la tabla */
+table {
+    width: 85%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th {
+    background-color: #90EE90;
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+/* Establecer tamaños de columna */
+th:nth-child(1), td:nth-child(1) { /* Nombre */
+    width: 20%;
+    font-size: 16px;
+}
+
+th:nth-child(2), td:nth-child(2) { /* Descripción */
+    width: 60%;
+    font-size: 16px;
+    text-align: center;
+}
+
+th:nth-child(3), td:nth-child(3) { /* Opciones */
+    width: 20%;
+    font-size: 16px;
+    text-align: center;
+}
+
+td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+tr:first-child th {
+    background-color: #76c776;
+    color: white;
+}
