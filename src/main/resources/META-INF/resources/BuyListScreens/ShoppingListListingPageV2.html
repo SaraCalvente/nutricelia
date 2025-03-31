@@ -71,7 +71,7 @@
         const buyListData = { nombre: buyListName};
 
         try {
-            const response = await fetch("http://localhost:8080/buyListResource", {
+            const responseBuyList = await fetch("http://localhost:8080/buyListResource", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -79,7 +79,31 @@
                 body: JSON.stringify(buyListData)
             });
 
-            if (response.ok) {
+            //Parte de responseUsrAccList
+
+            const createdBuyList = await responseBuyList.json();
+            const buyListId = createdBuyList.id; // Extraer el ID de la lista creada
+
+            const userEmail = document.getElementById("user-email").textContent.trim();
+
+            // 3. Crear la relación UsersWithAccessToList
+            const usersWithAccessData = {
+                usersWithAccessToListId: {
+                    email: userEmail,
+                    id_lista: buyListId
+                },
+                propietario: true // El usuario que crea la lista es el propietario
+            };
+
+            const responseUsrAccList = await fetch("http://localhost:8080/usersWithAccesToList", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(usersWithAccessData)
+            });
+
+            if (responseBuyList.ok && responseUsrAccList.ok) {
                 // window.location.reload(); // Refrescar a la página
                 alert("Funciona. En teoria");
             } else {
