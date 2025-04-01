@@ -30,6 +30,14 @@ public class UsersWithAccessToListResource {
     }
 
     @GET
+    @Path("/user/{email}")
+    public Uni<List<UsersWithAccessToList>> getByUserEmail(@PathParam("email") String email) {
+        String decodedEmail = decodificar(email);
+        return usersWithAccessToListService.findByUserEmail(decodedEmail);
+    }
+
+
+    @GET
     @Path("/{email}/{id_lista}")
     public Uni<UsersWithAccessToList> get(@PathParam("email") String email, @PathParam("id_lista") int id_lista) {
         String decodedEmail = decodificar(email);

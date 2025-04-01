@@ -167,7 +167,7 @@
             const allLists = await listsResponse.json();
 
             // Consultar listas a las que el usuario tiene acceso
-            const accessResponse = await fetch(`http://localhost:8080/usersWithAccesToList/${encodeURIComponent(userEmail)}`);
+            const accessResponse = await fetch(`http://localhost:8080/usersWithAccesToList/user/${encodeURIComponent(userEmail)}`);
             if (!accessResponse.ok) throw new Error("Error al obtener listas del usuario.");
             const userAccessLists = await accessResponse.json();
 
@@ -192,8 +192,7 @@
             });
 
         } catch (error) {
-            console.error("Error obteniendo listas del usuario:", error);
-            alert("No se pudieron cargar tus listas de compra.");
+            alert(error);
         }
     }
 

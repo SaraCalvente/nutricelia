@@ -17,6 +17,10 @@ public class UsersWithAccessToListService {
                         ObjectNotFoundException(id, "UsersWithAccesToList"));
     }
 
+    public Uni<List<UsersWithAccessToList>> findByUserEmail(String email) {
+        return UsersWithAccessToList.find("usersWithAccessToListId.email", email).list();
+    }
+
     public Uni<List<UsersWithAccessToList>> findByListId(int id_lista) {
         return UsersWithAccessToList.find("usersWithAccessToListId.id_lista", id_lista).list();
     }
