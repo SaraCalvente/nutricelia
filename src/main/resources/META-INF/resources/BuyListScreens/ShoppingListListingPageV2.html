@@ -141,6 +141,8 @@
                 const user = await response.json();
                 userName = user.nombre;
                 userEmail  = user.email;
+
+                fetchUserBuyLists();
             } else {
                 const errorData = await response.json();
                 alert("Error al cargar los datos del usuario: " + (errorData.message || "Error desconocido"));
@@ -154,7 +156,7 @@
 
     async function fetchUserBuyLists() {
         if (!userEmail) {
-            console.warn("Email del usuario no disponible, intentando de nuevo...");
+            alert("Email del usuario no disponible, intentando de nuevo...");
             return;
         }
 
