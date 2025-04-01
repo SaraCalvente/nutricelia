@@ -63,14 +63,12 @@ table th, table td {
     border-bottom: 1px solid #ddd;
 }
 
+
 .extra {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-.extra {
-    background: #eaeaea;
+    background: white;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);

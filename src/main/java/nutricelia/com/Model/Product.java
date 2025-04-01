@@ -22,6 +22,9 @@ public class Product extends PanacheEntityBase {
     @Column(nullable = false)
     private String marca;
 
+    @Column(nullable = false)
+    private String categoria;
+
 
     public int getId() {
         return id;
@@ -49,5 +52,13 @@ public class Product extends PanacheEntityBase {
     }
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }
