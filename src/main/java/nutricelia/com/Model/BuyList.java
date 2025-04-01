@@ -2,10 +2,8 @@ package nutricelia.com.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 @Entity
 @Table(name = "ListaCompra")
 public class BuyList extends PanacheEntityBase {
@@ -13,6 +11,7 @@ public class BuyList extends PanacheEntityBase {
     public String nombre;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     public int id;
 
