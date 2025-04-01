@@ -64,6 +64,8 @@
 </main>
 -->
 <script>
+    var userEmail = null;
+    var userName = null;
     loadUserData();
 
     document.getElementById("createBuyList").addEventListener("submit", async function(event) {
@@ -85,8 +87,6 @@
 
             const createdBuyList = await responseBuyList.json();
             const buyListId = createdBuyList.id; // Extraer el ID de la lista creada
-
-            const userEmail = document.getElementById("user-email").textContent.trim();
 
             // Crear la relación UsersWithAccessToList
             const usersWithAccessData = {
@@ -139,8 +139,8 @@
 
             if (response.ok) {
                 const user = await response.json();
-                document.getElementById("user-name").textContent = user.nombre;
-                document.getElementById("user-email").textContent = user.email;
+                userName = user.nombre;
+                userEmail  = user.email;
             } else {
                 const errorData = await response.json();
                 alert("Error al cargar los datos del usuario: " + (errorData.message || "Error desconocido"));
