@@ -1,0 +1,165 @@
+html, body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+main {
+    flex-grow: 1;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #90EE90;
+    padding: 10px 20px;
+    height: 60px; /* Ajustar la altura */
+}
+
+.logo img {
+    height: 50px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.user-profile {
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+.user-profile img {
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Main Layout */
+.recipeMain {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+}
+
+.picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    text-align: left;
+}
+
+.recipeName {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px; /* Mayor separación entre título e imagen */
+}
+
+.recipeImg {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.botonreceta {
+    background-color: #76c776;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    width: 100%; /* Ocupar el ancho del contenedor */
+    max-width: 300px;
+}
+
+.botonreceta:hover{
+    background-color: #5fa95f;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 60%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.icons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #90EE90;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+}
+
+.emoji {
+    font-size: 20px;
+}
+
+.details {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.titles {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #76c776;
+}
+
+.listado {
+    list-style-type: none;
+    padding: 0;
+}
+
+.listado li {
+    background-color: #e6ffe6;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+footer {
+    background-color: #529e52;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: auto;
+}
