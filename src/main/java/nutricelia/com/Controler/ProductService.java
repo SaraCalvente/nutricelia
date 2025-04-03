@@ -36,10 +36,10 @@ public class ProductService {
 
     public Uni<List<NutritionalValue>> similarProducts(int id){
         List<NutritionalValue> result = new ArrayList<>();
-        Product product = (Product) getProductById(id);
+        Product product = castUni(getProductById(id));
         String category = product.getCategoria();
-        List<Product> sameCategory = (List<Product>) Product.find("categoria", category).list();
-        NutritionalValue nutritionalValue = (NutritionalValue) getNutritionalValue(id);
+        List<Product> sameCategory = castUni(Product.find("categoria", category).list());
+        NutritionalValue nutritionalValue = castUni(getNutritionalValue(id));
         for (Product currentProduct : sameCategory) {
             if (currentProduct.getId() != product.getId()) {
                 NutritionalValue currentNutritionalValue = (NutritionalValue) getNutritionalValue(currentProduct.getId());
@@ -48,7 +48,7 @@ public class ProductService {
                 }
             }
         }
-        return (Uni<List<NutritionalValue>>) result;
+        return toUni(result);
     }
 
 
@@ -69,4 +69,12 @@ public class ProductService {
         );
     }
 
+
+    private static <T> T castUni(Uni<T> uniObject) {
+        return uniObject.await().indefinitely();
+    }
+
+    private static <T> Uni<T> toUni(T object) {
+        return Uni.createFrom().item(object);
+    }
 }

@@ -25,6 +25,9 @@ public class Product extends PanacheEntityBase {
     @Column(nullable = false)
     private String categoria;
 
+    @Column(nullable = false)
+    private String urlimagen;
+
 
     public int getId() {
         return id;
@@ -60,5 +63,13 @@ public class Product extends PanacheEntityBase {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public String getUrlimagen() {
+        return urlimagen;
+    }
+
+    public void setUrlimagen(String urlimagen) {
+        this.urlimagen = urlimagen;
     }
 }

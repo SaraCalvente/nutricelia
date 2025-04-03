@@ -2,6 +2,8 @@ package nutricelia.com.Controler;
 
 
 import io.quarkus.qute.TemplateInstance;
+import io.smallrye.common.annotation.Blocking;
+import io.smallrye.common.annotation.NonBlocking;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -44,8 +46,9 @@ public class ProductResource {
     }
 
     @GET
-    @Path("/similars/{id}")
+    @Path("/similares/{id}")
     @Produces(MediaType.TEXT_HTML)
+    @Blocking
     public Uni<Response> getProduct(@PathParam("id") int id) {
         return productService.getNutritionalValue(id)
                 .onItem().transformToUni(nutritionalValue -> {
