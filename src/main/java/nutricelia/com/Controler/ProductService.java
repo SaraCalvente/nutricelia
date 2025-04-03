@@ -5,6 +5,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import nutricelia.com.Model.NutritionalValue;
 import nutricelia.com.Model.Product;
 import org.hibernate.ObjectNotFoundException;
+import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 
 @ApplicationScoped
 public class ProductService {
+
+
 
     public Uni<Product> findById(int id) {
         return Product.<Product>findById(id)
@@ -21,34 +24,39 @@ public class ProductService {
 
     public Uni<NutritionalValue> getNutritionalValue(int id){
         return NutritionalValue.find("product.id", id)
-                .firstResult()
-                .map(entity -> (NutritionalValue) entity)
-                .onItem().ifNull().failWith(() -> new ObjectNotFoundException(id, "NutritionalValue"));
+                .firstResult();
     }
 
 
     public Uni<Product> getProductById(int id){
-        return Product.find("id", id)
-                .firstResult()
-                .map(entity -> (Product) entity)
-                .onItem().ifNull().failWith(() -> new ObjectNotFoundException(id, "Product"));    }
+        return Product.findById(id) ;
+    }
 
 
-    public Uni<List<NutritionalValue>> similarProducts(int id){
-        List<NutritionalValue> result = new ArrayList<>();
-        Product product = castUni(getProductById(id));
-        String category = product.getCategoria();
-        List<Product> sameCategory = castUni(Product.find("categoria", category).list());
-        NutritionalValue nutritionalValue = castUni(getNutritionalValue(id));
-        for (Product currentProduct : sameCategory) {
-            if (currentProduct.getId() != product.getId()) {
-                NutritionalValue currentNutritionalValue = (NutritionalValue) getNutritionalValue(currentProduct.getId());
-                if (sonSimilares(nutritionalValue, currentNutritionalValue, 0.1)) {
-                    result.add(currentNutritionalValue);
-                }
-            }
-        }
-        return toUni(result);
+    public Uni<List<NutritionalValue>> similarProducts(int id) {
+        return getProductById(id)
+                .onItem().transformToUni(product -> {
+                    String category = product.getCategoria();
+                    return Product.<Product>find("categoria", category).list()
+                            .onItem().transformToUni(sameCategory -> {
+                                return getNutritionalValue(id)
+                                        .onItem().transformToUni(nutritionalValue -> {
+                                            List<NutritionalValue> result = new ArrayList<>();
+                                            for (Product currentProduct : sameCategory) {
+                                                if (currentProduct.getId() != product.getId()) {
+                                                    getNutritionalValue(currentProduct.getId())
+                                                            .onItem().invoke(currentNutritionalValue -> {
+                                                                if (sonSimilares(nutritionalValue, currentNutritionalValue, 0.1)) {
+                                                                    result.add(currentNutritionalValue);
+                                                                }
+                                                            })
+                                                            .onFailure().recoverWithItem(() -> null);
+                                                }
+                                            }
+                                            return Uni.createFrom().item(result);
+                                        });
+                            });
+                });
     }
 
 

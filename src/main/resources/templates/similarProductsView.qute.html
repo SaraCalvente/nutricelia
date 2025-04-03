@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos Similares</title>
-    <link rel="stylesheet" href="../META-INF/resources/css/SimilarProductView.css">
+    <link rel="stylesheet" href="/css/SimilarProductView.css">
 </head>
 
 <body>
 <header>
     <div class="logo">
-        <img src="images/NutriCelia.png">
+        <img src="/images/NutriCelia.png">
     </div>
     <nav>
         <ul>
@@ -20,9 +20,9 @@
         </ul>
     </nav>
     <div class="user-profile">
-        <img class="menu" src="images/menu-icon.png">
+        <img class="menu" src="/images/menu-icon.png">
         <a href="../META-INF/resources/UserScreens/UserDataPage.html">
-            <button class="user-profile"><img src="images/icon-user.png"></button>
+            <button class="user-profile"><img src="/images/icon-user.png"></button>
         </a>
     </div>
 </header>
@@ -30,22 +30,22 @@
     <h2>Producto Inicial</h2>
     <div class="card">
         <img src="https://via.placeholder.com/100" alt="Producto">
-        <h3>{product.getName()}</h3>
+        <h3>{product.getNombre()}</h3>
         <p> Calorías: {nutritionalValue.getCalorias()} g | Proteínas: {nutritionalValue.getProteinas()} g</p>
         <button class="button">Ver Detalles</button>
     </div>
 
     <h2>Productos Similares</h2>
     <div class="similars">
-        {#for nutritionalValue in similarProducts}
-            {actual_product = nutritionalValue.product}
-            <div class="card">
-                <img src="{actual_product.urlimagen}" alt="Producto">
-                <h3>{actual_product.name}</h3>
-                <p>Calorías: {nutritionalValue.calorias} g |
-                Proteínas: {nutritionalValue.proteinas()} g</p>
-                <button class="button">Ver Detalles</button>
-            </div>
+        { {#for nutritionalValue in similarProducts}
+            {#if nutritionalValue.product != null}
+                <div class="card">
+                    <img src="{nutritionalValue.product.urlimagen}" alt="Producto">
+                    <h3>{nutritionalValue.product.nombre}</h3>
+                    <p>Calorías: {nutritionalValue.calorias} g | Proteínas: {nutritionalValue.proteinas} g</p>
+                    <button class="button">Ver Detalles</button>
+                </div>
+            {/if}
         {/for}
     </div>
 </div>

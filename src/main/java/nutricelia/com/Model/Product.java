@@ -1,10 +1,11 @@
 package nutricelia.com.Model;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 
 @Entity
 @Table(name = "Producto")
@@ -25,7 +26,8 @@ public class Product extends PanacheEntityBase {
     @Column(nullable = false)
     private String categoria;
 
-    @Column(nullable = false)
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String urlimagen;
 
 

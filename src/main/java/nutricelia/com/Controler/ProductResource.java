@@ -1,8 +1,6 @@
 package nutricelia.com.Controler;
 
 
-import io.quarkus.qute.TemplateInstance;
-import io.smallrye.common.annotation.Blocking;
 import io.smallrye.common.annotation.NonBlocking;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
@@ -10,7 +8,6 @@ import jakarta.ws.rs.*;
 import io.quarkus.qute.Template;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.xml.bind.annotation.XmlTransient;
 
 
 @Path("/product")
@@ -26,6 +23,9 @@ public class ProductResource {
 
     @Inject
     Template productView;
+
+    @Inject
+    Template SimilarProductsView;
 
 
     @GET
@@ -48,7 +48,7 @@ public class ProductResource {
     @GET
     @Path("/similares/{id}")
     @Produces(MediaType.TEXT_HTML)
-    @Blocking
+    @NonBlocking
     public Uni<Response> getProduct(@PathParam("id") int id) {
         return productService.getNutritionalValue(id)
                 .onItem().transformToUni(nutritionalValue -> {
@@ -58,7 +58,7 @@ public class ProductResource {
                     }
                     return productService.similarProducts(id)
                             .onItem().transform(similarProducts -> {
-                                String renderHtml = productView
+                                String renderHtml = SimilarProductsView
                                         .data("nutritionalValue", nutritionalValue)
                                         .data("product", nutritionalValue.product)
                                         .data("similarProducts", similarProducts)

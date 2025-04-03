@@ -3,6 +3,8 @@ package nutricelia.com.Model;
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "ValorNutricional")
 public class NutritionalValue extends PanacheEntityBase {
@@ -13,25 +15,26 @@ public class NutritionalValue extends PanacheEntityBase {
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)  // Define la relación
+    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
     public Product product;
-    @Column(name = "calorias_100g")
-    private double calorias;
-
-    @Column(name = "proteinas_100g")
-    private double proteinas;
-
-    @Column(name = "grasas_100g")
-    private double grasas;
-
-    @Column(name = "azucar_100g")
+    @Column(name = "azucar_100g", columnDefinition = "NUMERIC(10,2)")
     private double azucar;
 
-    @Column(name = "carbohidratos_100g")
+    @Column(name = "calorias_100g", columnDefinition = "NUMERIC(10,2)")
+    private double calorias;
+
+    @Column(name = "proteinas_100g", columnDefinition = "NUMERIC(10,2)")
+    private double proteinas;
+
+    @Column(name = "grasas_100g", columnDefinition = "NUMERIC(10,2)")
+    private double grasas;
+
+    @Column(name = "carbohidratos_100g", columnDefinition = "NUMERIC(10,2)")
     private double carbohidratos;
 
-    @Column(name = "sal_100g")
+    @Column(name = "sal_100g", columnDefinition = "NUMERIC(10,2)")
     private double sal;
+
 
 
 

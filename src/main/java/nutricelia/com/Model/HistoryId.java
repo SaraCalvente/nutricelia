@@ -1,3 +1,4 @@
+
 package nutricelia.com.Model;
 
 import jakarta.persistence.Embeddable;
