@@ -75,9 +75,7 @@ public class ProductService {
     private static boolean sonSimilares(NutritionalValue nut1, NutritionalValue nut2, double porcentaje) {
         double distancia = euclideanDistance(nut1, nut2);
         double referencia = Math.max(nut1.getCalorias(), nut2.getCalorias());
-        boolean res = (distancia / referencia) <= porcentaje;
-        System.out.println("el resultado es el siguiente " + res);
-        return res;
+        return (distancia / referencia) <= porcentaje;
     }
 
     private static double euclideanDistance(NutritionalValue nut1, NutritionalValue nut2) {
