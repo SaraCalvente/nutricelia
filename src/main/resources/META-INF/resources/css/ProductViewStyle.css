@@ -63,14 +63,12 @@ table th, table td {
     border-bottom: 1px solid #ddd;
 }
 
+
 .extra {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-.extra {
-    background: #eaeaea;
+    background: white;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -97,4 +95,22 @@ table th, table td {
 }
 .logo img {
     height: 50px;
+}
+
+ .boton-similar {
+     background-color: #a8d5a2; /* Verde claro similar al encabezado */
+     border: none;
+     border-radius: 10px;
+     padding: 12px 24px;
+     font-weight: bold;
+     font-size: 16px;
+     color: white;
+     cursor: pointer;
+     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+     margin-top: 20px;
+     transition: background-color 0.3s ease;
+ }
+
+.boton-similar:hover {
+    background-color: #8ccf85;
 }

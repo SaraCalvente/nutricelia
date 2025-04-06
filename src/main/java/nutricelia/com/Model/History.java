@@ -7,7 +7,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 @Entity
-@Table(name = "HistorialUsuario")
+@Table(name = "historialcompras")
 public class History extends PanacheEntityBase {
     @EmbeddedId
     public HistoryId historyId;
