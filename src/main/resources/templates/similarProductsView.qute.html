@@ -29,24 +29,36 @@
 <div class="container">
     <h2>Producto Inicial</h2>
     <div class="card">
-        <img src="https://via.placeholder.com/100" alt="Producto">
+        <img src="{product.urlimagen}" alt="Producto">
         <h3>{product.getNombre()}</h3>
         <p> Calorías: {nutritionalValue.getCalorias()} g | Proteínas: {nutritionalValue.getProteinas()} g</p>
-        <button class="button">Ver Detalles</button>
+        <a href="/product/{product.id}">
+            <button class="button">Ver Detalles</button>
+
+        </a>
     </div>
 
     <h2>Productos Similares</h2>
     <div class="similars">
-        { {#for nutritionalValue in similarProducts}
-            {#if nutritionalValue.product != null}
-                <div class="card">
+        {#if ! similarProducts.isEmpty()}
+            {#for nutritionalValue in similarProducts}
+                {#if nutritionalValue.product != null}
+                    <div class="card">
                     <img src="{nutritionalValue.product.urlimagen}" alt="Producto">
                     <h3>{nutritionalValue.product.nombre}</h3>
                     <p>Calorías: {nutritionalValue.calorias} g | Proteínas: {nutritionalValue.proteinas} g</p>
-                    <button class="button">Ver Detalles</button>
-                </div>
-            {/if}
-        {/for}
+                    <a href="product/{nutritionalValue.product.id}">
+                        <button class="button">Ver Detalles</button>
+
+                    </a>
+                    </div>
+                {/if}
+            {/for}
+        {#else}
+            <div class="card">
+                <p> No se ha encontrado ningún producto similar</p>
+            </div>
+        {/if}
     </div>
 </div>
 </body>

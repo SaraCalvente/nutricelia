@@ -9,11 +9,12 @@ import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 @ApplicationScoped
 public class ProductService {
-
 
 
     public Uni<Product> findById(int id) {
@@ -22,14 +23,14 @@ public class ProductService {
                         ObjectNotFoundException(id, "Product"));
     }
 
-    public Uni<NutritionalValue> getNutritionalValue(int id){
+    public Uni<NutritionalValue> getNutritionalValue(int id) {
         return NutritionalValue.find("product.id", id)
                 .firstResult();
     }
 
 
-    public Uni<Product> getProductById(int id){
-        return Product.findById(id) ;
+    public Uni<Product> getProductById(int id) {
+        return Product.findById(id);
     }
 
 
@@ -37,24 +38,35 @@ public class ProductService {
         return getProductById(id)
                 .onItem().transformToUni(product -> {
                     String category = product.getCategoria();
-                    return Product.<Product>find("categoria", category).list()
+                    if(category.isEmpty() || category.isBlank()){
+                        return Uni.createFrom().item(List.of());                    }
+                    return Product.<Product>find("categoria like ?1", "%" + category + "%").list()
                             .onItem().transformToUni(sameCategory -> {
+                                List<Uni<NutritionalValue>> unis = new ArrayList<>();
+
                                 return getNutritionalValue(id)
-                                        .onItem().transformToUni(nutritionalValue -> {
-                                            List<NutritionalValue> result = new ArrayList<>();
+                                        .onItem().transformToUni(mainNutritionalValue -> {
                                             for (Product currentProduct : sameCategory) {
                                                 if (currentProduct.getId() != product.getId()) {
-                                                    getNutritionalValue(currentProduct.getId())
-                                                            .onItem().invoke(currentNutritionalValue -> {
-                                                                if (sonSimilares(nutritionalValue, currentNutritionalValue, 0.1)) {
-                                                                    result.add(currentNutritionalValue);
+                                                    Uni<NutritionalValue> uni = getNutritionalValue(currentProduct.getId())
+                                                            .onItem().transform(currentNutritionalValue -> {
+                                                                if (currentNutritionalValue != null &&
+                                                                        sonSimilares(mainNutritionalValue, currentNutritionalValue, 0.1)) {
+                                                                    return currentNutritionalValue;
                                                                 }
+                                                                return null;
                                                             })
                                                             .onFailure().recoverWithItem(() -> null);
+
+                                                    unis.add(uni);
                                                 }
                                             }
-                                            return Uni.createFrom().item(result);
-                                        });
+                                            return Uni.join().all(unis)
+                                                    .andCollectFailures()
+                                                    .onItem().transform(list ->
+                                                            list.stream()
+                                                                    .filter(Objects::nonNull)
+                                                                    .collect(Collectors.toList()));                                        });
                             });
                 });
     }
@@ -63,10 +75,12 @@ public class ProductService {
     private static boolean sonSimilares(NutritionalValue nut1, NutritionalValue nut2, double porcentaje) {
         double distancia = euclideanDistance(nut1, nut2);
         double referencia = Math.max(nut1.getCalorias(), nut2.getCalorias());
-
-        return (distancia / referencia) <= porcentaje;
+        boolean res = (distancia / referencia) <= porcentaje;
+        System.out.println("el resultado es el siguiente " + res);
+        return res;
     }
-    private static double euclideanDistance(NutritionalValue nut1, NutritionalValue nut2){
+
+    private static double euclideanDistance(NutritionalValue nut1, NutritionalValue nut2) {
         return Math.sqrt(
                 Math.pow(nut1.getCalorias() - nut2.getCalorias(), 2) +
                         Math.pow(nut1.getProteinas() - nut2.getProteinas(), 2) +

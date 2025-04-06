@@ -89,4 +89,11 @@ public class NutritionalValue extends PanacheEntityBase {
         this.sal = sal;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

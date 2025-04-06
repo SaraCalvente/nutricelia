@@ -25,7 +25,7 @@ public class ProductResource {
     Template productView;
 
     @Inject
-    Template SimilarProductsView;
+    Template similarProductsView;
 
 
     @GET
@@ -58,7 +58,7 @@ public class ProductResource {
                     }
                     return productService.similarProducts(id)
                             .onItem().transform(similarProducts -> {
-                                String renderHtml = SimilarProductsView
+                                String renderHtml = similarProductsView
                                         .data("nutritionalValue", nutritionalValue)
                                         .data("product", nutritionalValue.product)
                                         .data("similarProducts", similarProducts)
