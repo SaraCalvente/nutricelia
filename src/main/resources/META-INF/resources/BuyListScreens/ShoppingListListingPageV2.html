@@ -217,6 +217,7 @@
                 listElement.innerHTML = `
                     <p><strong>${list.nombre}</strong></p>
                     <button class="btn" onclick="event.stopPropagation(); deleteBuyList(${list.id})">Eliminar</button>
+                    <button class="btn" onclick="event.stopPropagation(); editBuyList(${list.id}, '${list.nombre}')">Editar</button>
                 `;
 
                 container.appendChild(listElement);
@@ -254,6 +255,35 @@
         } catch (error) {
             console.error("Error eliminando lista:", error);
             alert("Error de conexión con el servidor.");
+        }
+    }
+
+    async function editBuyList(id, currentName) {
+        const newName = prompt("Introduce el nuevo nombre para la lista:", currentName);
+        if (!newName || newName.trim() === "") {
+            alert("Nombre inválido.");
+            return;
+        }
+
+        const updatedData = { nombre: newName.trim() };
+
+        try {
+            const response = await fetch(`http://localhost:8080/buyListResource/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedData)
+            });
+
+            if (response.ok) {
+                fetchBuyLists(); // Refresca la vista
+            } else {
+                alert("No se pudo actualizar la lista.");
+            }
+        } catch (error) {
+            console.error("Error actualizando lista:", error);
+            alert("Error de conexión al modificar la lista.");
         }
     }
 

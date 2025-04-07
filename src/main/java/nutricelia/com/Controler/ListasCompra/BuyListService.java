@@ -27,12 +27,7 @@ public class BuyListService {
     public Uni<BuyList> create(BuyList buyList) {
         return buyList.persistAndFlush();
     }
-    /*
-    @ReactiveTransactional
-    public Uni<BuyList> update(BuyList buyList) {
-        return findById(buyList.id).chain(s -> s.merge(buyList));
-    }
-    */
+
     @ReactiveTransactional
     public Uni<Void> delete(int id) {
         return BuyList.findById(id)
@@ -40,12 +35,14 @@ public class BuyListService {
                 .onItem().ifNull().failWith(() -> new ObjectNotFoundException(id, "BuyList"))
                 .replaceWithVoid();
     }
-    /*
-    public Uni<BuyList> getCurrentBuyList() {
-        // TODO: replace implementation once security is added to the project
-        return BuyList.find("order by ID").firstResult();
-    }
 
-     */
+    @ReactiveTransactional
+    public Uni<BuyList> update(int id, BuyList updatedData) {
+        return findById(id)
+                .invoke(existingList -> {
+                    existingList.nombre = updatedData.nombre;
+                })
+                .call(BuyList::flush); // Guarda los cambios en la base de datos
+    }
 
 }
