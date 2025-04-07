@@ -1,10 +1,11 @@
 package nutricelia.com.Model;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 
 @Entity
 @Table(name = "Producto")
@@ -21,6 +22,13 @@ public class Product extends PanacheEntityBase {
     private Integer singluten;
     @Column(nullable = false)
     private String marca;
+
+    @Column(nullable = false)
+    private String categoria;
+
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String urlimagen;
 
 
     public int getId() {
@@ -49,5 +57,21 @@ public class Product extends PanacheEntityBase {
     }
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getUrlimagen() {
+        return urlimagen;
+    }
+
+    public void setUrlimagen(String urlimagen) {
+        this.urlimagen = urlimagen;
     }
 }

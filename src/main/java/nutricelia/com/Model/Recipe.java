@@ -10,11 +10,11 @@ public class Recipe extends PanacheEntityBase {
     @EmbeddedId
     private RecipeId recipeId;
 
-    @Column(nullable = false)
-    private String ingrediente;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String ingredientes;
 
-    @Column(nullable = false)
-    private String instruccion;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String instrucciones;
 
     public RecipeId getRecipeId() {
         return recipeId;
@@ -24,19 +24,19 @@ public class Recipe extends PanacheEntityBase {
         this.recipeId = recipeId;
     }
 
-    public String getIngrediente() {
-        return ingrediente;
+    public String getIngredientes() {
+        return ingredientes;
     }
 
-    public void setIngrediente(String ingrediente) {
-        this.ingrediente = ingrediente;
+    public void setIngredientes(String ingrediente) {
+        this.ingredientes = ingrediente;
     }
 
-    public String getInstruccion() {
-        return instruccion;
+    public String getInstrucciones() {
+        return instrucciones;
     }
 
-    public void setInstruccion(String instruccion) {
-        this.instruccion = instruccion;
+    public void setInstrucciones(String instruccion) {
+        this.instrucciones = instruccion;
     }
 }

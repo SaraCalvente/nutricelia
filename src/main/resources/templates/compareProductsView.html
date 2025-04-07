@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos Similares</title>
+    <link rel="stylesheet" href="/css/compareProductsStyle.css">
+</head>
+
+<body>
+<div class="wrapper">
+    <header>
+        <div class="logo">
+            <img src="/images/NutriCelia.png">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Productos</a></li>
+                <li><a href="#">Mis Listas</a></li>
+            </ul>
+        </nav>
+        <div class="user-profile">
+            <img class="menu" src="/images/menu-icon.png">
+            <a href="../META-INF/resources/UserScreens/UserDataPage.html">
+                <button class="user-profile"><img src="/images/icon-user.png"></button>
+            </a>
+        </div>
+    </header>
+    <div class="container">
+        <div class="card">
+            <img src="{product1.urlimagen}" alt="Producto">
+            <h3>{product1.getNombre()}</h3>
+            <p>Calorías: {nutritionalValue1.calorias} g </p>
+            <p>Proteínas: {nutritionalValue1.proteinas} g</p>
+            <p>Grasas: {nutritionalValue1.grasas} g</p>
+            <p>Carbohidratos: {nutritionalValue1.carbohidratos} g</p>
+            <p>Azucar: {nutritionalValue1.azucar} g</p>
+            <p>Sal: {nutritionalValue1.sal} g</p>
+        </div>
+        <div class="card">
+            <img src="{product2.urlimagen}" alt="Producto">
+            <h3>{product2.nombre}</h3>
+            <p>Calorías: {nutritionalValue2.calorias} g </p>
+            <p>Proteínas: {nutritionalValue2.proteinas} g</p>
+            <p>Grasas: {nutritionalValue2.grasas} g</p>
+            <p>Carbohidratos: {nutritionalValue2.carbohidratos} g</p>
+            <p>Azucar: {nutritionalValue2.azucar} g</p>
+            <p>Sal: {nutritionalValue2.sal} g</p>
+        </div>
+
+
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 NutriCelia. Todos los derechos reservados.</p>
+            <p>NutriCelia es un proyecto desarrollado para las asignaturas EI1050 y EI1049.</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

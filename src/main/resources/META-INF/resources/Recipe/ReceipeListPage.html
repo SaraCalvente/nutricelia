@@ -1,56 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="es"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receta</title>
-    <link rel="stylesheet" href="../css/RecipeListStyles.css">
+    <title>Mis Recetas</title> <link rel="stylesheet" href="../css/RecipeListStyles.css">
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="../images/NutriCelia.png">
-        </div>
-        <nav>
-            <a href="../HomePage.html">Inicio</a>
-            <a href="#">Productos</a>
-            <a href="../BuyListScreens/ShoppingListListingPageV2.html">Mis Listas</a>
-            <a href="ReceipeListPage.html">Recetas</a>
-            <a href="../ForumPage.html">Foros</a>
-        </nav>
-        <div class="user-profile">
-            <img class="menu" src="../images/menu-icon.png">
-            <a href="../UserScreens/UserDataPage.html">
-                <button class="user-profile"><img src="../images/icon-user.png"></button>
-            </a>
-        </div>
-    </header>
-    <main>
-        <h1>Tus recetas</h1>
+<header>
+    <div class="logo">
+        <img src="../images/NutriCelia.png" alt="Logo NutriCelia"> </div>
+    <nav>
+        <a href="../HomePage.html">Inicio</a>
+        <a href="../ProductsList/ProductsList.html?idLista=0">Productos</a>
+        <a href="../BuyListScreens/ShoppingListListingPageV2.html">Mis Listas</a>
+        <a href="ReceipeListPage.html">Recetas</a>
+        <a href="../ForumPage.html">Foros</a>
+    </nav>
+    <div class="user-profile">
+        <img class="menu" src="../images/menu-icon.png" alt="Menú"> <a href="../UserScreens/UserDataPage.html">
+        <button class="user-profile"><img src="../images/icon-user.png" alt="Perfil de usuario"></button> </a>
+    </div>
+</header>
+<main>
+    <h1>Tus recetas</h1>
 
-        <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Opciones</th>
-            </tr>
-            <tr>
-                <!--Aqui va cada elemento de la lista-->
-                <td>mepicanloscoco</td>
-                <td>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
-                <td>edit delete</td>
-            </tr>
+    <table>
+        <thead> <tr>
+            <th>Nombre</th>
+            <th>Ingredientes</th>
+            <th>Opciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="3" style="text-align: center;">Cargando recetas...</td>
+        </tr>
+        </tbody>
+    </table>
 
-        </table>
-        <a href="RecipePage.html">
-            <button class="buttonr">Pagina de receta</button>
-        </a>
-    </main>
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 NutriCelia. Todos los derechos reservados.</p>
-            <p>NutriCelia es un proyecto desarrollado para las asignaturas EI1050 y EI1049.</p>
-        </div>
-    </footer>
+    <a href="RecipePage.html"> <button class="buttonr">Ver Pagina Receta</button>
+    </a>
+</main>
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 NutriCelia. Todos los derechos reservados.</p>
+        <p>NutriCelia es un proyecto desarrollado para las asignaturas EI1050 y EI1049.</p>
+    </div>
+</footer>
+<script src="RecipeList.js"></script>
 </body>
 </html>
