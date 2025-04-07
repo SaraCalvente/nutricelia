@@ -25,7 +25,7 @@ public class BuyListResource {
         return buyListService.create(buyList);
     }
     @GET
-    @Path("{id}")
+    @Path("/{id}")
     public Uni<BuyList> get(@PathParam("id") int id) {
         return buyListService.findById(id);
     }

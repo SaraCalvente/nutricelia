@@ -18,6 +18,7 @@ public class ProductsListService {
                         ObjectNotFoundException(id, "ProductList"));
     }
 
+    @ReactiveTransactional
     public Uni<List<ProductsList>> list() {
         return ProductsList.listAll();
     }
@@ -27,6 +28,7 @@ public class ProductsListService {
         return productsList.persistAndFlush();
     }
 
+    @ReactiveTransactional
     public Uni<List<ProductsList>> findByListId(int id_lista) {
         return ProductsList.find("productsListId.id_lista", id_lista).list();
     }
