@@ -9,6 +9,7 @@ import io.quarkus.qute.Template;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import nutricelia.com.Model.NutritionalValue;
+import nutricelia.com.Model.Product;
 
 
 @Path("/product")
@@ -105,4 +106,9 @@ public class ProductResource {
     }
 
 
+    @Path("/name/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Uni<Product> getProductNameById(@PathParam("id") int id) {
+        return productService.getProductById(id);
+    }
 }

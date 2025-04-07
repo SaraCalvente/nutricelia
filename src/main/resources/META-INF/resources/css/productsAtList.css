@@ -290,3 +290,10 @@ input[type="text"], input[type="password"], input[type="email"] {
     justify-content: center;
     gap: 10px;
 }
+
+.btn-opciones-prod {
+    background-color: transparent; /* Sin fondo */
+    border: none;                   /* Quitar el borde */
+    padding: 0px 30px;             /* Espaciado dentro del botón (10px arriba y abajo, 20px a los lados) */
+    cursor: pointer;               /* Cambio del cursor a mano cuando pasa el mouse */
+}
