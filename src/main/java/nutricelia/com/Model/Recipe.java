@@ -10,11 +10,9 @@ public class Recipe extends PanacheEntityBase {
     @EmbeddedId
     private RecipeId recipeId;
 
-    @Lob
     @Column(nullable = false, columnDefinition = "TEXT")
     private String ingredientes;
 
-    @Lob
     @Column(nullable = false, columnDefinition = "TEXT")
     private String instrucciones;
 
