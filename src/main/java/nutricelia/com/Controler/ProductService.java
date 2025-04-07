@@ -38,8 +38,9 @@ public class ProductService {
         return getProductById(id)
                 .onItem().transformToUni(product -> {
                     String category = product.getCategoria();
-                    if(category.isEmpty() || category.isBlank()){
-                        return Uni.createFrom().item(List.of());                    }
+                    if (category.isEmpty() || category.isBlank()) {
+                        return Uni.createFrom().item(List.of());
+                    }
                     return Product.<Product>find("categoria like ?1", "%" + category + "%").list()
                             .onItem().transformToUni(sameCategory -> {
                                 List<Uni<NutritionalValue>> unis = new ArrayList<>();
@@ -66,7 +67,8 @@ public class ProductService {
                                                     .onItem().transform(list ->
                                                             list.stream()
                                                                     .filter(Objects::nonNull)
-                                                                    .collect(Collectors.toList()));                                        });
+                                                                    .collect(Collectors.toList()));
+                                        });
                             });
                 });
     }
@@ -89,12 +91,4 @@ public class ProductService {
         );
     }
 
-
-    private static <T> T castUni(Uni<T> uniObject) {
-        return uniObject.await().indefinitely();
-    }
-
-    private static <T> Uni<T> toUni(T object) {
-        return Uni.createFrom().item(object);
-    }
 }

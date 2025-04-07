@@ -29,6 +29,7 @@ nav ul li a {
 main {
     text-align: center;
     padding: 20px;
+    flex: 1;
 }
 
 
@@ -80,4 +81,18 @@ main {
 }
 .logo img {
     height: 50px;
+}
+
+footer {
+    background-color: #529e52;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: auto;
 }
