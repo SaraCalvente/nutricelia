@@ -68,6 +68,7 @@
     var userName = null;
     loadUserData();
 
+
     document.getElementById("createBuyList").addEventListener("submit", async function(event) {
         event.preventDefault(); // Evita el envío tradicional del formulario
 
@@ -121,7 +122,6 @@
 
     async function loadUserData() {
         try {
-            console.log(localStorage.getItem("token"));
 
             const token = localStorage.getItem("token");
             if (!token) {
@@ -139,8 +139,9 @@
 
             if (response.ok) {
                 const user = await response.json();
+
                 userName = user.nombre;
-                userEmail  = user.email;
+                userEmail = user.email;
 
                 fetchUserBuyLists();
             } else {
@@ -196,7 +197,7 @@
         }
     }
 
-    /*
+
     document.addEventListener("DOMContentLoaded", fetchBuyLists);
 
     async function fetchBuyLists() {
@@ -221,6 +222,7 @@
                 container.appendChild(listElement);
             });
         } catch (error) {
+            alert(error);
             console.error("Error obteniendo listas:", error);
         }
     }
@@ -233,6 +235,15 @@
         if (!confirm("¿Seguro que deseas eliminar esta lista?")) return;
 
         try {
+            const accessDeleteResponse = await fetch(
+                `http://localhost:8080/usersWithAccesToList/${encodeURIComponent(userEmail)}/${id}`,
+                { method: "DELETE" }
+            );
+
+            if (!accessDeleteResponse.ok) {
+                alert("No se pudo eliminar la relación de acceso a la lista.");
+                return;
+            }
             const response = await fetch(`http://localhost:8080/buyListResource/${id}`, { method: "DELETE" });
 
             if (response.ok) {
@@ -245,7 +256,7 @@
             alert("Error de conexión con el servidor.");
         }
     }
-    */
+
 </script>
 </body>
 </html>
