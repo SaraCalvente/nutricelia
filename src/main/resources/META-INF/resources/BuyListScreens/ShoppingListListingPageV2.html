@@ -66,7 +66,9 @@
 <script>
     var userEmail = null;
     var userName = null;
-    loadUserData();
+    
+    document.addEventListener("DOMContentLoaded", loadUserData);
+    document.addEventListener("DOMContentLoaded", fetchBuyLists);
 
 
     document.getElementById("createBuyList").addEventListener("submit", async function(event) {
@@ -143,7 +145,7 @@
                 userName = user.nombre;
                 userEmail = user.email;
 
-                fetchUserBuyLists();
+                //fetchUserBuyLists();
             } else {
                 const errorData = await response.json();
                 alert("Error al cargar los datos del usuario: " + (errorData.message || "Error desconocido"));
@@ -197,8 +199,6 @@
         }
     }
 
-
-    document.addEventListener("DOMContentLoaded", fetchBuyLists);
 
     async function fetchBuyLists() {
         try {
