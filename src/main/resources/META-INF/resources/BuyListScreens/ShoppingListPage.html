@@ -55,63 +55,47 @@
 </main>
 
 <script>
-    const { createApp } = Vue;
+    var listaId = null;
 
-    createApp({
+    const app = Vue.createApp({
         data() {
             return {
-                listaId: null,
                 listaNombre: '',
                 products: []
             };
         },
-        async mounted() {
-            // Obtener ID de la lista desde la URL
-            const params = new URLSearchParams(window.location.search);
-            this.listaId = params.get("id_lista");
-
-            if (!this.listaId) {
-                alert("ID de lista no especificado.");
-                return;
-            }
-
-            try {
-                // Obtener detalles de la lista
-                const listResponse = await axios.get(`http://localhost:8080/buyListResource/${this.listaId}`);
-                this.listaNombre = listResponse.data.nombre;
-
-                // Obtener productos asociados a esta lista
-                const productsResponse = await axios.get(`http://localhost:8080/productsList/list/${this.listaId}`);
-                this.products = productsResponse.data;
-            } catch (error) {
-                console.error("Error cargando productos o lista:", error);
-                alert("Error al cargar los datos.");
-            }
-        },
         methods: {
-            async deleteProduct(productId) {
-                if (!confirm("¿Seguro que deseas eliminar este producto?")) return;
-
+            async deleteProduct(id_producto) {
                 try {
-                    await axios.delete(`http://localhost:8080/productListResource/${productId}`);
-                    this.products = this.products.filter(p => p.id !== productId);
+                    await axios.delete(`http://localhost:8080/productsList/${listaId}/${id_producto}`);
+                    this.products = this.products.filter(p => p.id_producto !== id_producto);
                 } catch (error) {
-                    console.error("Error eliminando producto:", error);
-                    alert("No se pudo eliminar el producto.");
+                    alert("Error al eliminar el producto.");
                 }
             },
             async markAsPurchased(product) {
-                try {
-                    product.comprado = true; // Asumiendo que hay un campo 'comprado'
-                    await axios.put(`http://localhost:8080/productListResource/${product.id}`, product);
-                    alert("Producto marcado como comprado.");
-                } catch (error) {
-                    console.error("Error marcando como comprado:", error);
-                    alert("No se pudo actualizar el producto.");
-                }
+                alert("Funcionalidad por implementar");
+            }
+        },
+        async mounted() {
+            const params = new URLSearchParams(window.location.search);
+            listaId = parseInt(params.get("id_lista"));
+            console.log("ID de lista cargado:", listaId); // Para depuración
+
+            try {
+                const listResponse = await axios.get(`http://localhost:8080/buyListResource/${listaId}`);
+                this.listaNombre = listResponse.data.nombre;
+
+                const productsResponse = await axios.get(`http://localhost:8080/productsList/list/${listaId}`);
+                this.products = productsResponse.data;
+            } catch (error) {
+                console.error("Error cargando datos:", error);
+                alert("Error al cargar los datos.");
             }
         }
-    }).mount("#app");
+    });
+
+    app.mount("#app");
 </script>
 </body>
 </html>
