@@ -47,7 +47,7 @@
 
     <section v-for="product in products" :key="product.id" class="user-data">
         <p><strong>{{ product.nombre }}</strong> - {{ product.cantidad }}
-            <button @click="markAsPurchased(product)" class="btn">  ✅  </button>
+            <button @click="markAsPurchased(product.id)" class="btn">  ✅  </button>
             <button @click="deleteProduct(product.id)" class="btn">  Eliminar  </button>
         </p>
 
@@ -73,8 +73,41 @@
                     alert("Error al eliminar el producto.");
                 }
             },
-            async markAsPurchased(product) {
-                alert("Funcionalidad por implementar");
+            async markAsPurchased(id_producto) {
+                try {
+                    // Paso 1: Añadir al historial
+                    const historyEntry = {
+                        historyId: {
+                            email: userEmail, // Asegúrate que `userEmail` esté definido globalmente
+                            id_producto: id_producto
+                        }
+                    };
+
+                    const historyResponse = await fetch("http://localhost:8080/HistoryResource", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(historyEntry)
+                    });
+
+                    if (!historyResponse.ok) {
+                        throw new Error("No se pudo añadir el producto al historial.");
+                    }
+
+                    // Paso 2: Eliminar de la lista
+                    const deleteResponse = await fetch(`http://localhost:8080/productsList/${id_lista}/${product.id_producto}`, {
+                        method: "DELETE"
+                    });
+
+                    if (!deleteResponse.ok) {
+                        throw new Error("No se pudo eliminar el producto de la lista.");
+                    }
+
+                    // Refrescar la lista
+                    await this.loadProducts();
+                } catch (error) {
+                    console.error("Error al marcar como comprado:", error);
+                    alert("Error al procesar el producto.");
+                }
             }
         },
         async mounted() {
