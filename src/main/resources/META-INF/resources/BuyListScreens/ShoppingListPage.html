@@ -54,6 +54,64 @@
     </section>
 </main>
 
-<script src="../js/listedProducts.js"></script>
+<script>
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return {
+                listaId: null,
+                listaNombre: '',
+                products: []
+            };
+        },
+        async mounted() {
+            // Obtener ID de la lista desde la URL
+            const params = new URLSearchParams(window.location.search);
+            this.listaId = params.get("id_lista");
+
+            if (!this.listaId) {
+                alert("ID de lista no especificado.");
+                return;
+            }
+
+            try {
+                // Obtener detalles de la lista
+                const listResponse = await axios.get(`http://localhost:8080/buyListResource/${this.listaId}`);
+                this.listaNombre = listResponse.data.nombre;
+
+                // Obtener productos asociados a esta lista
+                const productsResponse = await axios.get(`http://localhost:8080/productsList/list/${this.listaId}`);
+                this.products = productsResponse.data;
+            } catch (error) {
+                console.error("Error cargando productos o lista:", error);
+                alert("Error al cargar los datos.");
+            }
+        },
+        methods: {
+            async deleteProduct(productId) {
+                if (!confirm("¿Seguro que deseas eliminar este producto?")) return;
+
+                try {
+                    await axios.delete(`http://localhost:8080/productListResource/${productId}`);
+                    this.products = this.products.filter(p => p.id !== productId);
+                } catch (error) {
+                    console.error("Error eliminando producto:", error);
+                    alert("No se pudo eliminar el producto.");
+                }
+            },
+            async markAsPurchased(product) {
+                try {
+                    product.comprado = true; // Asumiendo que hay un campo 'comprado'
+                    await axios.put(`http://localhost:8080/productListResource/${product.id}`, product);
+                    alert("Producto marcado como comprado.");
+                } catch (error) {
+                    console.error("Error marcando como comprado:", error);
+                    alert("No se pudo actualizar el producto.");
+                }
+            }
+        }
+    }).mount("#app");
+</script>
 </body>
 </html>
