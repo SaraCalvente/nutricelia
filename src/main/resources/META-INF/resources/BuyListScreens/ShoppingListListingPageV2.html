@@ -110,14 +110,13 @@
 
             if (responseBuyList.ok && responseUsrAccList.ok) {
                 window.location.reload(); // Refrescar a la página
-                alert("Funciona. En teoria");
             } else {
                 alert("Error al crear la lista. Verifica el nombre.");
             }
 
         } catch (error) {
             console.error("Error la pagina de listas:", error);
-            alert("Error al conectar con el servidor.");
+            alert("Error al conectar con el servidor. "+error);
         }
 
     });
