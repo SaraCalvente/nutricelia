@@ -7,11 +7,22 @@ import jakarta.ws.rs.core.MediaType;
 import nutricelia.com.Model.History;
 import org.jboss.resteasy.reactive.ResponseStatus;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Path("/HistoryResource")
 public class HistoryResource {
     private final HistoryService historyService;
+
+    private String decodificar(String encodedEmail){
+        try {
+            return URLDecoder.decode(encodedEmail, StandardCharsets.UTF_8);
+        } catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
+    }
     @Inject
     public HistoryResource(HistoryService historyService) {
         this.historyService = historyService;
@@ -38,6 +49,7 @@ public class HistoryResource {
     @GET
     @Path("/list/{email}")
     public Uni<List<History>> getByUserMail(@PathParam("email") String email) {
+        String decodedEmail = decodificar(email);
         return historyService.findByUserMail(email);
     }
 

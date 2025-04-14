@@ -44,6 +44,7 @@ public class ProductsListResource {
         return productsListService.findByListId(id_lista);
     }
 
+
     @DELETE
     @Path("/{id_lista}/{id_producto}")
     public Uni<Void> delete(@PathParam("id_lista") int id_lista, @PathParam("id_producto") int id_producto) {
