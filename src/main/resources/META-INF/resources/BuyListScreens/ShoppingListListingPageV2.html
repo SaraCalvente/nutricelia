@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listas de la compra - NutriCelia</title>
-    <link rel="stylesheet" href="../css/productsAtList.css">
+    <link rel="stylesheet" href="../css/ShoppingListListing.css">
 
     <!-- Vue.js y Axios -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Fuentes para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -156,49 +159,6 @@
     }
 
 
-    async function fetchUserBuyLists() {
-        if (!userEmail) {
-            alert("Email del usuario no disponible, intentando de nuevo...");
-            return;
-        }
-
-        try {
-            // Obtener todas las listas de compra
-            const listsResponse = await fetch("http://localhost:8080/buyListResource");
-            if (!listsResponse.ok) throw new Error("Error al obtener las listas de compra.");
-            const allLists = await listsResponse.json();
-
-            // Consultar listas a las que el usuario tiene acceso
-            const accessResponse = await fetch(`http://localhost:8080/usersWithAccesToList/user/${encodeURIComponent(userEmail)}`);
-            if (!accessResponse.ok) throw new Error("Error al obtener listas del usuario.");
-            const userAccessLists = await accessResponse.json();
-
-            // Extraer IDs de listas permitidas
-            const accessibleListIds = new Set(userAccessLists.map(entry => entry.id_lista));
-
-            // Filtrar listas accesibles para el usuario
-            const userLists = allLists.filter(list => accessibleListIds.has(list.id));
-
-            // Mostrar listas en la página
-            const container = document.getElementById("buyListsContainer");
-            container.innerHTML = userLists.length ? "" : "<p>No tienes listas disponibles.</p>";
-
-            userLists.forEach(list => {
-                const listElement = document.createElement("div");
-                listElement.classList.add("user-data");
-                listElement.innerHTML = `
-                    <p><strong>${list.nombre}</strong></p>
-                    <button onclick="deleteBuyList(${list.id})" class="btn">Eliminar</button>
-                `;
-                container.appendChild(listElement);
-            });
-
-        } catch (error) {
-            alert(error);
-        }
-    }
-
-
     async function fetchBuyLists() {
         try {
             const response = await fetch("http://localhost:8080/buyListResource");
@@ -215,8 +175,12 @@
 
                 listElement.innerHTML = `
                     <p><strong>${list.nombre}</strong></p>
-                    <button class="btn" onclick="event.stopPropagation(); deleteBuyList(${list.id})">Eliminar</button>
-                    <button class="btn" onclick="event.stopPropagation(); editBuyList(${list.id}, '${list.nombre}')">Editar</button>
+                    <div class="icons">
+                        <i class="fas fa-share-alt" title="Compartir" onclick="event.stopPropagation(); compartirLista(${list.id})"></i>
+                        <i class="fas fa-pen" title="Editar" onclick="event.stopPropagation(); editBuyList(${list.id}, '${list.nombre}')"></i>
+                        <i class="fas fa-trash" title="Eliminar" onclick="event.stopPropagation(); deleteBuyList(${list.id})"></i>
+                        <i class="fas fa-chevron-right" title="Ir a la lista" onclick="event.stopPropagation(); goToProducts('${list.nombre}')"></i>
+                    </div>
                 `;
 
                 container.appendChild(listElement);
@@ -284,6 +248,10 @@
             console.error("Error actualizando lista:", error);
             alert("Error de conexión al modificar la lista.");
         }
+    }
+
+    function compartirLista(id) {
+        alert(`Compartir lista con ID: ${id} (Guillem tiene que hacer esta parte)`);
     }
 
 </script>
