@@ -105,7 +105,7 @@ public class ProductResource {
                 });
     }
 
-
+    @GET
     @Path("/name/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<Product> getProductNameById(@PathParam("id") int id) {
