@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutricelia - Buscador de Recetas</title>
+    <link rel="stylesheet" href="../css/RecipeFind.css">
+</head>
+<body>
+<main class="page-wrapper">
+    <header>
+        <div class="logo">
+            <img src="../images/NutriCelia.png" alt="Logo NutriCelia"> </div>
+        <nav>
+            <a href="../HomePage.html">Inicio</a>
+            <a href="../ProductsList/ProductsList.html?idLista=0">Productos</a>
+            <a href="../BuyListScreens/ShoppingListListingPageV2.html">Mis Listas</a>
+            <a href="ReceipeListPage.html">Recetas</a>
+            <a href="../ForumPage.html">Foros</a>
+        </nav>
+        <div class="user-profile">
+            <img class="menu" src="../images/menu-icon.png" alt="Menú"> <a href="../UserScreens/UserDataPage.html">
+            <button class="user-profile"><img src="../images/icon-user.png" alt="Perfil de usuario"></button> </a>
+        </div>
+    </header>
+    <div class="container">
+    <section class="search-section">
+        <h2>Buscar Recetas</h2>
+        <form id="recipeSearchForm" class="search-form">
+            <input type="text" id="ingredientInput" placeholder="Ej: manzana, pollo, arroz..." required>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div class="health-options" style="margin-top: 15px;">
+            <label><input type="checkbox" id="glutenFree" name="health" value="gluten-free"> Sin gluten</label>
+            <label style="margin-left: 10px;"><input type="checkbox" id="dairyFree" name="health" value="dairy-free"> Sin lácteos</label>
+        </div>
+    </section>
+
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Buscando recetas...</p>
+    </div>
+
+    <section id="resultsSection" class="results-section">
+        <!-- Los resultados de las recetas aparecerán aquí -->
+    </section>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 NutriCelia. Todos los derechos reservados.</p>
+            <p>NutriCelia es un proyecto desarrollado para las asignaturas EI1050 y EI1049.</p>
+        </div>
+    </footer>
+</main>
+<script src="RecipeFind.js"></script>
+</body>
+</html>
