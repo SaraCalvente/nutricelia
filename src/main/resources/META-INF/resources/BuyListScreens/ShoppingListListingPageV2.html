@@ -50,23 +50,6 @@
     </div>
 </main>
 
-<!--
-<main id="app">
-    <form @submit.prevent="createBuyList">
-        <input v-model="nombre" type="text" placeholder="Nombre de la nueva lista">
-        <button type="submit" class="btn">Crear Lista</button>
-    </form>
-
-    <section v-for="list in buyLists" :key="list.id" class="user-data" @click="goToProducts(list.id)">
-        <input v-if="editingId === list.id" v-model="editedName">
-        <p v-else><strong>{{ list.nombre }}</strong></p>
-
-        <button v-if="editingId !== list.id" @click="startEditing(list)" class="btn">Editar</button>
-        <button v-if="editingId === list.id" @click="saveEdit(list.id)" class="btn">Guardar</button>
-        <button @click="deleteBuyList(list.id)" class="btn">Eliminar</button>
-    </section>
-</main>
--->
 <script>
     var userEmail = null;
     var userName = null;
@@ -160,49 +143,6 @@
     }
 
 
-    async function fetchUserBuyLists() {
-        if (!userEmail) {
-            alert("Email del usuario no disponible, intentando de nuevo...");
-            return;
-        }
-
-        try {
-            // Obtener todas las listas de compra
-            const listsResponse = await fetch("http://localhost:8080/buyListResource");
-            if (!listsResponse.ok) throw new Error("Error al obtener las listas de compra.");
-            const allLists = await listsResponse.json();
-
-            // Consultar listas a las que el usuario tiene acceso
-            const accessResponse = await fetch(`http://localhost:8080/usersWithAccesToList/user/${encodeURIComponent(userEmail)}`);
-            if (!accessResponse.ok) throw new Error("Error al obtener listas del usuario.");
-            const userAccessLists = await accessResponse.json();
-
-            // Extraer IDs de listas permitidas
-            const accessibleListIds = new Set(userAccessLists.map(entry => entry.id_lista));
-
-            // Filtrar listas accesibles para el usuario
-            const userLists = allLists.filter(list => accessibleListIds.has(list.id));
-
-            // Mostrar listas en la página
-            const container = document.getElementById("buyListsContainer");
-            container.innerHTML = userLists.length ? "" : "<p>No tienes listas disponibles.</p>";
-
-            userLists.forEach(list => {
-                const listElement = document.createElement("div");
-                listElement.classList.add("user-data");
-                listElement.innerHTML = `
-                    <p><strong>${list.nombre}</strong></p>
-                    <button onclick="deleteBuyList(${list.id})" class="btn">Eliminar</button>
-                `;
-                container.appendChild(listElement);
-            });
-
-        } catch (error) {
-            alert(error);
-        }
-    }
-
-
     async function fetchBuyLists() {
         try {
 
@@ -244,7 +184,7 @@
                     <div class="icons">
                         <i class="fas fa-share-alt" title="Compartir" onclick="event.stopPropagation(); compartirLista(${list.id})"></i>
                         <i class="fas fa-pen" title="Editar" onclick="event.stopPropagation(); openEditPopup(${list.id}, '${list.nombre}')"></i>                        <i class="fas fa-trash" title="Eliminar" onclick="event.stopPropagation(); deleteBuyList(${list.id})"></i>
-                        <i class="fas fa-chevron-right" title="Ir a la lista" onclick="event.stopPropagation(); goToProducts('${list.nombre}')"></i>
+                        <i class="fas fa-chevron-right" title="Ir a la lista" onclick="event.stopPropagation(); goToProducts('${list.id}')"></i>
                     </div>
                 `;
 
