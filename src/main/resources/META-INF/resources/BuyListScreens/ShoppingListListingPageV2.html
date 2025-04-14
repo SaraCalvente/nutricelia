@@ -12,6 +12,7 @@
 
     <!-- Fuentes para los iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 
@@ -49,29 +50,14 @@
     </div>
 </main>
 
-<!--
-<main id="app">
-    <form @submit.prevent="createBuyList">
-        <input v-model="nombre" type="text" placeholder="Nombre de la nueva lista">
-        <button type="submit" class="btn">Crear Lista</button>
-    </form>
 
-    <section v-for="list in buyLists" :key="list.id" class="user-data" @click="goToProducts(list.id)">
-        <input v-if="editingId === list.id" v-model="editedName">
-        <p v-else><strong>{{ list.nombre }}</strong></p>
 
-        <button v-if="editingId !== list.id" @click="startEditing(list)" class="btn">Editar</button>
-        <button v-if="editingId === list.id" @click="saveEdit(list.id)" class="btn">Guardar</button>
-        <button @click="deleteBuyList(list.id)" class="btn">Eliminar</button>
-    </section>
-</main>
--->
 <script>
     var userEmail = null;
     var userName = null;
-    
+
     document.addEventListener("DOMContentLoaded", loadUserData);
-    document.addEventListener("DOMContentLoaded", fetchBuyLists);
+    //document.addEventListener("DOMContentLoaded", fetchBuyLists);
 
 
     document.getElementById("createBuyList").addEventListener("submit", async function(event) {
@@ -147,7 +133,7 @@
                 userName = user.nombre;
                 userEmail = user.email;
 
-                //fetchUserBuyLists();
+                fetchBuyLists();
             } else {
                 const errorData = await response.json();
                 alert("Error al cargar los datos del usuario: " + (errorData.message || "Error desconocido"));
@@ -161,14 +147,36 @@
 
     async function fetchBuyLists() {
         try {
-            const response = await fetch("http://localhost:8080/buyListResource");
-            if (!response.ok) throw new Error("Error obteniendo las listas");
 
-            const buyLists = await response.json();
+            if (!userEmail) {
+                alert("El correo del usuario no está disponible.");
+                return;
+            }
+
+            const accessResponse = await fetch(`http://localhost:8080/usersWithAccesToList/user/${encodeURIComponent(userEmail)}`);
+            if (!accessResponse.ok) throw new Error("Error obteniendo las listas del usuario");
+
+            //const response = await fetch("http://localhost:8080/buyListResource");
+            //if (!response.ok) throw new Error("Error obteniendo las listas");
+
+            const buyLists = await accessResponse.json();
             const container = document.getElementById("buyListsContainer");
             container.innerHTML = ""; // Limpiar antes de agregar
 
-            buyLists.forEach(list => {
+            //Comprovacion
+            if (buyLists.length === 0) {
+                container.innerHTML = "<p>No tienes listas disponibles.</p>";
+                return;
+            }
+
+            for (const access of buyLists) {
+                const listId = access.usersWithAccessToListId.id_lista;
+
+                const listResponse = await fetch(`http://localhost:8080/buyListResource/${listId}`);
+                if (!listResponse.ok) continue;
+
+                const list = await listResponse.json();
+
                 const listElement = document.createElement("section");
                 listElement.classList.add("user-data");
                 listElement.setAttribute("onclick", `goToProducts(${list.id})`);
@@ -184,7 +192,7 @@
                 `;
 
                 container.appendChild(listElement);
-            });
+            }
         } catch (error) {
             alert(error);
             console.error("Error obteniendo listas:", error);
