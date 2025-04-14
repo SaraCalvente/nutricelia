@@ -50,7 +50,7 @@ public class HistoryResource {
     @Path("/list/{email}")
     public Uni<List<History>> getByUserMail(@PathParam("email") String email) {
         String decodedEmail = decodificar(email);
-        return historyService.findByUserMail(email);
+        return historyService.findByUserMail(decodedEmail);
     }
 
     /*
