@@ -27,54 +27,78 @@ async function cargarProductos(idLista) {
         const responseLista = await fetch(`${apiBaseUrl}/buyListResource/${idLista}`);
         const listaNombre = await responseLista.json(); //Para acceder al nombres es con .nombre
         await renderProductos(productos);
-        //falta hacer el render del nombre de la lista
+        await renderNombreLista(listaNombre);
         //falta pillar los datos del supermercado (el nombre)
     } catch (error) {
         console.error('Error al cargar datos:', error);
     }
 }
 
+// Renderizar el nombre de la lista
+async function renderNombreLista(listaNombre) {
+    const h2 = document.getElementById('nombre-lista');
+    h2.innerHTML = '';
+    h2.textContent = 'Lista '+listaNombre.nombre;
+}
+
 // Renderizar los productos en la tabla
 async function renderProductos(productos) {
-const tbody = document.getElementById('productos-body');
-tbody.innerHTML = ''; // Limpiar antes de renderizar
+    const tbody = document.getElementById('productos-body');
+    tbody.innerHTML = ''; // Limpiar antes de renderizar
 
-for (let item of productos) {
-  const tr = document.createElement('tr');
+    if (productos.length !== 0){
+        for (let item of productos) {
+          const tr = document.createElement('tr');
 
-  // Columna Producto
-  const tdProducto = document.createElement('td');
-  tdProducto.textContent = `${await obtainProductName(item.productsListId.id_producto)}`;
+          // Columna Producto
+          const tdProducto = document.createElement('td');
+          tdProducto.textContent = `${await obtainProductName(item.productsListId.id_producto)}`;
 
-  // Columna Supermercado
-  const tdSupermercado = document.createElement('td');
-  tdSupermercado.textContent = 'Mercadona'; // Aquí debería ir el supermercado del producto pero ya se hará
+          // Columna Supermercado
+          const tdSupermercado = document.createElement('td');
+          tdSupermercado.textContent = 'Mercadona'; // Aquí debería ir el supermercado del producto pero ya se hará
 
-  // Columna Opciones
-  const tdOpciones = document.createElement('td');
+          // Columna Opciones
+          const tdOpciones = document.createElement('td');
 
-  // Botón Eliminar
-  const btnEliminar = document.createElement('button');
-  btnEliminar.textContent = '❌';
-  btnEliminar.onclick = () => eliminarProducto(item.productsListId.id_lista, item.productsListId.id_producto);
-  btnEliminar.classList.add('btn-opciones-prod');
+          // Botón Eliminar
+          const btnEliminar = document.createElement('button');
+          btnEliminar.textContent = '❌';
+          btnEliminar.onclick = () => eliminarProducto(item.productsListId.id_lista, item.productsListId.id_producto);
+          btnEliminar.classList.add('btn-opciones-prod');
 
-  // Botón Marcar como Comprado (puedes definir su lógica)
-  const btnMarcar = document.createElement('button');
-  btnMarcar.textContent = '🛒';
-  btnMarcar.onclick = () => marcarComoComprado(item.productsListId.id_lista, item.productsListId.id_producto);
-  btnMarcar.classList.add('btn-opciones-prod');
+          // Botón Marcar como Comprado (puedes definir su lógica)
+          const btnMarcar = document.createElement('button');
+          btnMarcar.textContent = '🛒';
+          btnMarcar.onclick = () => marcarComoComprado(item.productsListId.id_lista, item.productsListId.id_producto);
+          btnMarcar.classList.add('btn-opciones-prod');
 
-  tdOpciones.appendChild(btnEliminar);
-  tdOpciones.appendChild(btnMarcar);
+          tdOpciones.appendChild(btnEliminar);
+          tdOpciones.appendChild(btnMarcar);
 
-  // Agregar columnas a la fila
-  tr.appendChild(tdProducto);
-  tr.appendChild(tdSupermercado);
-  tr.appendChild(tdOpciones);
+          // Agregar columnas a la fila
+          tr.appendChild(tdProducto);
+          tr.appendChild(tdSupermercado);
+          tr.appendChild(tdOpciones);
 
-  tbody.appendChild(tr);
-};
+          tbody.appendChild(tr);
+        };
+    } else {
+        const tr = document.createElement('tr');
+
+        const tdProducto = document.createElement('td');
+
+        const tdSupermercado = document.createElement('td');
+        tdSupermercado.textContent = 'No hay productos'
+
+        const tdOpciones = document.createElement('td');
+
+        tr.appendChild(tdProducto);
+        tr.appendChild(tdSupermercado);
+        tr.appendChild(tdOpciones);
+
+        tbody.appendChild(tr);
+    }
 }
 
 // Función para eliminar un producto
@@ -111,7 +135,7 @@ async function obtainProductName(id_producto){
     return producto.nombre;
 }
 
-// Función de busqueda -> cambiarlo para que busque productos con menú desplegable
+// Función de busqueda -> cambiarlo para que busque productos
 /*
 const formBusqueda = document.getElementById('busqueda_productos');
 formBusqueda.addEventListener('submit', (event) => {
