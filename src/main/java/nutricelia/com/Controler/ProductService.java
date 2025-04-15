@@ -34,6 +34,11 @@ public class ProductService {
     }
 
 
+    public Uni<List<Product>> searchForProduct(String cadena) {
+        return Product.list("LOWER(nombre) LIKE LOWER(?1)", "%" + cadena + "%");
+    }
+
+
     public Uni<List<NutritionalValue>> similarProducts(int id) {
         return getProductById(id)
                 .onItem().transformToUni(product -> {

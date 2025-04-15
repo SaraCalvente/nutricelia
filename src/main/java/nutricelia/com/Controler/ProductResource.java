@@ -11,6 +11,8 @@ import jakarta.ws.rs.core.Response;
 import nutricelia.com.Model.NutritionalValue;
 import nutricelia.com.Model.Product;
 
+import java.util.List;
+
 
 @Path("/product")
 
@@ -30,6 +32,9 @@ public class ProductResource {
     Template similarProductsView;
     @Inject
     Template compareProductsView;
+
+    @Inject
+    Template productSearch;
 
 
     @GET
@@ -110,5 +115,22 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<Product> getProductNameById(@PathParam("id") int id) {
         return productService.getProductById(id);
+    }
+
+
+    @GET
+    @Path("search/{cadena}")
+    @Produces(MediaType.TEXT_HTML)
+    public Uni<Response> searchForProduct(@PathParam("cadena") String cadena) {
+        return productService.searchForProduct(cadena)
+            .onItem().transformToUni(products -> {
+                if (products != null) {
+                    String renderedHtml = productSearch
+                            .data("products", products)
+                            .render();
+                    return Uni.createFrom().item(Response.ok(renderedHtml).build());
+                }
+                return Uni.createFrom().failure(new NotFoundException("Product not found"));
+            });
     }
 }
