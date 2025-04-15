@@ -280,8 +280,9 @@ input[type="text"], input[type="password"], input[type="email"] {
 }
 
 #productos-table {
+  margin: auto;
   border-collapse: collapse;
-  width: 100%;
+  width: 80%;
 }
 
 #busqueda_productos {
