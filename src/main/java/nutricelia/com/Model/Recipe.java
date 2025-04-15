@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="Receta")
-public class Recipe extends PanacheEntityBase {
+public class
+Recipe extends PanacheEntityBase {
 
     @EmbeddedId
     private RecipeId recipeId;

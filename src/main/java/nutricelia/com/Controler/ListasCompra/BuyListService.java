@@ -2,6 +2,7 @@ package nutricelia.com.Controler.ListasCompra;
 
 import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Uni;
+import jakarta.transaction.Transactional;
 import nutricelia.com.Model.BuyList;
 import org.hibernate.ObjectNotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
