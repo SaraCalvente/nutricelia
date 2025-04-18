@@ -3,16 +3,11 @@ package nutricelia.com.Model;
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
-
 @Entity
-@Table(name = "Foro")
+@Table(name = "foro")
 public class Forum extends PanacheEntityBase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    public int id;
-
     @Column(nullable = false, length = 20)
     private String nombre;
 
@@ -36,5 +31,3 @@ public class Forum extends PanacheEntityBase {
         this.usuario = usuario;
     }
 }
-
-
