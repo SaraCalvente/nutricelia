@@ -121,12 +121,13 @@ public class ProductResource {
     @GET
     @Path("search/{cadena}")
     @Produces(MediaType.TEXT_HTML)
-    public Uni<Response> searchForProduct(@PathParam("cadena") String cadena) {
+    public Uni<Response> searchForProduct(@PathParam("cadena") String cadena, @QueryParam("idLista") int idLista) {
         return productService.searchForProduct(cadena)
             .onItem().transformToUni(products -> {
                 if (products != null) {
                     String renderedHtml = productSearch
                             .data("products", products)
+                            .data("idLista", idLista)
                             .render();
                     return Uni.createFrom().item(Response.ok(renderedHtml).build());
                 }

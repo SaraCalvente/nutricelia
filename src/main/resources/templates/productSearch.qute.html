@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>productSearch</title>
     <link rel="stylesheet" href="/css/productsAtList.css">
+    <script src="/js_templates/productSearch.js" defer></script>
 </head>
 
 <body>
@@ -46,7 +47,13 @@
                         <tr>
                             <td>{producto.nombre}</td>
                             <td>Mercadona</td>
-                            <td><a href="#"><button class="btn">Añadir</button></a></td>
+                            <td>
+                                <form class="formulario-anadir">
+                                    <input type="hidden" name="id_lista" value="{idLista}">
+                                    <input type="hidden" name="id_producto" value="{producto.id}">
+                                    <button type="submit" class="btn">Añadir</button>
+                                </form>
+                            </td>
                         </tr>
                     {/for}
                 {#else}

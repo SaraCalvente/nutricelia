@@ -126,6 +126,7 @@ function marcarComoComprado(id_lista, id_producto) {
 alert(`Producto ${id_producto} de la lista ${id_lista} marcado como comprado (esto es solo un placeholder)`);
 
 // Aquí irá la opción de añadir confirmar que se ha comprado y se guardará en el historial
+//Cambiar el alert anterior para que se haga después de guardarlo en el historial
 
 }
 
@@ -135,17 +136,19 @@ async function obtainProductName(id_producto){
     return producto.nombre;
 }
 
-// Función de busqueda -> cambiarlo para que busque productos
-/*
-const formBusqueda = document.getElementById('busqueda_productos');
-formBusqueda.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const query = formBusqueda.producto.value.toLowerCase();
+// Función de busqueda
+document.getElementById('busqueda_productos').addEventListener('submit', function(event) {
+  event.preventDefault(); // Evitar que se recargue la página
 
-    const filas = document.querySelectorAll('#productos-body tr');
-    filas.forEach(fila => {
-        const productoTexto = fila.querySelector('td').textContent.toLowerCase();
-        fila.style.display = productoTexto.includes(query) ? '' : 'none';
-    });
+  const input = this.querySelector('input[name="producto"]');
+  const cadena = encodeURIComponent(input.value); // Por si contiene espacios o caracteres raros
+
+  if (!cadena) {
+    alert("Escribe algo para buscar.");
+    return;
+  }
+
+  // Redirigir a la vista
+  window.location.href = `/product/search/${cadena}?idLista=${idLista}`;
+
 });
-*/
