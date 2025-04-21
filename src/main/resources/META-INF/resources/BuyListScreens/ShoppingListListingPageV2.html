@@ -21,15 +21,15 @@
         <img src="../images/NutriCelia.png">
     </div>
     <nav>
-        <a href="HomePage.html">Inicio</a>
+        <a href="../HomePage.html">Inicio</a>
         <a href="#">Productos</a>
         <a href="ShoppingListListingPageV2.html">Mis Listas</a>
-        <a href="ReceipeListScreen.html">Recetas</a>
-        <a href="ForumScreen.html">Foros</a>
+        <a href="../Recipe/ReceipeListPage.html">Recetas</a>
+        <a href="../ForumScreen.html">Foros</a>
     </nav>
     <div class="user-profile">
         <img class="menu" src="../images/menu-icon.png">
-        <a href="UserDataScreen.html">
+        <a href="../UserScreens/UserDataPage.html">
             <button class="user-profile"><img src="../images/icon-user.png"></button>
         </a>
     </div>
@@ -44,7 +44,7 @@
     </form>
 
     <!-- Contenedor donde se mostrarán las listas de compra -->
-    <h2>Mis Listas de Compra</h2>
+    <h2>Mis listas de compra</h2>
     <div id="buyListsContainer">
         <p>Cargando listas...</p> <!-- Mensaje inicial mientras se cargan los datos -->
     </div>
@@ -98,7 +98,7 @@
             if (responseBuyList.ok && responseUsrAccList.ok) {
                 window.location.reload(); // Refrescar a la página
             } else {
-                alert("Error al crear la lista. Verifica el nombre.");
+                alert("Error al crear la lista. Verifica el nombre, puede que sea demasiado largo.");
             }
 
         } catch (error) {
