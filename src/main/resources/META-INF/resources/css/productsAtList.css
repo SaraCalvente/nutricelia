@@ -1,18 +1,15 @@
-body {
+html, body {
     font-family: Arial, sans-serif;
+    height: 100%;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
     background-color: #f4f4f4;
     text-align: center;
 }
 
-header {
-    display: flex;
-    justify-content: flex-start; /* Asegura que el logo se alinee a la izquierda */
-    align-items: center;
-    background-color: #90EE90;
-    padding: 10px 20px;
-}
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -31,16 +28,33 @@ nav a {
     color: black;
     font-weight: bold;
 }
-.user-profile{
-    background-color:transparent;
-    outline: none; /* También elimina el borde de enfoque al hacer clic */
-    border: none;  /* Elimina el borde */
+
+.user-profile {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .user-profile img {
     height: 40px;
     border-radius: 50%;
 }
+
+/* Footer */
+footer {
+    background-color: #529e52;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    margin-top: auto; /* Empuja el footer hacia abajo */
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: auto;
+}
+
 
 .titulo {
 
@@ -60,6 +74,7 @@ main {
     flex-direction: column;
     align-items: center; /* Centra todo el contenido dentro del main */
     text-align: center;  /* Asegura que los textos dentro de main estén centrados */
+    flex: 1;
 }
 
 

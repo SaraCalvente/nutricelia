@@ -22,6 +22,7 @@ html, body {
     justify-content: flex-start;
 }
 
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -43,14 +44,30 @@ nav a {
 
 .user-profile {
     background-color: transparent;
-    outline: none;
     border: none;
+    cursor: pointer;
 }
 
 .user-profile img {
     height: 40px;
     border-radius: 50%;
 }
+
+/* Footer */
+footer {
+    background-color: #529e52;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    margin-top: auto; /* Empuja el footer hacia abajo */
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: auto;
+}
+
 
 /* Centrar el título */
 .titulo {
@@ -76,19 +93,6 @@ h1 {
     margin-bottom: 30px;
 }
 
-footer {
-    background-color: #529e52;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    font-size: 14px;
-    margin-top: auto; /* Clave para que se quede abajo */
-}
-
-.footer-content {
-    max-width: 800px;
-    margin: auto;
-}
 .search-form {
     display: flex;
     gap: 10px;
