@@ -368,3 +368,28 @@ input[type="text"], input[type="password"], input[type="email"] {
     align-items: center; /* Esto centra horizontalmente las .user-data */
     width: 100%;
 }
+
+#sharePopup {
+    display: none; /* Asegura que el popup no aparezca al cargar */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más visible */
+    border: 2px solid #ccc; /* Borde gris claro */
+    z-index: 1001;
+}
+
+.popup-content input[type="email"] {
+    width: 80%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}

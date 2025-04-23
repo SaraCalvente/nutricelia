@@ -123,7 +123,9 @@ try {
 
 // Función para marcar como comprado
 function marcarComoComprado(id_lista, id_producto) {
-alert(`Producto ${id_producto} de la lista ${id_lista} marcado como comprado (esto es solo un placeholder)`);
+alert(`Producto ${id_producto} de la lista ${id_lista} marcado como comprado (esto es lo que tiene que tocar Dani)`);
+
+//Se puede medio copiar el método de arriba de eliminar producto, solo hay que cambiar la función a la que se llama y el texto de las alertas y confirms
 
 // Aquí irá la opción de añadir confirmar que se ha comprado y se guardará en el historial
 //Cambiar el alert anterior para que se haga después de guardarlo en el historial

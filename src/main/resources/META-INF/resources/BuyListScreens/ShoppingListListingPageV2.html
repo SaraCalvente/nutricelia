@@ -182,8 +182,9 @@
                 listElement.innerHTML = `
                     <p><strong>${list.nombre}</strong></p>
                     <div class="icons">
-                        <i class="fas fa-share-alt" title="Compartir" onclick="event.stopPropagation(); compartirLista(${list.id})"></i>
-                        <i class="fas fa-pen" title="Editar" onclick="event.stopPropagation(); openEditPopup(${list.id}, '${list.nombre}')"></i>                        <i class="fas fa-trash" title="Eliminar" onclick="event.stopPropagation(); deleteBuyList(${list.id})"></i>
+                        <i class="fas fa-share-alt" title="Compartir" onclick="event.stopPropagation(); openSharePopup(${list.id})"></i>
+                        <i class="fas fa-pen" title="Editar" onclick="event.stopPropagation(); openEditPopup(${list.id}, '${list.nombre}')"></i>
+                        <i class="fas fa-trash" title="Eliminar" onclick="event.stopPropagation(); deleteBuyList(${list.id})"></i>
                         <i class="fas fa-chevron-right" title="Ir a la lista" onclick="event.stopPropagation(); goToProducts('${list.id}')"></i>
                     </div>
                 `;
@@ -197,7 +198,7 @@
     }
 
     function goToProducts(id) {
-        window.location.href = `ShoppingListPage.html?id_lista=${id}`;
+        window.location.href = `/ProductsList/ProductsList.html?IdLista=${id}`;
     }
 
     async function deleteBuyList(id) {
@@ -278,8 +279,57 @@
         closePopup();
     }
 
+
+    let idListaParaCompartir = null;
+
     function compartirLista(id) {
         alert(`Compartir lista con ID: ${id} (Guillem tiene que hacer esta parte)`);
+    }
+
+    function openSharePopup(id) {
+        idListaParaCompartir = id;
+        document.getElementById("sharePopup").style.display = "block";
+    }
+
+    function closeSharePopup() {
+        document.getElementById("sharePopup").style.display = "none";
+    }
+
+    async function shareList() {
+        const email = document.getElementById("email-to-share").value;
+
+        if (!email) {
+            alert("Por favor, introduce un email.");
+            return;
+        }
+
+        try {
+            const data = {
+                usersWithAccessToListId: {
+                    email: email,
+                    id_lista: idListaParaCompartir
+                },
+                propietario: false
+            };
+
+            const response = await fetch("http://localhost:8080/usersWithAccesToList", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                alert("Lista compartida exitosamente.");
+                closeSharePopup();
+            } else {
+                alert("No se pudo compartir la lista, revisa que el correo introducido sea correcto.");
+            }
+        } catch (error) {
+            console.error("Error al compartir:", error);
+            alert("Error al compartir la lista, revisa que el correo introducido sea correcto.");
+        }
     }
 
 </script>
@@ -293,5 +343,16 @@
             <button onclick="saveChanges()" class="btn">Guardar Cambios</button>
         </div>
     </div>
+
+    <!-- Popup para compartir la lista de la compra -->
+    <div id="sharePopup" class="popup">
+    <div class="popup-content">
+        <button class="close-btn" onclick="closeSharePopup()">&times;</button>
+        <h2>Compartir Lista</h2>
+        <label for="email-to-share">Email del usuario:</label>
+        <input type="email" id="email-to-share" placeholder="usuario@ejemplo.com">
+        <button onclick="shareList()" class="btn">Compartir</button>
+    </div>
+</div>
 </body>
 </html>
