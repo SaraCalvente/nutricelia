@@ -43,7 +43,7 @@ public class ProductService {
         return getProductById(id)
                 .onItem().transformToUni(product -> {
                     String category = product.getCategoria();
-                    if (category.isEmpty() || category.isBlank()) {
+                    if (category.isBlank()) {
                         return Uni.createFrom().item(List.of());
                     }
                     return Product.<Product>find("categoria like ?1", "%" + category + "%").list()
@@ -66,6 +66,9 @@ public class ProductService {
 
                                                     unis.add(uni);
                                                 }
+                                            }
+                                            if(unis.isEmpty()) {
+                                                return Uni.createFrom().item(List.of());
                                             }
                                             return Uni.join().all(unis)
                                                     .andCollectFailures()

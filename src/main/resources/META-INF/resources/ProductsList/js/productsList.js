@@ -11,7 +11,6 @@ const idLista = obtenerParametroURL('idLista') || 1;
 const apiBaseUrl = 'http://localhost:8080';
 
 
-
 // Cargar productos con el idLista correcto
 document.addEventListener('DOMContentLoaded', () => {
     cargarProductos(idLista);
@@ -38,7 +37,7 @@ async function cargarProductos(idLista) {
 async function renderNombreLista(listaNombre) {
     const h2 = document.getElementById('nombre-lista');
     h2.innerHTML = '';
-    h2.textContent = 'Lista '+listaNombre.nombre;
+    h2.textContent = 'Lista ' + listaNombre.nombre;
 }
 
 // Renderizar los productos en la tabla
@@ -46,43 +45,51 @@ async function renderProductos(productos) {
     const tbody = document.getElementById('productos-body');
     tbody.innerHTML = ''; // Limpiar antes de renderizar
 
-    if (productos.length !== 0){
+    if (productos.length !== 0) {
         for (let item of productos) {
-          const tr = document.createElement('tr');
+            const tr = document.createElement('tr');
 
-          // Columna Producto
-          const tdProducto = document.createElement('td');
-          tdProducto.textContent = `${await obtainProductName(item.productsListId.id_producto)}`;
+            // Columna Producto
+            const tdProducto = document.createElement('td');
+            tdProducto.textContent = `${await obtainProductName(item.productsListId.id_producto)}`;
 
-          // Columna Supermercado
-          const tdSupermercado = document.createElement('td');
-          tdSupermercado.textContent = 'Mercadona'; // Aquí debería ir el supermercado del producto pero ya se hará
+            // Columna Supermercado
+            const tdSupermercado = document.createElement('td');
+            tdSupermercado.textContent = 'Mercadona'; // Aquí debería ir el supermercado del producto pero ya se hará
 
-          // Columna Opciones
-          const tdOpciones = document.createElement('td');
+            // Columna Opciones
+            const tdOpciones = document.createElement('td');
 
-          // Botón Eliminar
-          const btnEliminar = document.createElement('button');
-          btnEliminar.textContent = '❌';
-          btnEliminar.onclick = () => eliminarProducto(item.productsListId.id_lista, item.productsListId.id_producto);
-          btnEliminar.classList.add('btn-opciones-prod');
+            // Botón Eliminar
+            const btnEliminar = document.createElement('button');
+            btnEliminar.textContent = '❌';
+            btnEliminar.onclick = () => eliminarProducto(item.productsListId.id_lista, item.productsListId.id_producto);
+            btnEliminar.classList.add('btn-opciones-prod');
 
-          // Botón Marcar como Comprado (puedes definir su lógica)
-          const btnMarcar = document.createElement('button');
-          btnMarcar.textContent = '🛒';
-          btnMarcar.onclick = () => marcarComoComprado(item.productsListId.id_lista, item.productsListId.id_producto);
-          btnMarcar.classList.add('btn-opciones-prod');
+            // Botón Marcar como Comprado (puedes definir su lógica)
+            const btnMarcar = document.createElement('button');
+            btnMarcar.textContent = '🛒';
+            btnMarcar.onclick = () => marcarComoComprado(item.productsListId.id_lista, item.productsListId.id_producto);
+            btnMarcar.classList.add('btn-opciones-prod');
 
-          tdOpciones.appendChild(btnEliminar);
-          tdOpciones.appendChild(btnMarcar);
+            //Botón ver producto
+            const btnVerProducto = document.createElement('button');
+            btnVerProducto.textContent = '🔍';
+            btnVerProducto.onclick = () => window.location.href = `/product/${item.productsListId.id_producto}`;
+            btnVerProducto.classList.add('btn-opciones-prod');
 
-          // Agregar columnas a la fila
-          tr.appendChild(tdProducto);
-          tr.appendChild(tdSupermercado);
-          tr.appendChild(tdOpciones);
+            tdOpciones.appendChild(btnEliminar);
+            tdOpciones.appendChild(btnMarcar);
+            tdOpciones.appendChild(btnVerProducto);
 
-          tbody.appendChild(tr);
-        };
+            // Agregar columnas a la fila
+            tr.appendChild(tdProducto);
+            tr.appendChild(tdSupermercado);
+            tr.appendChild(tdOpciones);
+
+            tbody.appendChild(tr);
+        }
+        ;
     } else {
         const tr = document.createElement('tr');
 
@@ -103,27 +110,27 @@ async function renderProductos(productos) {
 
 // Función para eliminar un producto
 async function eliminarProducto(id_lista, id_producto) {
-if (!confirm('¿Estás seguro de eliminar este producto?')) return;
+    if (!confirm('¿Estás seguro de eliminar este producto?')) return;
 
-try {
-  const response = await fetch(`${apiBaseUrl}/productsList/${id_lista}/${id_producto}`, {
-    method: 'DELETE'
-  });
+    try {
+        const response = await fetch(`${apiBaseUrl}/productsList/${id_lista}/${id_producto}`, {
+            method: 'DELETE'
+        });
 
-  if (response.ok) {
-    alert('Producto eliminado');
-    await cargarProductos(idLista); // Recargar productos después de eliminar
-  } else {
-    alert('Error al eliminar producto');
-  }
-} catch (error) {
-  console.error('Error al eliminar producto:', error);
-}
+        if (response.ok) {
+            alert('Producto eliminado');
+            await cargarProductos(idLista); // Recargar productos después de eliminar
+        } else {
+            alert('Error al eliminar producto');
+        }
+    } catch (error) {
+        console.error('Error al eliminar producto:', error);
+    }
 }
 
 // Función para marcar como comprado
 function marcarComoComprado(id_lista, id_producto) {
-alert(`Producto ${id_producto} de la lista ${id_lista} marcado como comprado (esto es lo que tiene que tocar Dani)`);
+    alert(`Producto ${id_producto} de la lista ${id_lista} marcado como comprado (esto es lo que tiene que tocar Dani)`);
 
 //Se puede medio copiar el método de arriba de eliminar producto, solo hay que cambiar la función a la que se llama y el texto de las alertas y confirms
 
@@ -132,25 +139,25 @@ alert(`Producto ${id_producto} de la lista ${id_lista} marcado como comprado (es
 
 }
 
-async function obtainProductName(id_producto){
+async function obtainProductName(id_producto) {
     const responseNombreProductos = await fetch(`${apiBaseUrl}/product/name/${id_producto}`);
     const producto = await responseNombreProductos.json();
     return producto.nombre;
 }
 
 // Función de busqueda
-document.getElementById('busqueda_productos').addEventListener('submit', function(event) {
-  event.preventDefault(); // Evitar que se recargue la página
+document.getElementById('busqueda_productos').addEventListener('submit', function (event) {
+    event.preventDefault(); // Evitar que se recargue la página
 
-  const input = this.querySelector('input[name="producto"]');
-  const cadena = encodeURIComponent(input.value); // Por si contiene espacios o caracteres raros
+    const input = this.querySelector('input[name="producto"]');
+    const cadena = encodeURIComponent(input.value); // Por si contiene espacios o caracteres raros
 
-  if (!cadena) {
-    alert("Escribe algo para buscar.");
-    return;
-  }
+    if (!cadena) {
+        alert("Escribe algo para buscar.");
+        return;
+    }
 
-  // Redirigir a la vista
-  window.location.href = `/product/search/${cadena}?idLista=${idLista}`;
+    // Redirigir a la vista
+    window.location.href = `/product/search/${cadena}?idLista=${idLista}`;
 
 });

@@ -6,6 +6,8 @@
     <title>productSearch</title>
     <link rel="stylesheet" href="/css/productsAtList.css">
     <script src="/js_templates/productSearch.js" defer></script>
+    <script src="/js_templates/compareProducts.js" defer></script>
+
 </head>
 
 <body>
@@ -47,11 +49,17 @@
                             <td>{producto.nombre}</td>
                             <td>Mercadona</td>
                             <td>
-                                <form class="formulario-anadir">
-                                    <input type="hidden" name="id_lista" value="{idLista}">
-                                    <input type="hidden" name="id_producto" value="{producto.id}">
-                                    <button type="submit" class="btn">Añadir</button>
-                                </form>
+                                <div class="botones">
+                                    <form class="formulario-anadir">
+                                        <input type="hidden" name="id_lista" value="{idLista}">
+                                        <input type="hidden" name="id_producto" value="{producto.id}">
+                                        <button type="submit" class="btn">Añadir</button>
+                                    </form>
+                                    <a href="/product/{producto.id}">
+                                        <button class="btn">Ver producto</button>
+                                    </a>
+                                    <button class="btn" onclick="guardarIdComparar({producto.id})">Comparar</button>
+                                </div>
                             </td>
                         </tr>
                     {/for}

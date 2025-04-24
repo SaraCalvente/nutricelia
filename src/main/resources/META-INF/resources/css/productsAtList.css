@@ -307,6 +307,13 @@ input[type="text"], input[type="password"], input[type="email"] {
     gap: 10px;
 }
 
+.botones{
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn-opciones-prod {
     background-color: transparent; /* Sin fondo */
     border: none;                   /* Quitar el borde */
