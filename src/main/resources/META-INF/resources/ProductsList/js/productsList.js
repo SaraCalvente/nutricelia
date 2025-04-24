@@ -122,8 +122,43 @@ try {
 }
 
 // Función para marcar como comprado
-function marcarComoComprado(id_lista, id_producto) {
+async function marcarComoComprado(id_lista, id_producto) {
 alert(`Producto ${id_producto} de la lista ${id_lista} marcado como comprado (esto es lo que tiene que tocar Dani)`);
+
+    try {
+        // Paso 1: Añadir al historial
+        const historyEntry = {
+            historyId: {
+                email: userEmail, // Asegúrate que `userEmail` esté definido globalmente
+                id_producto: id_producto
+            }
+        };
+
+        const historyResponse = await fetch("http://localhost:8080/HistoryResource", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(historyEntry)
+        });
+
+        if (!historyResponse.ok) {
+            throw new Error("No se pudo añadir el producto al historial.");
+        }
+
+        // Paso 2: Eliminar de la lista
+        const response = await fetch(`${apiBaseUrl}/productsList/${id_lista}/${id_producto}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            alert('Producto eliminado');
+            await cargarProductos(idLista); // Recargar productos después de eliminar
+        } else {
+            alert('Error al eliminar producto');
+        }
+    } catch (error) {
+        console.error("Error al marcar como comprado:", error);
+        alert("Error al procesar el producto.");
+    }
 
 //Se puede medio copiar el método de arriba de eliminar producto, solo hay que cambiar la función a la que se llama y el texto de las alertas y confirms
 
