@@ -10,7 +10,9 @@ const idLista = obtenerParametroURL('idLista') || 1;
 // Id de la lista que a cargar
 const apiBaseUrl = 'http://localhost:8080';
 
+var userEmail = null;
 
+document.addEventListener("DOMContentLoaded", loadUserData);
 
 // Cargar productos con el idLista correcto
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,6 +33,38 @@ async function cargarProductos(idLista) {
         //falta pillar los datos del supermercado (el nombre)
     } catch (error) {
         console.error('Error al cargar datos:', error);
+    }
+}
+
+// Función para cargar los datos del usuario
+async function loadUserData() {
+    try {
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("No se encontró el token de autenticación.");
+            return;
+        }
+
+        const response = await fetch("http://localhost:8080/user/me", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (response.ok) {
+            const user = await response.json();
+
+            userEmail = user.email;
+        } else {
+            const errorData = await response.json();
+            alert("Error al cargar los datos del usuario: " + (errorData.message || "Error desconocido"));
+        }
+    } catch (error) {
+        console.error("Error al obtener los datos:", error);
+        alert("Hubo un error al intentar obtener los datos del usuario.");
     }
 }
 
