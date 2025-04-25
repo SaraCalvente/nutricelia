@@ -157,7 +157,6 @@ try {
 
 // Función para marcar como comprado
 async function marcarComoComprado(id_lista, id_producto) {
-alert(`Producto ${id_producto} de la lista ${id_lista} marcado como comprado (esto es lo que tiene que tocar Dani)`);
 
     try {
         // Paso 1: Añadir al historial
@@ -191,7 +190,7 @@ alert(`Producto ${id_producto} de la lista ${id_lista} marcado como comprado (es
         }
     } catch (error) {
         console.error("Error al marcar como comprado:", error);
-        alert("Error al procesar el producto.");
+        alert("Error al procesar el producto.", error);
     }
 
 //Se puede medio copiar el método de arriba de eliminar producto, solo hay que cambiar la función a la que se llama y el texto de las alertas y confirms
