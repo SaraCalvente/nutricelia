@@ -8,6 +8,12 @@ body {
     display: flex;
     flex-direction: column;
 }
+html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -62,18 +68,223 @@ main {
     border-radius: 5px;
 }
 
-table {
-    width: 100%;
-    margin-top: 10px;
+/* Centrar tabla */
+.table-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+/* Tabla de foros */
+.forum-table {
     border-collapse: collapse;
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-table th, table td {
-    padding: 10px;
+.forum-table thead {
+    background-color: #4CAF50; /* Verde */
+}
+
+.forum-table thead th {
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    text-align: center;
+}
+
+.forum-table tbody td {
+    padding: 12px;
     border-bottom: 1px solid #ddd;
 }
 
+.forum-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
 
+/* Estilo para los enlaces */
+.forum-table a {
+    color: black;
+    text-decoration: none;
+}
+
+.forum-table a:hover {
+    color: #007BFF; /* Azul solo al pasar el ratón */
+}
+
+/* Botón crear foro */
+.crear-foro-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.boton-crear-foro {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.boton-crear-foro:hover {
+    background-color: #3e8e41;
+}
+
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.mensaje {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.mensaje .nombre {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #4CAF50;
+}
+
+.mensaje .fecha {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.mensaje .contenido {
+    background-color: #f1f1f1;
+    padding: 12px 16px;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 80%;
+}
+
+.chat-container {
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #f9f9f9;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.mensaje {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.mensaje .nombre {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.mensaje .fecha {
+    font-size: 0.9em;
+    color: gray;
+    margin-bottom: 5px;
+}
+
+.mensaje .contenido {
+    font-size: 1em;
+}
+
+/* Estilos para la barra de entrada dentro del chat */
+.input-mensaje-wrapper {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 2px solid #ddd;
+}
+
+.input-mensaje-wrapper textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    resize: vertical;
+    min-height: 80px;
+    box-sizing: border-box;
+}
+
+.input-mensaje-wrapper button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input-mensaje-wrapper button:hover {
+    background-color: #3e8e41;
+}
+
+.volver-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.volver-btn:hover {
+    background-color: #3e8e41;
+}
+
+.input-mensaje-wrapper {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-mensaje-wrapper textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    resize: vertical;
+    min-height: 80px;
+    box-sizing: border-box;
+}
+
+.input-mensaje-wrapper button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input-mensaje-wrapper button:hover {
+    background-color: #3e8e41;
+}
 .user-profile img {
     height: 40px;
     border-radius: 50%;

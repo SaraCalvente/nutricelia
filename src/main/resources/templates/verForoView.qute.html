@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Foro: {foro.nombre}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/forumStyle.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="/images/NutriCelia.png">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Productos</a></li>
+            <li><a href="#">Mis Listas</a></li>
+        </ul>
+    </nav>
+    <div class="user-profile">
+        <img class="menu" src="/images/menu-icon.png">
+        <a href="../META-INF/resources/UserScreens/UserDataPage.html">
+            <button class="user-profile"><img src="/images/icon-user.png"></button>
+        </a>
+    </div>
+</header>
+
+<main>
+    <h1>Foro: {foro.nombre}</h1>
+    <p><strong>Creado por:</strong> {foro.usuario.nombre}</p>
+
+    <div class="chat-container">
+        {#for mensaje in mensajes}
+            <div class="mensaje">
+                <div class="nombre">{mensaje.usuario.nombre}</div>
+                <div class="fecha">{mensaje.fechaPublicacion}</div>
+                <div class="contenido">{mensaje.mensaje}</div>
+            </div>
+        {/for}
+
+        <!-- Área de entrada para nuevos mensajes dentro del chat -->
+        <div class="input-mensaje-wrapper">
+            <textarea placeholder="Escribe tu mensaje..." id="nuevoMensaje"></textarea>
+            <button id="enviarMensaje">Enviar mensaje</button>
+        </div>
+    </div>
+
+    <div class="crear-foro-wrapper">
+        <a class="volver-btn" href="/foro/">Volver a la lista de foros</a>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 NutriCelia. Todos los derechos reservados.</p>
+        <p>NutriCelia es un proyecto desarrollado para las asignaturas EI1050 y EI1049.</p>
+    </div>
+</footer>
+
+</body>
+</html>
