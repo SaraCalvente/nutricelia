@@ -2,6 +2,9 @@ package nutricelia.com.Controler;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
+import io.quarkus.security.Authenticated;
+import io.smallrye.jwt.build.Jwt;
+import io.smallrye.jwt.build.JwtException;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -28,8 +31,9 @@ public class ForumResource {
     @Inject
     Template listarForosView;
 
+
     @GET
-    @Path("/")
+    @Path("/lista")
     @Produces(MediaType.TEXT_HTML)
     public Uni<Response> listarForos() {
         return forumService.listarForos()
@@ -43,16 +47,21 @@ public class ForumResource {
     @POST
     @Path("/crear")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Uni<TemplateInstance> crearForo(
-            @FormParam("nombre") String nombre,
-            @FormParam("mensaje") String mensaje,
-            @FormParam("email") String emailUsuario) {
+    @Authenticated
+    public Uni<Response> crearForo(@FormParam("nombre") String nombre,
+                                   @FormParam("mensaje") String mensaje) {
 
-        return forumService.crearForo(nombre, mensaje, emailUsuario)
-                .onItem().transform(foro -> verForoView.data("foro", foro).data("mensajes", List.of()))
-                .onFailure().recoverWithItem(error ->
-                        crearForoView.data("error", "Error al crear foro: " + error.getMessage())
-                );
+        return forumService.crearForo(nombre, mensaje)
+                .onItem().transform(foro -> {
+                    TemplateInstance templateInstance = crearForoView.data("foro", foro);
+                    String renderedHtml = templateInstance.render();
+                    return Response.ok(renderedHtml).build();
+                })
+                .onFailure().recoverWithItem(error -> {
+                    TemplateInstance templateInstance = crearForoView.data("error", "Error al crear foro: " + error.getMessage());
+                    String renderedHtml = templateInstance.render();
+                    return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(renderedHtml).build();
+                });
     }
 
     @GET
@@ -74,27 +83,32 @@ public class ForumResource {
                 );
     }
 
-    // Enviar mensaje al foro
     @POST
-    @Path("/{foroNombre}/mensaje")
+    @Path("/{nombre}/crear")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Uni<Response> enviarMensaje(
-            @PathParam("foroNombre") String foroNombre,
-            @FormParam("mensaje") String mensaje,
-            @FormParam("email") String emailUsuario) {
+    @Authenticated
+    public Uni<Response> crearMensaje(@PathParam("nombre") String nombreForo,
+                                      @FormParam("mensaje") String mensaje) {
 
-        return forumService.agregarMensajeAForo(foroNombre, mensaje, emailUsuario)
-                .onItem().transformToUni(foro -> forumService.obtenerMensajesDelForo(foroNombre)
-                        .onItem().transform(mensajes ->
-                                verForoView.data("foro", foro).data("mensajes", mensajes).render()
-                        ))
-                .onItem().transform(renderedHtml ->
-                        Response.ok(renderedHtml).build()
+        return forumService.crearMensajeEnForo(nombreForo, mensaje)
+                .onItem().transformToUni(foro ->
+                        forumService.obtenerMensajesDelForo(nombreForo)
+                                .onItem().transformToUni(mensajes ->
+                                        Uni.createFrom().completionStage(
+                                                verForoView.data("foro", foro).data("mensajes", mensajes).renderAsync()
+                                        )
+                                )
+                                .onItem().transform(renderedHtml ->
+                                        Response.ok(renderedHtml).build()
+                                )
                 )
-                .onFailure().recoverWithItem(error ->
-                        Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                                .entity("Error al enviar mensaje: " + error.getMessage())
-                                .build()
-                );
+                .onFailure().recoverWithItem(error -> {
+                    TemplateInstance templateInstance = verForoView.data("error", "Error al enviar mensaje: " + error.getMessage());
+                    String renderedHtml = templateInstance.render();
+                    return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(renderedHtml).build();
+                });
     }
+
+
+
 }

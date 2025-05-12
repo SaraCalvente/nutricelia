@@ -12,15 +12,15 @@
         <img src="/images/NutriCelia.png">
     </div>
     <nav>
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Productos</a></li>
-            <li><a href="#">Mis Listas</a></li>
-        </ul>
+        <a href="HomePage.html">Inicio</a>
+        <a href="#">Productos</a>
+        <a href="BuyListScreens/ShoppingListListingPageV2.html">Mis Listas</a>
+        <a href="Recipe/ReceipeListPage.html">Recetas</a>
+        <a href="/foro/lista">Foros</a>
     </nav>
     <div class="user-profile">
         <img class="menu" src="/images/menu-icon.png">
-        <a href="../META-INF/resources/UserScreens/UserDataPage.html">
+        <a href="/UserScreens/UserDataPage.html">
             <button class="user-profile"><img src="/images/icon-user.png"></button>
         </a>
     </div>
@@ -30,7 +30,7 @@
     <h1>Foro: {foro.nombre}</h1>
     <p><strong>Creado por:</strong> {foro.usuario.nombre}</p>
 
-    <div class="chat-container">
+    <div class="chat-container" id="chat-container">
         {#for mensaje in mensajes}
             <div class="mensaje">
                 <div class="nombre">{mensaje.usuario.nombre}</div>
@@ -38,19 +38,17 @@
                 <div class="contenido">{mensaje.mensaje}</div>
             </div>
         {/for}
+    </div>
 
-        <!-- Área de entrada para nuevos mensajes dentro del chat -->
-        <div class="input-mensaje-wrapper">
-            <textarea placeholder="Escribe tu mensaje..." id="nuevoMensaje"></textarea>
-            <button id="enviarMensaje">Enviar mensaje</button>
-        </div>
+    <div class="input-mensaje-wrapper">
+        <textarea placeholder="Escribe tu mensaje..." id="nuevoMensaje"></textarea>
+        <button id="enviarMensaje">Enviar mensaje</button>
     </div>
 
     <div class="crear-foro-wrapper">
-        <a class="volver-btn" href="/foro/">Volver a la lista de foros</a>
+        <a class="volver-btn" href="/foro/lista">Volver a la lista de foros</a>
     </div>
 </main>
-
 <footer>
     <div class="footer-content">
         <p>&copy; 2025 NutriCelia. Todos los derechos reservados.</p>
@@ -59,4 +57,54 @@
 </footer>
 
 </body>
+
+<script>
+    async function obtenerMensajes() {
+        const response = await fetch(window.location.pathname);
+        if (response.ok) {
+            const html = await response.text();
+            const temp = document.createElement("div");
+            temp.innerHTML = html;
+
+            const nuevosMensajes = temp.querySelector(".chat-container").innerHTML;
+            const chatContainer = document.querySelector("#chat-container");
+            chatContainer.innerHTML = nuevosMensajes;
+
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    }
+
+    document.getElementById("enviarMensaje").addEventListener("click", async function(event) {
+        event.preventDefault();
+
+        const token = localStorage.getItem("token");
+        const mensajeInput = document.getElementById("nuevoMensaje");
+        const mensaje = mensajeInput.value;
+
+        if (mensaje.trim() === "") {
+            alert("Por favor, escribe un mensaje.");
+            return;
+        }
+
+        const data = new URLSearchParams();
+        data.append("mensaje", mensaje);
+
+        const response = await fetch(window.location.pathname + "/crear", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": "Bearer " + token
+            },
+            body: data
+        });
+
+        if (response.ok) {
+            mensajeInput.value = "";  // Limpiar el campo de mensaje
+            await obtenerMensajes();  // Actualizar los mensajes sin perder el estado
+        } else {
+            alert("Hubo un error al enviar el mensaje.");
+        }
+    });
+</script>
+
 </html>
