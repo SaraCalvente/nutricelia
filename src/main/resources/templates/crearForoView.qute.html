@@ -61,11 +61,20 @@
 
         const token = localStorage.getItem("token");
         const form = event.target;
-        const data = new URLSearchParams();
-        data.append("nombre", form.nombre.value);
-        data.append("mensaje", form.mensaje.value);
+        const nombre = form.nombre.value.trim();
+        const mensaje = form.mensaje.value.trim();
+        const resultado = document.getElementById("resultado");
 
-        await fetch("/foro/crear", {
+        if (nombre.length > 20) {
+            resultado.innerText = "El nombre del foro no puede tener más de 20 caracteres.";
+            return;
+        }
+
+        const data = new URLSearchParams();
+        data.append("nombre", nombre);
+        data.append("mensaje", mensaje);
+
+        const response = await fetch("/foro/crear", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -73,6 +82,12 @@
             },
             body: data
         });
+
+        if (response.ok) {
+            window.location.href = "/foro/lista"; // Redirección si se crea correctamente
+        } else {
+            resultado.innerText = "Error al crear el foro.";
+        }
     });
 </script>
 
