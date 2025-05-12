@@ -3,6 +3,7 @@ package nutricelia.com.Controler;
 import io.quarkus.hibernate.reactive.panache.common.runtime.ReactiveTransactional;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
+import nutricelia.com.Model.BuyList;
 import nutricelia.com.Model.History;
 import org.hibernate.ObjectNotFoundException;
 
@@ -32,12 +33,12 @@ public class HistoryService {
     public Uni<List<History>> findByUserMail(String email) {
         return History.find("email", email).list();
     }
-    /*
-    @ReactiveTransactional
+
+/*    @ReactiveTransactional
     public Uni<BuyList> update(BuyList buyList) {
         return findById(buyList.id).chain(s -> s.merge(buyList));
-    }
-    */
+    }*/
+
     @ReactiveTransactional
     public Uni<Void> delete(long id) {
         return History.findById(id)

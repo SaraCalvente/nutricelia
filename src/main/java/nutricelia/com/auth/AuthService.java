@@ -15,6 +15,8 @@ public class AuthService {
     private final String issuer;
     private final UserService userService;
 
+
+
     @Inject
     public AuthService(@ConfigProperty(name = "mp.jwt.verify.issuer") String issuer,
             UserService userService) {

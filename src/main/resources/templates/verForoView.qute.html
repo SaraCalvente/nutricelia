@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Foro: {foro.nombre}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/forumStyle.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="/images/NutriCelia.png">
+    </div>
+    <nav>
+        <a href="HomePage.html">Inicio</a>
+        <a href="#">Productos</a>
+        <a href="BuyListScreens/ShoppingListListingPageV2.html">Mis Listas</a>
+        <a href="Recipe/ReceipeListPage.html">Recetas</a>
+        <a href="/foro/lista">Foros</a>
+    </nav>
+    <div class="user-profile">
+        <img class="menu" src="/images/menu-icon.png">
+        <a href="/UserScreens/UserDataPage.html">
+            <button class="user-profile"><img src="/images/icon-user.png"></button>
+        </a>
+    </div>
+</header>
+
+<main>
+    <h1>Foro: {foro.nombre}</h1>
+    <p><strong>Creado por:</strong> {foro.usuario.nombre}</p>
+
+    <div class="chat-container" id="chat-container">
+        {#for mensaje in mensajes}
+            <div class="mensaje">
+                <div class="nombre">{mensaje.usuario.nombre}</div>
+                <div class="fecha">{mensaje.fechaPublicacion}</div>
+                <div class="contenido">{mensaje.mensaje}</div>
+            </div>
+        {/for}
+    </div>
+
+    <div class="input-mensaje-wrapper">
+        <textarea placeholder="Escribe tu mensaje..." id="nuevoMensaje"></textarea>
+        <button id="enviarMensaje">Enviar mensaje</button>
+    </div>
+
+    <div class="crear-foro-wrapper">
+        <a class="volver-btn" href="/foro/lista">Volver a la lista de foros</a>
+    </div>
+</main>
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 NutriCelia. Todos los derechos reservados.</p>
+        <p>NutriCelia es un proyecto desarrollado para las asignaturas EI1050 y EI1049.</p>
+    </div>
+</footer>
+
+</body>
+
+<script>
+    async function obtenerMensajes() {
+        const response = await fetch(window.location.pathname);
+        if (response.ok) {
+            const html = await response.text();
+            const temp = document.createElement("div");
+            temp.innerHTML = html;
+
+            const nuevosMensajes = temp.querySelector(".chat-container").innerHTML;
+            const chatContainer = document.querySelector("#chat-container");
+            chatContainer.innerHTML = nuevosMensajes;
+
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    }
+
+    document.getElementById("enviarMensaje").addEventListener("click", async function(event) {
+        event.preventDefault();
+
+        const token = localStorage.getItem("token");
+        const mensajeInput = document.getElementById("nuevoMensaje");
+        const mensaje = mensajeInput.value;
+
+        if (mensaje.trim() === "") {
+            alert("Por favor, escribe un mensaje.");
+            return;
+        }
+
+        const data = new URLSearchParams();
+        data.append("mensaje", mensaje);
+
+        const response = await fetch(window.location.pathname + "/crear", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": "Bearer " + token
+            },
+            body: data
+        });
+
+        if (response.ok) {
+            mensajeInput.value = "";  // Limpiar el campo de mensaje
+            await obtenerMensajes();  // Actualizar los mensajes sin perder el estado
+        } else {
+            alert("Hubo un error al enviar el mensaje.");
+        }
+    });
+</script>
+
+</html>

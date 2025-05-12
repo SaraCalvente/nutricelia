@@ -1,6 +1,8 @@
 package nutricelia.com.Controler;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
+import io.quarkus.security.Authenticated;
+import io.quarkus.security.identity.SecurityIdentity;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -11,12 +13,17 @@ import jakarta.ws.rs.core.SecurityContext;
 import nutricelia.com.Model.User;
 import org.jboss.resteasy.reactive.ResponseStatus;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Path("/user")
 public class UserResource {
 
     private final UserService userService;
+
+    @Inject
+    SecurityIdentity securityIdentity;
 
     @Inject
     public UserResource(UserService userService) {
@@ -62,6 +69,23 @@ public class UserResource {
     @Path("/delete/{email}")
     public Uni<Void> delete(@PathParam("email") String email) {
         return userService.delete(email);
+    }
+
+    @GET
+    @Path("/me")
+    @Authenticated
+    public Response getUserData() {
+        if (securityIdentity != null && securityIdentity.getPrincipal() != null) {
+            String email = securityIdentity.getPrincipal().getName();
+            String nombre = "Nombre del usuario";
+
+            Map<String, String> userData = new HashMap<>();
+            userData.put("nombre", nombre);
+            userData.put("email", email);
+
+            return Response.ok(userData).build();
+        }
+        return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
 }
